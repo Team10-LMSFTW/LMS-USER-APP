@@ -7,6 +7,7 @@
 //very important line of code
 import SwiftUI
 import Firebase
+import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
@@ -23,7 +24,7 @@ struct libmgmtftwApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
