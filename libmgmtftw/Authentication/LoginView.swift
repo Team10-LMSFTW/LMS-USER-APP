@@ -12,7 +12,7 @@ struct LoginView: View {
             VStack {
                 Spacer()
                 
-                Text("Welcome Back!")
+                Text("Welcome!")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -57,6 +57,11 @@ struct LoginView: View {
                             .padding()
                     }
                 }
+                if showAlert {
+                    Text(alertMessage)
+                        .foregroundColor(.red)
+                        .padding()
+                }
             }
             .padding()
             .navigationBarTitle("")
@@ -74,6 +79,7 @@ struct LoginView: View {
                 print("Login error: \(error.localizedDescription)")
             } else {
                 print("Login successful")
+                
                 // Navigate to the next screen or perform any other action after successful login
             }
         }
