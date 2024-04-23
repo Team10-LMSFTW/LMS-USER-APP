@@ -22,6 +22,7 @@
 		4CEFCA802BD636B700CC0B4F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */; };
 		4CEFCA822BD657B100CC0B4F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEFCA812BD657B100CC0B4F /* SignUpView.swift */; };
 		4CEFCA842BD657BC00CC0B4F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEFCA832BD657BC00CC0B4F /* LoginView.swift */; };
+		84C5BC222BD7B3D200CF2851 /* PreLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C5BC212BD7B3D200CF2851 /* PreLoginView.swift */; };
 		98B898C42BD61C50007027A1 /* libmgmtftwApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B898C32BD61C50007027A1 /* libmgmtftwApp.swift */; };
 		98B898C62BD61C50007027A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B898C52BD61C50007027A1 /* ContentView.swift */; };
 		98B898C82BD61C51007027A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98B898C72BD61C51007027A1 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4CEFCA812BD657B100CC0B4F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4CEFCA832BD657BC00CC0B4F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		84C5BC212BD7B3D200CF2851 /* PreLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreLoginView.swift; sourceTree = "<group>"; };
 		98B898C02BD61C50007027A1 /* libmgmtftw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = libmgmtftw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98B898C32BD61C50007027A1 /* libmgmtftwApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = libmgmtftwApp.swift; sourceTree = "<group>"; };
 		98B898C52BD61C50007027A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */,
 				4CEFCA812BD657B100CC0B4F /* SignUpView.swift */,
 				4CEFCA832BD657BC00CC0B4F /* LoginView.swift */,
+				84C5BC212BD7B3D200CF2851 /* PreLoginView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				4CEFCA802BD636B700CC0B4F /* SignInView.swift in Sources */,
 				98B898C62BD61C50007027A1 /* ContentView.swift in Sources */,
 				4CEFCA842BD657BC00CC0B4F /* LoginView.swift in Sources */,
+				84C5BC222BD7B3D200CF2851 /* PreLoginView.swift in Sources */,
 				98B898C42BD61C50007027A1 /* libmgmtftwApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
