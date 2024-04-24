@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C84F3B52BD927A700AEB7A9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3B42BD927A700AEB7A9 /* OnboardingView.swift */; };
+		4C84F3B82BD92A0F00AEB7A9 /* color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3B72BD92A0F00AEB7A9 /* color.swift */; };
 		4CCCDC102BD7A70E00FFF854 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC0F2BD7A70E00FFF854 /* TabBar.swift */; };
 		4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC112BD7A86100FFF854 /* colors.swift */; };
 		4CCCDC182BD9061500FFF854 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC172BD9061500FFF854 /* SignUpView.swift */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C84F3B42BD927A700AEB7A9 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4C84F3B72BD92A0F00AEB7A9 /* color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = color.swift; sourceTree = "<group>"; };
 		4CCCDC0F2BD7A70E00FFF854 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		4CCCDC112BD7A86100FFF854 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		4CCCDC172BD9061500FFF854 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -107,6 +111,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C84F3B32BD9279800AEB7A9 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				4C84F3B42BD927A700AEB7A9 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		4C84F3B62BD929F600AEB7A9 /* Color Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4C84F3B72BD92A0F00AEB7A9 /* color.swift */,
+			);
+			path = "Color Extension";
+			sourceTree = "<group>";
+		};
 		4CCCDC0E2BD7A6DB00FFF854 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +172,8 @@
 			children = (
 				98B898C32BD61C50007027A1 /* libmgmtftwApp.swift */,
 				98B898C52BD61C50007027A1 /* ContentView.swift */,
+				4C84F3B62BD929F600AEB7A9 /* Color Extension */,
+				4C84F3B32BD9279800AEB7A9 /* Onboarding */,
 				4CEFCA7C2BD635B900CC0B4F /* Authentication */,
 				4CCCDC0E2BD7A6DB00FFF854 /* HomePage */,
 				98B898C72BD61C51007027A1 /* Assets.xcassets */,
@@ -336,6 +358,8 @@
 				4CEFCA802BD636B700CC0B4F /* SignInView.swift in Sources */,
 				4CCCDC182BD9061500FFF854 /* SignUpView.swift in Sources */,
 				4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */,
+				4C84F3B82BD92A0F00AEB7A9 /* color.swift in Sources */,
+				4C84F3B52BD927A700AEB7A9 /* OnboardingView.swift in Sources */,
 				98B898C62BD61C50007027A1 /* ContentView.swift in Sources */,
 				4CCCDC1A2BD9062C00FFF854 /* LoginView.swift in Sources */,
 				4CCCDC102BD7A70E00FFF854 /* TabBar.swift in Sources */,
