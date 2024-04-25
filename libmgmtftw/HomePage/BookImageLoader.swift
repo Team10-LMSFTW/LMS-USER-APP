@@ -18,6 +18,6 @@ struct BookImageLoader: View {
         .indicator(.activity) // Activity Indicator
         .transition(.fade(duration: 0.5)) // Fade Transition with duration
         .scaledToFit()
-        .frame(width: 200, height: 200, alignment: .center)
+        .frame(width: 100, height: 100, alignment: .center)
     }
 }

@@ -18,35 +18,29 @@ struct Books: Identifiable, Codable {
 struct ExplorePageView: View {
     @State private var searchText = ""
     @State private var books: [Books] = []
+    @State private var filteredBooks: [Books] = []
+    @State private var selectedBookID: String?
 
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 RadialGradient(gradient: Gradient(colors: [Color(hex: "211134"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
                     .ignoresSafeArea()
-                
-                Image("grad1")
-                    .frame(width: 215, height: 215)
-                    .background(Color(red: 0.05, green: 0.27, blue: 0.36))
-                    .blur(radius: 100)
-                
-                Image("grad2")
-                    .frame(width: 215, height: 215)
-                    .background(Color(red: 0.26, green: 0.05, blue: 0.36))
-                    .blur(radius: 100)
-                
                 VStack(alignment: .leading) {
                     HStack{
-                        TextField(" ", text: $searchText)
+                        TextField("Search", text: $searchText)
                             .padding()
                             .background(Color.white.opacity(0.8))
                             .cornerRadius(10)
                             .padding()
                         Spacer()
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.white)
+                        Button(action: search) {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.white)
+                        }
                     }
-                    
+
+                  
                     ScrollView {
                         VStack(alignment: .leading) {
                             Text("Categories")
@@ -54,16 +48,16 @@ struct ExplorePageView: View {
                                 .foregroundColor(.white)
                                 .padding(.horizontal)
                                 .padding(.top)
-                            
-                            CategoryScrollView()
-                            
+
+                            CategoryScrollView(book: books)
+
                             Text("Trending collections")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .padding(.horizontal)
                                 .padding(.top)
-                            
-                            TrendingCollectionsView(books: books)
+
+                            TrendingCollectionsView(books: filteredBooks)
                         }
                     }
                 }
@@ -99,9 +93,29 @@ struct ExplorePageView: View {
                         return nil
                     }
                 }
+                // Update filteredBooks when books are fetched
+                self.filteredBooks = self.books
             }
         }
     }
+
+    private func search() {
+        if searchText.isEmpty {
+            // If search text is empty, display all books
+            filteredBooks = books
+        } else {
+            // Filter books based on search text
+            let filtered = books.filter { $0.book_name.lowercased().contains(searchText.lowercased()) }
+            if filtered.isEmpty {
+                // If no books match the search criteria, display a message
+                filteredBooks = [Books(id: nil, author_name: "N/A", book_name: "Book not available", category: "N/A", cover_url: "N/A", isbn: "N/A", library_id: "N/A", loan_id: "N/A", quantity: 0, thumbnail_url: "N/A")]
+            } else {
+                // Otherwise, display the filtered books
+                filteredBooks = filtered
+            }
+        }
+    }
+
 }
 
 struct TrendingCollectionsView: View {
@@ -134,6 +148,8 @@ struct TrendingCollectionsView: View {
     }
 }
 
+
+
 struct RemoteImage: View {
     let url: String
     @State private var image: UIImage?
@@ -142,6 +158,7 @@ struct RemoteImage: View {
         if let image = image {
             Image(uiImage: image)
                 .resizable()
+                .frame(width: 200, height: 170)
         } else {
             Image("placeholder") // Placeholder image
                 .resizable()
@@ -169,16 +186,27 @@ struct RemoteImage: View {
 }
 
 struct CategoryScrollView: View {
+    var book: [Books]
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach(0..<10) { _ in
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(Color.gray.opacity(0.5))
-                        .frame(width: 100, height: 30)
+                ForEach(categories, id: \.self) { category in
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.gray.opacity(0.5))
+                            .frame(width: 100, height: 30)
+                        Text(category)
+                            .foregroundColor(.white)
+                    }
                 }
             }
+            .padding()
         }
+    }
+
+    var categories: [String] {
+        Set(book.map { $0.category }).sorted()
     }
 }
 
