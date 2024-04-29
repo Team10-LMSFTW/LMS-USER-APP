@@ -1,17 +1,18 @@
 import SwiftUI
 import FirebaseAuth
+import FirebaseFirestore
 
 struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
     @State var showAlert: Bool = false
+    @State var isLoggedIn: Bool = false
     @State var alertMessage: String = ""
-    @State var isSignUpPage: Bool = false
-    //@State private var isForgotPasswordPage = false
+    @State var username: String = "" // Add a state variable to store the username
     
     var body: some View {
-        //NavigationView {
-            ZStack{
+        NavigationView { // Wrap the ZStack inside a NavigationView
+            ZStack {
                 Image("LibBG")
                     .resizable()
                     .scaledToFill()
@@ -59,7 +60,6 @@ struct LoginView: View {
                         Spacer()
                         Button(action: {
                             forgotPassword()
-                            //isForgotPasswordPage = true
                         }) {
                             Text("Forgot Password?")
                                 .foregroundColor(.white)
@@ -67,17 +67,14 @@ struct LoginView: View {
                         }
                     }
                     
-                    Button(action: { login()
-                        
-                    }) {
+                    Button(action: { login() }) {
                         Text("Login                                    ")
                             .font(Font.custom("SF Pro Display", size: 20).bold())
-                        
-                            .foregroundColor(.white)                             .padding()
+                            .foregroundColor(.white)
+                            .padding()
                             .frame(width: 250, height: 50)
                             .background(Color(hex: "503E88"))
                             .cornerRadius(30)
-                        
                     }
                     
                     Divider().background(Color.white).frame(maxWidth: 300)
@@ -90,9 +87,6 @@ struct LoginView: View {
                             Text("SignUp")
                                 .foregroundColor(.white)
                                 .underline()
-//                                .onTapGesture {
-//                                    isSignUpPage = true
-//                                }
                         }
                     }
                     VStack{
@@ -104,28 +98,32 @@ struct LoginView: View {
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Alert"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
-                .navigationBarBackButtonHidden(true)
-            }
-//            .sheet(isPresented: $isForgotPasswordPage) {
-//                ForgotPasswordView2(isForgotPasswordPage: $isForgotPasswordPage)
-//            }
-        //}
-    }
-        
-        func login() {
-            Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-                if let error = error {
-                    alertMessage = error.localizedDescription
-                    showAlert = true
-                    print("Login error: \(error.localizedDescription)")
-                } else {
-                    print("Login successful")
-                    
-                    // Navigate to the next screen or perform any other action after successful login
+                
+                // Use NavigationLink to navigate to ExplorePageView when isLoggedIn is true
+                NavigationLink(destination: ExplorePageView(userID: "", username: username), isActive: $isLoggedIn) {
+                    EmptyView()
                 }
             }
-        
+            .navigationBarBackButtonHidden(true)
+        }
     }
+    
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                alertMessage = error.localizedDescription
+                showAlert = true
+                print("Login error: \(error.localizedDescription)")
+            } else {
+                print("Login successful")
+                // Set isLoggedIn to true after successful login to trigger navigation
+                isLoggedIn = true
+                // Fetch the username after successful login
+                fetchUsername()
+            }
+        }
+    }
+    
     func forgotPassword() {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
@@ -137,6 +135,36 @@ struct LoginView: View {
                 showAlert = true
                 print("Password reset email sent")
             }
+        }
+    }
+    
+    func fetchUsername() {
+        // Fetch the username from Firestore or another database using the email address
+        // For demonstration purposes, let's assume you have a Firestore collection named "users" with documents where the email is stored as "email" field and username as "username" field
+        let db = Firestore.firestore()
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching username: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("No documents found for the email: \(email)")
+                return
+            }
+            
+            // Assuming there's only one document for each email
+            if let document = documents.first {
+                if let username = document["username"] as? String {
+                    self.username = username
+                    print("Fetched username: \(username)")
+                } else {
+                    print("Username not found in document")
+                }
+            } else {
+                print("No document found for the email: \(email)")
+            }
+            //anvit@gmail.com
         }
     }
 }

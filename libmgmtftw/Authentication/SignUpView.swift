@@ -16,7 +16,7 @@ struct SignUpView: View {
     @State private var alertMessage = ""
     
     var body: some View {
-        //NavigationView {
+        NavigationView {
             ZStack{
                 Image("BG2")
                     .resizable()
@@ -213,7 +213,8 @@ struct SignUpView: View {
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Alert"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
-          //  }
+            }
+            .navigationBarBackButtonHidden(true)
         }
             
     }

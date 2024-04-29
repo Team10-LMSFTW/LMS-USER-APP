@@ -9,63 +9,65 @@ struct BookDetailsView: View {
     @State private var book: Books?
 
     var body: some View {
-        ZStack {
-            if let book = book {
-                Color(hex: "FAF9F6")
-                    .ignoresSafeArea()
-                
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 15) {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                isFavorite.toggle()
-                            }) {
-                                Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                    .foregroundColor(isFavorite ? .red : .black)
-                            }
-                            .padding()
-                            
-                            Button(action: {
-                                // Content to share
-                                if book != nil {
-                                    let textToShare = "Check out \(book.book_name) by \(book.author_name)!"
-                                    
-                                    // Create activity view controller
-                                    let activityViewController = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
-                                    
-                                    // Get the current window scene
-                                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                                        // Get the relevant window from the window scene
-                                        if let viewController = windowScene.windows.first?.rootViewController {
-                                            // Present the share sheet
-                                            viewController.present(activityViewController, animated: true, completion: nil)
+       // NavigationView{
+            ZStack {
+                if let book = book {
+                    Color(hex: "FAF9F6")
+                        .ignoresSafeArea()
+                    
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 15) {
+                            HStack {
+                                Spacer()
+                                Button(action: {
+                                    isFavorite.toggle()
+                                }) {
+                                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                        .foregroundColor(isFavorite ? .red : .black)
+                                }
+                                .padding()
+                                
+                                Button(action: {
+                                    // Content to share
+                                    if book != nil {
+                                        let textToShare = "Check out \(book.book_name) by \(book.author_name)!"
+                                        
+                                        // Create activity view controller
+                                        let activityViewController = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+                                        
+                                        // Get the current window scene
+                                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                                            // Get the relevant window from the window scene
+                                            if let viewController = windowScene.windows.first?.rootViewController {
+                                                // Present the share sheet
+                                                viewController.present(activityViewController, animated: true, completion: nil)
+                                            }
                                         }
                                     }
+                                }) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .foregroundColor(.black)
                                 }
-                            }) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .foregroundColor(.black)
+                                
+                                
+                                
                             }
-
-
-                            
+                            BookHeaderView(book: book)
+                            BookDetailInfoView(book: book)
+                            Spacer()
+                            ActionButtonsView(bookID: bookID)
                         }
-                        BookHeaderView(book: book)
-                        BookDetailInfoView(book: book)
-                        Spacer()
-                        ActionButtonsView()
+                        .padding()
                     }
-                    .padding()
+                    .navigationBarTitleDisplayMode(.inline)
+                } else {
+                    ProgressView() // Show loading indicator while fetching book details
                 }
-                .navigationBarTitleDisplayMode(.inline)
-            } else {
-                ProgressView() // Show loading indicator while fetching book details
+            }.navigationBarBackButtonHidden(true)
+            .onAppear {
+                fetchData()
             }
-        }
-        .onAppear {
-            fetchData()
-        }
+      //  }
     }
     
     private func fetchData() {
@@ -152,19 +154,17 @@ struct BookDetailInfoView: View {
 }
 
 struct ActionButtonsView: View {
+    let bookID: String
+    @State private var isShowingBorrowSheet = false // State to control the presentation of the modal sheet
+
     var body: some View {
-        HStack(spacing: 15) {
-            Button(action: {}) {
-                Text("Add to WishList")
-                    .foregroundColor(.white)
-                    .padding(.vertical, 10)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.purple)
-                    .cornerRadius(8)
-            }
-            .padding(.horizontal)
+        VStack(spacing: 15) { // Wrap in a VStack for better layout
+         
             
-            Button(action: {}) {
+            Button(action: {
+                // Set the state to true to present the BorrowPageUI as a modal sheet
+                isShowingBorrowSheet.toggle()
+            }) {
                 Text("Borrow now")
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
@@ -174,8 +174,13 @@ struct ActionButtonsView: View {
             }
             .padding(.horizontal)
         }
+        .padding() // Add padding to the VStack
+        .sheet(isPresented: $isShowingBorrowSheet) { // Present BorrowPageUI as a modal sheet
+            BorrowPageUI(bookID: bookID)
+        }
     }
 }
+
 
 struct StarRatingView: View {
     var rating: Double
