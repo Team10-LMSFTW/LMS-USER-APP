@@ -33,7 +33,7 @@ struct ExplorePageView: View {
 
     var body: some View {
         GeometryReader { geo in
-            NavigationView{
+           // NavigationView{
                 ZStack {
                     RadialGradient(gradient: Gradient(colors: [Color(hex: "211134"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
                         .ignoresSafeArea()
@@ -78,7 +78,7 @@ struct ExplorePageView: View {
                     print("UserID: \(userID)")
                 }
                 .navigationBarBackButtonHidden(true)
-            }
+          //  }
         }
     }
     

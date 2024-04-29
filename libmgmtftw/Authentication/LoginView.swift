@@ -11,7 +11,7 @@ struct LoginView: View {
     @State var username: String = "" // Add a state variable to store the username
     
     var body: some View {
-        NavigationView { // Wrap the ZStack inside a NavigationView
+      //  NavigationView { // Wrap the ZStack inside a NavigationView
             ZStack {
                 Image("LibBG")
                     .resizable()
@@ -105,7 +105,7 @@ struct LoginView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
-        }
+       //}
     }
     
     func login() {

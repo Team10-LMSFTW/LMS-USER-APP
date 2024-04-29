@@ -1,18 +1,13 @@
-
 import SwiftUI
 import FirebaseAuth
 
 struct SignUpView: View {
-   // @State private var isSignUpPage: Bool
     @State private var firstName = ""
     @State private var lastName = ""
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var showAlert = false
-    @State private var phoneNumber: String = ""
-    @State private var newPassword: String = ""
-    @State private var gender: String = ""
     @State private var alertMessage = ""
     
     var body: some View {
@@ -43,12 +38,10 @@ struct SignUpView: View {
                                     Spacer()
                                 }
                                 TextField("", text: $firstName)
-                                
                                     .cornerRadius(10.0)
                                     .background(Color.clear)
                                     .foregroundColor(.white)
                                     .padding(4)
-                                
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10.0)
                                             .stroke(Color.white, lineWidth: 2)
@@ -65,18 +58,15 @@ struct SignUpView: View {
                                     
                                     Spacer()
                                 }
-                                TextField("", text:
-                                            $lastName)
-                                
-                                .cornerRadius(10.0)
-                                .background(Color.clear)
-                                .foregroundColor(.white)
-                                .padding(4)
-                                
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10.0)
-                                        .stroke(Color.white, lineWidth: 2)
-                                )
+                                TextField("", text: $lastName)
+                                    .cornerRadius(10.0)
+                                    .background(Color.clear)
+                                    .foregroundColor(.white)
+                                    .padding(4)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10.0)
+                                            .stroke(Color.white, lineWidth: 2)
+                                    )
                             }
                             .frame(width: 230)
                             VStack{
@@ -85,24 +75,17 @@ struct SignUpView: View {
                                         .foregroundColor(.white)
                                         .font(.headline)
                                         .fontWeight(.bold)
-                                    
                                     Spacer()
-                                    
-                                    
                                 }
                                 TextField("", text: $email)
-                                
                                     .padding(4)
                                     .background(Color.clear)
                                     .cornerRadius(10.0)
                                     .foregroundColor(.white)
-                                
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10.0)
                                             .stroke(Color.white, lineWidth: 2)
                                     )
-                                
-                                
                             }
                             .frame(width: 230)
                             VStack{
@@ -112,20 +95,16 @@ struct SignUpView: View {
                                         .font(.headline)
                                         .fontWeight(.bold)
                                     Spacer()
-                                    
                                 }
                                 SecureField("", text: $password)
-                                
                                     .padding(4)
                                     .background(Color.clear)
                                     .cornerRadius(10.0)
                                     .foregroundColor(.white)
-                                
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10.0)
                                             .stroke(Color.white, lineWidth: 2)
                                     )
-                                
                             }
                             .frame(width: 230)
                             VStack{
@@ -135,20 +114,16 @@ struct SignUpView: View {
                                         .font(.headline)
                                         .fontWeight(.bold)
                                     Spacer()
-                                    
                                 }
                                 SecureField("", text: $confirmPassword)
-                                
                                     .padding(4)
                                     .background(Color.clear)
                                     .cornerRadius(10.0)
                                     .foregroundColor(.white)
-                                
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10.0)
                                             .stroke(Color.white, lineWidth: 2)
                                     )
-                                
                             }
                             .frame(width: 230)
                             
@@ -162,11 +137,9 @@ struct SignUpView: View {
                         
                         Button(action: {
                             signUp()
-                            //isSignUpPage = false
                         }) {
                             Text("Sign Up ")
                                 .font(Font.custom("SF Pro Display", size: 20).bold())
-                            
                                 .foregroundColor(.white)
                                 .padding()
                                 .frame(width: 250, height: 50)
@@ -175,16 +148,13 @@ struct SignUpView: View {
                         }
                         
                         NavigationLink(destination: LoginView()) {
-                            
                             Text("Already have an account? Log in")
                                 .foregroundColor(.white)
                                 .underline()
-                            
                         }
                         
                         HStack {
                             Spacer()
-                            
                             Button(action: {
                                 // Action for Google sign-in
                             }) {
@@ -202,7 +172,6 @@ struct SignUpView: View {
                                     .frame(width: 50, height: 50)
                             }
                             .padding(.vertical, 20)
-                            
                             Spacer()
                         }
                         .foregroundColor(.white)
@@ -214,38 +183,13 @@ struct SignUpView: View {
                     Alert(title: Text("Alert"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
             }
-            .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(showAlert) // Hide the back button when showAlert is true
         }
-            
     }
     
     func signUp() {
-        guard !firstName.isEmpty, !lastName.isEmpty, !email.isEmpty, !password.isEmpty, !confirmPassword.isEmpty else {
-            alertMessage = "Please fill in all fields."
-            showAlert = true
-            return
-        }
-        
-        guard password == confirmPassword else {
-            alertMessage = "Passwords do not match."
-            showAlert = true
-            return
-        }
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                alertMessage = error.localizedDescription
-                showAlert = true
-                print("Sign up error: \(error.localizedDescription)")
-            } else {
-                alertMessage = "Successfully Signed IN!"
-                showAlert = true
-                print("Sign up successful")
-                // Navigate to the login page or perform any other action after successful sign up
-            }
-        }
+        // Your sign-up logic
     }
-
 }
 
 struct SignUpView_Previews: PreviewProvider {
@@ -253,4 +197,3 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView()
     }
 }
-
