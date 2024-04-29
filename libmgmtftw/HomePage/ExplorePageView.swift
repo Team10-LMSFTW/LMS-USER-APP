@@ -145,7 +145,7 @@ struct TrendingCollectionsView: View {
                     if selectedCategory == nil || book.category == selectedCategory {
                         NavigationLink(destination: BookDetailsView(bookID: book.id ?? "")) {
                             VStack {
-                                RemoteImage(url: book.thumbnail_url)
+                                RemoteImage(url: book.cover_url)
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 150, height: 200)
                                     .cornerRadius(10)
