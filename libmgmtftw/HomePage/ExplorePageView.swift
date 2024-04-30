@@ -38,11 +38,13 @@ struct ExplorePageView: View {
                     RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
                         .ignoresSafeArea()
                     VStack(alignment: .leading) {
+                        ScrollView {
                         HStack{
                             TextField("Search", text: $searchText)
                                 .padding()
                                 .frame(width:320, height: 40)
                                 .background(Color.white.opacity(0.8))
+                                .foregroundColor(.black)
                                 .cornerRadius(10)
                                 .padding()
                             //Spacer()
@@ -55,7 +57,7 @@ struct ExplorePageView: View {
                             .padding(.leading, -15)
                         }
                         
-                        ScrollView {
+                       
                             VStack(alignment: .leading) {
                                 Text("Categories")
                                     .bold()
@@ -75,13 +77,12 @@ struct ExplorePageView: View {
                                 
                                 TrendingCollectionsView(books: filteredBooks, selectedCategory: selectedCategory)
                             }
-                        }
+                        }.padding(.top,-20)
                     }
-                }.navigationBarBackButtonHidden(true)
+                }.navigationBarHidden(true)
+                .navigationBarBackButtonHidden(true)
                 .onAppear {
                     fetchData()
-                    print("Username: \(username)")
-                    print("UserID: \(userID)")
                 }
                 
             }

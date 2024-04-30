@@ -177,7 +177,7 @@ struct ActionButtonsView: View {
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
-                    .background(Color(hex: "AFAFB3", opacity : 0.2)) // Grey background color with opacity
+                    .background(Color(hex:"FD5F00", opacity :0.8)) // Grey background color with opacity
                     .cornerRadius(8)
             }
             .padding(.horizontal)

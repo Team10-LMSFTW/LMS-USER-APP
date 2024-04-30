@@ -91,7 +91,7 @@ struct LoginView: View {
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(width: 360, height: 50)
-                                    .background(Color.pink.opacity(0.3))
+                                    .background(Color(hex:"FD5F00", opacity :1))
                                     .cornerRadius(10)
                             }
                         NavigationLink(destination: Tab_Bar(), isActive: $isLoggedIn) {

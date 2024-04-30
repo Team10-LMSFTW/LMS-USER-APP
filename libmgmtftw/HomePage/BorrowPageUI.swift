@@ -76,7 +76,7 @@ struct BorrowPageUI: View {
                                         .foregroundColor(.white)
                                         .padding(.vertical, 10)
                                         .frame(maxWidth: .infinity)
-                                        .background(book.quantity > 0 ? Color(hex: "AFAFB3", opacity: 0.2) : Color.red.opacity(0.2))
+                                        .background(book.quantity > 0 ? Color(hex: "FD5F00", opacity: 0.8) : Color.red.opacity(0.2))
                                         .cornerRadius(8)
                                 }
                                 .padding()

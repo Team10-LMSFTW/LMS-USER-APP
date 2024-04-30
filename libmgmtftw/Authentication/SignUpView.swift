@@ -147,7 +147,7 @@ struct SignUpView: View {
                                 .font(Font.custom("SF Pro Display", size: 20).bold())
                                 .foregroundColor(.white)
                                 .padding()
-                                .frame(width: 360, height: 50)            .background(Color.pink.opacity(0.3))
+                                .frame(width: 360, height: 50)            .background(Color(hex:"FD5F00", opacity :1))
                                 .cornerRadius(10)
                         }
                         
