@@ -5,7 +5,10 @@ import FirebaseFirestore
 
 struct CarouselView: View {
     @State private var selection = 0
-    @State private var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage("userID") private var userID: String = ""
+
+   // @State private var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
 
     let onboardingScreens: [(imageName: String, primaryText: String, secondaryText: String)] = [
         ("Onboarding1", "The Best Way to manage books", "Navigate Your Library World with \nLibriLand: Where Every Book \nFinds Its Place!"),

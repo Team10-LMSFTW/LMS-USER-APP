@@ -77,7 +77,7 @@ struct ExplorePageView: View {
                                 
                                 TrendingCollectionsView(books: filteredBooks, selectedCategory: selectedCategory)
                             }
-                        }.padding(.top,-20)
+                        }
                     }
                 }.navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)

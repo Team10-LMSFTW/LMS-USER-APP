@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseAuth
+import FirebaseFirestore
 
 struct SignUpView: View {
     @State private var firstName = ""
@@ -10,6 +11,9 @@ struct SignUpView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State var successMessage = ""
+    
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage("userID") private var userID: String = ""
     
     var body: some View {
         NavigationStack {
@@ -166,6 +170,7 @@ struct SignUpView: View {
                     
                 }
                 .padding()
+                .padding(.top, -50)
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Alert"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
@@ -192,9 +197,55 @@ struct SignUpView: View {
                 alertMessage = error.localizedDescription
                 showAlert = true
                 print("Sign up error: \(error.localizedDescription)")
-            } else {
+            } else if let result = result {
                 successMessage = "Signed up successfully!"
                 print("Sign up successful")
+                let userID = result.user.uid // Get the user ID from the result
+                
+                // Create a new document in the users collection
+                let db = Firestore.firestore()
+                let userData: [String: Any] = [
+                    "category_type": "Member",
+                    "first_name": firstName,
+                    "last_name": lastName,
+                    "library_id": "1",
+                    "membership_type": "free",
+                    "rating": 5
+                ]
+                
+                db.collection("users").document(userID).setData(userData) { error in
+                    if let error = error {
+                        print("Error adding user document: \(error.localizedDescription)")
+                    } else {
+                        print("User document added successfully")
+                        updateCategoryType(userID: userID) // Update category_type after adding the document
+                    }
+                }
+            }
+        }
+    }
+
+    func updateCategoryType(userID: String) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userID)
+        userRef.updateData(["category_type": "Member"]) { error in
+            if let error = error {
+                print("Error updating category_type: \(error.localizedDescription)")
+            } else {
+                print("category_type updated successfully")
+            }
+        }
+    }
+
+    
+    func updateCategoryType() {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userID)
+        userRef.updateData(["category_type": "Member"]) { error in
+            if let error = error {
+                print("Error updating category_type: \(error.localizedDescription)")
+            } else {
+                print("category_type updated successfully")
             }
         }
     }

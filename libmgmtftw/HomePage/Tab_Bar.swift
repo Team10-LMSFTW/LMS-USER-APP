@@ -2,7 +2,11 @@ import SwiftUI
 import FirebaseAuth
 
 struct Tab_Bar: View {
-    @State private var isLoggedIn = false
+   // @State private var isLoggedIn = false
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage("userID") private var userID: String = ""
+    @State private var selection = 3
+
     
     init() {
         UITabBar.appearance().barTintColor = UIColor.black // Set the background color of the tab bar
@@ -15,34 +19,36 @@ struct Tab_Bar: View {
     }
     
     var body: some View {
-        NavigationView {
+        VStack {
             if isLoggedIn {
-                TabView {
+                TabView(selection:$selection) {
                     demoPage()
                         .tabItem {
                             Label("Home", systemImage: "house")
-                        }
+                        }.tag(1)
                     
-                    demoPage()
+                    HistoryPage()
                         .tabItem {
                             Label("History", systemImage: "clock")
-                        }
+                        }.tag(2)
+                    
                     ExplorePageView(userID: "", username: "")
                         .tabItem {
                             Label("Explore", systemImage: "magnifyingglass")
-                        }
+                        }.tag(3)
                     
                     demoPage()
                         .tabItem {
                             Label("Add", systemImage: "plus")
-                        }
+                        }.tag(4)
                 }
                 .accentColor(.white) // Set the color of the selected tab
                 .foregroundColor(.white)
+                .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
             } else {
                 // If user is not logged in, show the login view
-                LoginView(isLoggedIn: $isLoggedIn.wrappedValue)
+                LoginView()
             }
         }
         .onAppear {

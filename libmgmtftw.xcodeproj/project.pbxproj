@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C3AA70C2BE163A2006E836A /* HistoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3AA70B2BE163A2006E836A /* HistoryPage.swift */; };
 		4C84F3B52BD927A700AEB7A9 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3B42BD927A700AEB7A9 /* OnboardingView.swift */; };
 		4C84F3B82BD92A0F00AEB7A9 /* color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3B72BD92A0F00AEB7A9 /* color.swift */; };
 		4C84F3BA2BDA09E700AEB7A9 /* BooklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3B92BDA09E700AEB7A9 /* BooklistView.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C3AA70B2BE163A2006E836A /* HistoryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPage.swift; sourceTree = "<group>"; };
 		4C84F3B42BD927A700AEB7A9 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		4C84F3B72BD92A0F00AEB7A9 /* color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = color.swift; sourceTree = "<group>"; };
 		4C84F3B92BDA09E700AEB7A9 /* BooklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooklistView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				4C84F3D02BE0159400AEB7A9 /* Tab_Bar.swift */,
+				4C3AA70B2BE163A2006E836A /* HistoryPage.swift */,
 				4C84F3D22BE021EE00AEB7A9 /* demoPage.swift */,
 				4CCCDC112BD7A86100FFF854 /* colors.swift */,
 				4C84F3B92BDA09E700AEB7A9 /* BooklistView.swift */,
@@ -399,6 +402,7 @@
 				4C84F3D32BE021EE00AEB7A9 /* demoPage.swift in Sources */,
 				4C84F3C12BDA17FD00AEB7A9 /* BookImageLoader.swift in Sources */,
 				4CCCDC1A2BD9062C00FFF854 /* LoginView.swift in Sources */,
+				4C3AA70C2BE163A2006E836A /* HistoryPage.swift in Sources */,
 				4CCCDC1E2BD910E600FFF854 /* PreLoginView.swift in Sources */,
 				98B898C42BD61C50007027A1 /* libmgmtftwApp.swift in Sources */,
 			);

@@ -125,8 +125,11 @@ struct BorrowPageUI: View {
         let lendingDate = selectedDate
         let dueDate = Calendar.current.date(byAdding: .day, value: 5, to: selectedDate) ?? selectedDate // Due date is 5 days from lending date
         
+        // Retrieve userID from UserDefaults
+        let userID = UserDefaults.standard.string(forKey: "userID") ?? ""
+        
         // Check if the user has already borrowed a book
-        db.collection("user_loans").whereField("user_id", isEqualTo: "x").whereField("loan_status", isEqualTo: "active").getDocuments { (snapshot, error) in
+        db.collection("user_loans").whereField("user_id", isEqualTo: userID).whereField("loan_status", isEqualTo: "active").getDocuments { (snapshot, error) in
             guard let documents = snapshot?.documents else {
                 print("Error fetching user loans: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -173,7 +176,7 @@ struct BorrowPageUI: View {
                             "library_id": 1, // Default library ID
                             "loan_status": "active",
                             "penalty_amount": 0,
-                            "user_id": "x" // Placeholder user ID
+                            "user_id": userID // Use the userID retrieved from UserDefaults
                         ]
                         
                         transaction.setData(loanData, forDocument: db.collection("loans").document()) // Add loan data
@@ -205,6 +208,7 @@ struct BorrowPageUI: View {
             }
         }
     }
+
 
 }
 
