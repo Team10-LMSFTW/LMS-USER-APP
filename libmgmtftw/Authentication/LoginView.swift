@@ -11,86 +11,103 @@ struct LoginView: View {
     @State var username: String = "" // Add a state variable to store the username
     
     var body: some View {
-      //  NavigationView { // Wrap the ZStack inside a NavigationView
+        NavigationStack { // Wrap the ZStack inside a NavigationView
             ZStack {
-                Image("LibBG")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(1)
-                    .edgesIgnoringSafeArea(.all)
+                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
+                    .ignoresSafeArea()
                 
-                VStack{
-                    Spacer()
+                VStack(alignment: .leading, spacing: 15) {
+                    HStack {
+                        Text("Welcome ! 🙋🏻‍♂️")
+                            .foregroundColor(.white)
+                            .font(.largeTitle)
+                            .bold()
+                    }
+                    
                     HStack {
                         Text("UserName")
                             .foregroundColor(.white)
-                            .font(.headline)
-                            .fontWeight(.bold)
+                            .font(.footnote)
                         Spacer()
                     }
-                    TextField("", text: $email)
-                        .padding()
-                        .background(Color.clear)
-                        .cornerRadius(10.0)
-                        .foregroundColor(.white)
-                    
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10.0)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
+                    HStack {
+                        Image(systemName: "envelope")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+                        TextField("Email/Username", text: $email)
+                            .padding(.horizontal, 10) // Adjust the padding as needed
+                            .padding(.vertical, 8) // Adjust the padding as needed
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }
+                    .frame(width: 360, height: 50)
+                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                    .cornerRadius(10.0)
                     
                     HStack {
                         Text("Password")
                             .foregroundColor(.white)
-                            .font(.headline)
-                            .fontWeight(.bold)
+                            .font(.footnote)
                         Spacer()
                     }
-                    SecureField("", text: $password)
-                        .padding()
-                        .background(Color.clear)
-                        .cornerRadius(10.0)
-                        .foregroundColor(.white)
                     
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10.0)
-                                .stroke(Color.white, lineWidth: 2)
-                        )
+                    HStack {
+                        Image(systemName: "lock")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+                        SecureField("", text: $password)
+                            .padding()
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }
+                    .frame(width: 360, height: 50)
+                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                    .cornerRadius(10.0)
+                    .padding(.bottom, 10)
+                    
                     HStack {
                         Spacer()
                         Button(action: {
                             forgotPassword()
                         }) {
-                            Text("Forgot Password?")
+                            Text("Forgot Password ?")
                                 .foregroundColor(.white)
+                                .font(.footnote)
                                 .underline()
                         }
                     }
                     
-                    Button(action: { login() }) {
-                        Text("Login                                    ")
-                            .font(Font.custom("SF Pro Display", size: 20).bold())
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 250, height: 50)
-                            .background(Color(hex: "503E88"))
-                            .cornerRadius(30)
-                    }
+                    Divider()
+                        .background(Color.white)
+                        .frame(maxWidth: 400)
+                        .padding(.bottom,45)
                     
-                    Divider().background(Color.white).frame(maxWidth: 300)
                     
-                    HStack {
-                        Text("Don't have an account? ")
-                            .foregroundColor(.white)
-                        
-                        NavigationLink(destination: SignUpView()) {
-                            Text("SignUp")
-                                .foregroundColor(.white)
-                                .underline()
+                    VStack(spacing: 25) {
+                       
+                            Button(action: { login() }) {
+                                Text("Login")
+                                    .font(Font.custom("SF Pro Display", size: 20).bold())
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .frame(width: 360, height: 50)
+                                    .background(Color.pink.opacity(0.3))
+                                    .cornerRadius(10)
+                            }
+                        NavigationLink(destination: Tab_Bar(), isActive: $isLoggedIn) {
+                            EmptyView()
                         }
-                    }
-                    VStack{
+
                         
+                        HStack {
+                            Text("Don't have an account ?")
+                                .foregroundColor(.white)
+                            NavigationLink(destination: SignUpView()) {
+                                Text("Sign Up")
+                                    .foregroundColor(.blue)
+                                    .underline()
+                            }
+                        }
                     }
                     .frame(height: 20)
                 }
@@ -98,14 +115,15 @@ struct LoginView: View {
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Alert"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
                 }
-                
-                // Use NavigationLink to navigate to ExplorePageView when isLoggedIn is true
-                NavigationLink(destination: ExplorePageView(userID: "", username: username), isActive: $isLoggedIn) {
-                    EmptyView()
-                }
             }
             .navigationBarBackButtonHidden(true)
-       //}
+        }
+        .onAppear {
+            // Check if the user is already logged in
+            if Auth.auth().currentUser != nil {
+                isLoggedIn = true
+            }
+        }
     }
     
     func login() {
@@ -116,13 +134,19 @@ struct LoginView: View {
                 print("Login error: \(error.localizedDescription)")
             } else {
                 print("Login successful")
-                // Set isLoggedIn to true after successful login to trigger navigation
-                isLoggedIn = true
+                // Set UserDefaults flag
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
                 // Fetch the username after successful login
                 fetchUsername()
+                // Set isLoggedIn to true after successful login to trigger navigation
+                withAnimation {
+                    isLoggedIn = true
+                }
             }
         }
     }
+
+
     
     func forgotPassword() {
         Auth.auth().sendPasswordReset(withEmail: email) { error in

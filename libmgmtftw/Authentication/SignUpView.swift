@@ -9,131 +9,136 @@ struct SignUpView: View {
     @State private var confirmPassword = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
+    @State var successMessage = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack{
-                Image("BG2")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(1)
-                    .edgesIgnoringSafeArea(.all)
+                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
+                    .ignoresSafeArea()
                 
-                VStack{
-                    
+                VStack( alignment: .leading, spacing: 15){
                     HStack{
-                        Spacer()
-                        
-                        VStack(alignment: .trailing) {
-                            Spacer()
-                            
-                            VStack{
-                                
-                                HStack{
-                                    Text("First Name")
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    
-                                    Spacer()
-                                }
-                                TextField("", text: $firstName)
-                                    .cornerRadius(10.0)
-                                    .background(Color.clear)
-                                    .foregroundColor(.white)
-                                    .padding(4)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10.0)
-                                            .stroke(Color.white, lineWidth: 2)
-                                    )
-                            }
-                            .frame(width: 230)
-                            VStack{
-                                
-                                HStack{
-                                    Text("Last Name")
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    
-                                    Spacer()
-                                }
-                                TextField("", text: $lastName)
-                                    .cornerRadius(10.0)
-                                    .background(Color.clear)
-                                    .foregroundColor(.white)
-                                    .padding(4)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10.0)
-                                            .stroke(Color.white, lineWidth: 2)
-                                    )
-                            }
-                            .frame(width: 230)
-                            VStack{
-                                HStack {
-                                    Text("Email")
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                }
-                                TextField("", text: $email)
-                                    .padding(4)
-                                    .background(Color.clear)
-                                    .cornerRadius(10.0)
-                                    .foregroundColor(.white)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10.0)
-                                            .stroke(Color.white, lineWidth: 2)
-                                    )
-                            }
-                            .frame(width: 230)
-                            VStack{
-                                HStack {
-                                    Text("Password")
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                }
-                                SecureField("", text: $password)
-                                    .padding(4)
-                                    .background(Color.clear)
-                                    .cornerRadius(10.0)
-                                    .foregroundColor(.white)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10.0)
-                                            .stroke(Color.white, lineWidth: 2)
-                                    )
-                            }
-                            .frame(width: 230)
-                            VStack{
-                                HStack {
-                                    Text("Confirm Password")
-                                        .foregroundColor(.white)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    Spacer()
-                                }
-                                SecureField("", text: $confirmPassword)
-                                    .padding(4)
-                                    .background(Color.clear)
-                                    .cornerRadius(10.0)
-                                    .foregroundColor(.white)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10.0)
-                                            .stroke(Color.white, lineWidth: 2)
-                                    )
-                            }
-                            .frame(width: 230)
-                            
-                            
-                            Spacer()
-                        }
-                        .padding(.vertical, 70)
-                        .padding(.top, 30)
+                        Text("Create New Account")
+                            .foregroundColor(.white)
+                            .font(.largeTitle)
+                            .bold()
+                        Image(systemName: "lock")
                     }
-                    VStack{
+                    
+                    HStack {
+                        Text("First Name")
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                        
+                        Spacer()
+                    }
+                    HStack {
+                        Image(systemName: "person")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+                        
+                        TextField("First name", text: $firstName)
+                            .padding(.horizontal, 10) // Adjust the padding as needed
+                            .padding(.vertical, 8) // Adjust the padding as needed
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }.frame(width: 360, height: 50)
+                        .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .cornerRadius(10.0)
+                   
+                    HStack {
+                        Text("Last Name")
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                        
+                        Spacer()
+                    }
+                    HStack {
+                        Image(systemName: "person")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+                        
+                        TextField("Last name", text: $lastName)
+                            .padding(.horizontal, 10) // Adjust the padding as needed
+                            .padding(.vertical, 8) // Adjust the padding as needed
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }.frame(width: 360, height: 50)
+                        .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .cornerRadius(10.0)
+                    
+                 
+                    HStack {
+                        Text("UserName")
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                            
+                        Spacer()
+                    }
+                    HStack {
+                        Image(systemName: "envelope")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+
+                        TextField("Email/Username", text: $email)
+                            .padding(.horizontal, 10) // Adjust the padding as needed
+                            .padding(.vertical, 8) // Adjust the padding as needed
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }.frame(width: 360, height: 50)
+                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                    .cornerRadius(10.0)
+                        
+                    
+                    HStack {
+                        Text("Password")
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                            
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Image(systemName: "lock")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+                        SecureField("", text: $password)
+                            .padding()
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }.frame(width: 360, height: 50)
+                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                    .cornerRadius(10.0)
+                    .padding(.bottom,10)
+                    
+                    
+                    HStack {
+                        Text("Confirm Password")
+                            .foregroundColor(.white)
+                            .font(.footnote)
+                            
+                        Spacer()
+                    }
+                    
+                    HStack {
+                        Image(systemName: "lock")
+                            .foregroundColor(.white)
+                            .padding(.leading, 10) // Adjust the padding as needed
+                        SecureField("", text: $confirmPassword)
+                            .padding()
+                            .foregroundColor(.white)
+                            .accentColor(.white)
+                    }.frame(width: 360, height: 50)
+                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                    .cornerRadius(10.0)
+                    .padding(.bottom,10)
+                
+                    
+                    Divider().background(Color.white).frame(maxWidth: 400)
+                    
+                    
+                    VStack(spacing:25) {
                         
                         Button(action: {
                             signUp()
@@ -142,39 +147,21 @@ struct SignUpView: View {
                                 .font(Font.custom("SF Pro Display", size: 20).bold())
                                 .foregroundColor(.white)
                                 .padding()
-                                .frame(width: 250, height: 50)
-                                .background(Color(hex: "503E88"))
-                                .cornerRadius(30)
-                        }
-                        
-                        NavigationLink(destination: LoginView()) {
-                            Text("Already have an account? Log in")
-                                .foregroundColor(.white)
-                                .underline()
+                                .frame(width: 360, height: 50)            .background(Color.pink.opacity(0.3))
+                                .cornerRadius(10)
                         }
                         
                         HStack {
-                            Spacer()
-                            Button(action: {
-                                // Action for Google sign-in
-                            }) {
-                                Image("Google")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
+                            Text("Already have an account ?")
+                                .foregroundColor(.white)
+                                
+                            NavigationLink(destination: LoginView()) {
+                                Text("Log In")
+                                    .foregroundColor(.blue)
+                                    .underline()
                             }
-                            .padding(.vertical, 20)
-                            
-                            Button(action: {
-                                // Action for Apple sign-in
-                            }) {
-                                Image("Apple")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                            }
-                            .padding(.vertical, 20)
-                            Spacer()
                         }
-                        .foregroundColor(.white)
+                        
                     }
                     
                 }
@@ -188,12 +175,34 @@ struct SignUpView: View {
     }
     
     func signUp() {
-        // Your sign-up logic
+        guard !firstName.isEmpty, !lastName.isEmpty, !email.isEmpty, !password.isEmpty, !confirmPassword.isEmpty else {
+            alertMessage = "Please fill in all fields."
+            showAlert = true
+            return
+        }
+        
+        guard password == confirmPassword else {
+            alertMessage = "Passwords do not match."
+            showAlert = true
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                alertMessage = error.localizedDescription
+                showAlert = true
+                print("Sign up error: \(error.localizedDescription)")
+            } else {
+                successMessage = "Signed up successfully!"
+                print("Sign up successful")
+            }
+        }
     }
 }
+    
+    struct SignUpView_Previews: PreviewProvider {
+        static var previews: some View {
+            SignUpView()
+        }
+    }
 
-struct SignUpView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignUpView()
-    }
-}

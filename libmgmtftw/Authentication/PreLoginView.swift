@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PreLoginView: View {
     var body: some View {
-        NavigationView {
+       // NavigationView {
             ZStack {
                 Image("backgroundImage") // Add your image name here
                     .resizable()
@@ -31,14 +31,14 @@ struct PreLoginView: View {
                                 // Add your login action here
                                 
                             }) {
-                                NavigationLink(destination: LoginView()) {
+                               // NavigationLink(destination: LoginView()) {
                                     Text("Login                                    ")
                                         .font(Font.custom("SF Pro Display", size: 20).bold()) // Use SF Pro font with size 18 and make it bold
                                     
                                         .foregroundColor(.white) // Make text color white
                                         .padding() // Add padding around the text
                                         .background(Color(hex: "503E88"))
-                                }
+                               // }
                                 
                             }
                             .background(Color(hex: "503E88"))
@@ -75,7 +75,7 @@ struct PreLoginView: View {
             }
         }
             }
-        }
+      //  }
 
 
 #Preview {

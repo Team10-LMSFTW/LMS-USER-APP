@@ -9,7 +9,7 @@ struct CarouselView: View {
     ]
     
     var body: some View {
-        NavigationView{
+       // NavigationView{
             ZStack {
                 Color(hex: "767BB2").edgesIgnoringSafeArea(.all) // Set background color
                 
@@ -40,7 +40,7 @@ struct CarouselView: View {
                         Spacer()
                         if selection == onboardingScreens.count - 1 {
                             
-                            NavigationLink(destination: PreLoginView()) {
+                           // NavigationLink(destination: ) {
                                 Text("Get Started             ")
                                     .font(Font.custom("SF Pro Display", size: 20).bold()) // Use SF Pro font with size 18 and make it bold
                                 
@@ -49,7 +49,7 @@ struct CarouselView: View {
                                     .background(Color(hex: "767BB2"))
                                 
                                 
-                            }
+                           // }
                             .cornerRadius(50)
                             //.padding(.bottom, 30) // Adjust bottom padding
                             .padding(.top, 450) // Adjust top padding
@@ -110,7 +110,7 @@ struct CarouselView: View {
             }
         }
     }
-}
+//}
 
 
 

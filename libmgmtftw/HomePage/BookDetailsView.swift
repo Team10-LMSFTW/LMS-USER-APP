@@ -4,54 +4,20 @@ import Firebase
 import FirebaseFirestoreSwift
 
 struct BookDetailsView: View {
-    @State private var isFavorite = false
+   //
     let bookID: String
     @State private var book: Books?
 
     var body: some View {
-       // NavigationView{
+        //NavigationStack{
             ZStack {
+                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
+                    .ignoresSafeArea()
+                
                 if let book = book {
-                    Color(hex: "FAF9F6")
-                        .ignoresSafeArea()
-                    
                     ScrollView {
                         VStack(alignment: .leading, spacing: 15) {
-                            HStack {
-                                Spacer()
-                                Button(action: {
-                                    isFavorite.toggle()
-                                }) {
-                                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                        .foregroundColor(isFavorite ? .red : .black)
-                                }
-                                .padding()
-                                
-                                Button(action: {
-                                    // Content to share
-                                    if book != nil {
-                                        let textToShare = "Check out \(book.book_name) by \(book.author_name)!"
-                                        
-                                        // Create activity view controller
-                                        let activityViewController = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
-                                        
-                                        // Get the current window scene
-                                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                                            // Get the relevant window from the window scene
-                                            if let viewController = windowScene.windows.first?.rootViewController {
-                                                // Present the share sheet
-                                                viewController.present(activityViewController, animated: true, completion: nil)
-                                            }
-                                        }
-                                    }
-                                }) {
-                                    Image(systemName: "square.and.arrow.up")
-                                        .foregroundColor(.black)
-                                }
-                                
-                                
-                                
-                            }
+                            
                             BookHeaderView(book: book)
                             BookDetailInfoView(book: book)
                             Spacer()
@@ -63,11 +29,12 @@ struct BookDetailsView: View {
                 } else {
                     ProgressView() // Show loading indicator while fetching book details
                 }
-            }.navigationBarBackButtonHidden(true)
+            }
+            
             .onAppear {
                 fetchData()
             }
-      //  }
+       // }.navigationBarBackButtonHidden(true)
     }
     
     private func fetchData() {
@@ -90,66 +57,109 @@ struct BookDetailsView: View {
             }
         }
     }
-
-
 }
 
-struct BookHeaderView: View {
-    let book: Books
-    
-    var body: some View {
-        HStack(spacing: 15) {
-            Spacer()
-            RemoteImage(url: book.cover_url)
+    struct BookHeaderView: View {
+        let book: Books
+        
+        var body: some View {
+            HStack(spacing: 15) {
+                Spacer()
+                RemoteImage(url: book.cover_url)
                 //.resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 200)
-                .cornerRadius(9)
-            
-            
-            VStack(alignment: .leading, spacing: 5) {
-                Text(book.book_name)
-                    .font(.title)
-                    .fontWeight(.bold)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 120, height: 200)
+                    .cornerRadius(9)
                 
-                StarRatingView(rating: 4.5)
-                
-                Text("Quantity : \(book.quantity)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-                Text("Genre: \(book.category)")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                
-                Text("Available")
-                    .font(.subheadline)
-                    .foregroundColor(.green)
-                    .padding(.top, 5)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(book.book_name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    
+                    StarRatingView(rating: 4.5)
+                    
+                    Text("Quantity : \(book.quantity)")
+                        .font(.caption)
+                        .foregroundColor(.white)
+                    
+                    Text("Genre: \(book.category)")
+                        .font(.subheadline)
+                        .foregroundColor(.white)
+                    
+                    if book.quantity != 0 {
+                        Text("Available")
+                            .font(.subheadline)
+                            .foregroundColor(.green)
+                            .padding(.top, 5)
+                    } else {
+                        Text("Unavailable")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                            .padding(.top, 5)
+                    }
+                }
+                Spacer()
             }
-            Spacer()
+            .padding(.vertical, 20)
+            .background(Color(hex: "AFAFB3", opacity: 0.2))
+            .cornerRadius(10)
+            .shadow(radius: 3)
         }
-        .padding(.vertical, 20)
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 3)
-    }
+    
 }
 
 struct BookDetailInfoView: View {
     let book: Books
-    
+    @State private var isFavorite = false
     var body: some View {
+        @State  var isFavorite = false
         VStack(alignment: .leading, spacing: 10) {
-            Text("About Book")
-                .font(.headline)
+            HStack {
+                Text("Author: \(book.author_name)")
+                .font(.title2)
+            
+                Spacer()
+                Button(action: {
+                    isFavorite.toggle()
+                }) {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        .foregroundColor(isFavorite ? .red : .white)
+                }
+                .padding()
+                //Spacer()
+                Button(action: {
+                    // Content to share
+                    if book != nil {
+                        let textToShare = "Check out \(book.book_name) by \(book.author_name)!"
+                        
+                        // Create activity view controller
+                        let activityViewController = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+                        
+                        // Get the current window scene
+                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                            // Get the relevant window from the window scene
+                            if let viewController = windowScene.windows.first?.rootViewController {
+                                // Present the share sheet
+                                viewController.present(activityViewController, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .foregroundColor(.white)
+                }
+            }
             Divider()
-            Text("Author: \(book.author_name)")
-            Text("Overview:")
-                .font(.subheadline)
-                .fontWeight(.bold)
-            Text("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.")
+                
+
+//            Text("Overview:")
+//                .font(.title2)
+//                .bold()
+//                
+//            Text("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.")
         }
+        .foregroundColor(.white) // Text color set to white
     }
 }
 
@@ -159,8 +169,6 @@ struct ActionButtonsView: View {
 
     var body: some View {
         VStack(spacing: 15) { // Wrap in a VStack for better layout
-         
-            
             Button(action: {
                 // Set the state to true to present the BorrowPageUI as a modal sheet
                 isShowingBorrowSheet.toggle()
@@ -169,7 +177,7 @@ struct ActionButtonsView: View {
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
-                    .background(Color.purple)
+                    .background(Color(hex: "AFAFB3", opacity : 0.2)) // Grey background color with opacity
                     .cornerRadius(8)
             }
             .padding(.horizontal)
@@ -180,7 +188,6 @@ struct ActionButtonsView: View {
         }
     }
 }
-
 
 struct StarRatingView: View {
     var rating: Double

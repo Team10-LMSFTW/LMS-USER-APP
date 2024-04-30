@@ -11,20 +11,20 @@ struct BorrowPageUI: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(hex: "FAF9F6")
+                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
                     .ignoresSafeArea()
                 
                 VStack {
                     Text("Book Confirmation")
                         .font(.title)
+                        .foregroundStyle(.white)
                         .fontWeight(.bold)
                         .padding(.top, 10)
                     
                     Divider()
-                        .background(Color.black)
+                        .background(Color.white)
                         .padding(.horizontal)
                         .padding(.bottom, 2)
-                        .background(Color.black)
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 15) {
@@ -33,23 +33,38 @@ struct BorrowPageUI: View {
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text("Select Date:")
+                                        .foregroundStyle(.white)
                                         .font(.headline)
                                     HStack {
                                         Text(selectedDate, style: .date)
+                                            .foregroundStyle(.white)
+                                        
                                         Spacer()
                                         Button(action: {
                                             isDatePickerVisible.toggle()
                                         }) {
                                             Image(systemName: "calendar")
-                                                .foregroundColor(.purple)
+                                                .foregroundStyle(.white)
                                         }
+                                        
                                     }
                                     if isDatePickerVisible {
-                                        DatePicker("Select Date", selection: $selectedDate, in: Date()..., displayedComponents: .date)
-                                            .datePickerStyle(GraphicalDatePickerStyle())
-                                            .labelsHidden()
-                                            .padding(.horizontal)
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(Color.gray.opacity(0.2)) // Set the background color
+                                            
+                                            DatePicker("Select Date", selection: $selectedDate, in: Date()..., displayedComponents: .date)
+                                                .datePickerStyle(GraphicalDatePickerStyle())
+                                                .labelsHidden()
+                                                .padding(.horizontal)
+                                                .colorScheme(.dark) // Set the color scheme to dark mode
+                                                .accentColor(Color.blue) // Set the accent color to blue or any other desired color
+                                        }
+                                        .padding() // Add padding to adjust the layout
+                                        .cornerRadius(10) // Apply corner radius to the RoundedRectangle
                                     }
+
+
                                 }
                                 .padding()
                                 
@@ -61,7 +76,7 @@ struct BorrowPageUI: View {
                                         .foregroundColor(.white)
                                         .padding(.vertical, 10)
                                         .frame(maxWidth: .infinity)
-                                        .background(book.quantity > 0 ? Color.purple : Color.gray)
+                                        .background(book.quantity > 0 ? Color(hex: "AFAFB3", opacity: 0.2) : Color.red.opacity(0.2))
                                         .cornerRadius(8)
                                 }
                                 .padding()

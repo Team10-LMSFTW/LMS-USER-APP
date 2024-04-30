@@ -33,52 +33,58 @@ struct ExplorePageView: View {
 
     var body: some View {
         GeometryReader { geo in
-           // NavigationView{
+            NavigationStack{
                 ZStack {
-                    RadialGradient(gradient: Gradient(colors: [Color(hex: "211134"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
+                    RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
                         .ignoresSafeArea()
                     VStack(alignment: .leading) {
                         HStack{
                             TextField("Search", text: $searchText)
                                 .padding()
+                                .frame(width:320, height: 40)
                                 .background(Color.white.opacity(0.8))
                                 .cornerRadius(10)
                                 .padding()
-                            Spacer()
+                            //Spacer()
                             Button(action: search) {
-                                Image(systemName: "magnifyingglass")
+                                Image(systemName: "magnifyingglass.circle.fill")
                                     .foregroundColor(.white)
+                                    .font(.largeTitle)
+                                
                             }
+                            .padding(.leading, -15)
                         }
                         
                         ScrollView {
                             VStack(alignment: .leading) {
                                 Text("Categories")
-                                    .font(.headline)
+                                    .bold()
+                                    .font(.largeTitle)
                                     .foregroundColor(.white)
                                     .padding(.horizontal)
-                                    .padding(.top)
+                                    //.padding(.top)
                                 
                                 CategoryScrollView(book: books, selectedCategory: $selectedCategory)
                                 
                                 Text("Collections")
-                                    .font(.headline)
+                                    .bold()
+                                    .font(.largeTitle)
                                     .foregroundColor(.white)
                                     .padding(.horizontal)
-                                    .padding(.top)
+                                    //.padding(.top)
                                 
                                 TrendingCollectionsView(books: filteredBooks, selectedCategory: selectedCategory)
                             }
                         }
                     }
-                }
+                }.navigationBarBackButtonHidden(true)
                 .onAppear {
                     fetchData()
                     print("Username: \(username)")
                     print("UserID: \(userID)")
                 }
-                .navigationBarBackButtonHidden(true)
-          //  }
+                
+            }
         }
     }
     
@@ -147,25 +153,28 @@ struct TrendingCollectionsView: View {
                             VStack {
                                 RemoteImage(url: book.cover_url)
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 200)
+                                    .frame(width: 140, height: 180)
                                     .cornerRadius(10)
+                                    .padding(.top)
 
-                                HStack {
+                                VStack(spacing: 4) {
                                     Text(book.book_name)
                                         .foregroundColor(.white)
+                                        .lineLimit(1) // Limit to one line
+                                        .frame(width: 140) // Fixed width
+                                        .truncationMode(.tail) // Truncate with "..."
                                     Text(String(book.quantity))
                                         .foregroundColor(.white)
-                                    Spacer()
                                 }
                                 .padding([.horizontal, .bottom])
                             }
-                            .background(Color.gray.opacity(0.5))
+                            .background(Color(hex: "AFAFB3", opacity: 0.2))
                             .cornerRadius(20)
                         }
                     }
                 }
             }
-        }
+        }.padding(.horizontal)
     }
 }
 
@@ -179,6 +188,7 @@ struct RemoteImage: View {
         if let image = image {
             Image(uiImage: image)
                 .resizable()
+                .cornerRadius(25)
                 .frame(width: 200, height: 170)
         } else {
             Image("placeholder") // Placeholder image
@@ -212,12 +222,13 @@ struct CategoryScrollView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
+            HStack() {
                 ForEach(categories, id: \.self) { category in
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(selectedCategory == category ? Color.blue.opacity(0.8) : Color.gray.opacity(0.5))
-                            .frame(width: 130, height: 30)
+                            .fill(selectedCategory == category ? Color(#colorLiteral(red: 0.6862745098039216, green: 0.6862745098039216, blue: 0.7019607843137254, alpha: 1)) : Color(#colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)))
+
+                            .frame(width: 135, height: 40)
                             .onTapGesture {
                                 selectedCategory = category == "All Categories" ? nil : category
                             }
