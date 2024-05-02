@@ -11,7 +11,7 @@ struct RequestsaddView: View {
     @State private var category = ""
     @State private var bookRequest: BookRequest
     
-    init(bookRequest: BookRequest = BookRequest(id: UUID(), bookName: "", author: "", description: nil, edition: nil, status: 0)) {
+    init(bookRequest: BookRequest = BookRequest(id: UUID(),name: "", author: "", description: nil, edition: nil, status: 0,category: "",library_id: "1")) {
         _bookRequest = State(initialValue: bookRequest)
     }
     
@@ -28,19 +28,19 @@ struct RequestsaddView: View {
                         FieldView(placeholder: "Author", text: $author)
                         FieldView(placeholder: "Description", text: $description)
                         FieldView(placeholder: "Edition", text: $edition)
-//                        FieldView(placeholder: "Category", text: $category)
+                        FieldView(placeholder: "Category", text: $category)
                     }
                     
                     Button(action:{
                         let db = Firestore.firestore()
                         db.collection("requests").addDocument(data: [
-                            "id": UUID().uuidString,
-                            "bookName": self.bookName,
+                            "user_id": UUID().uuidString,
+                            "name": self.bookName,
                             "author": self.author,
                             "description": self.description,
                             "edition": self.edition,
                             "status": self.status,
-//                            "category":self.category
+                            "category":self.category
                         ]) { err in
                             if let err = err {
                                 print("Error adding document: \(err)")

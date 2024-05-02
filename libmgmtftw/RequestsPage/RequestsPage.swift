@@ -8,7 +8,7 @@ struct RequestsPage: View {
     @State private var requestHistory : [BookRequest] = [] // Changed loanHistory to requestHistory
     @State private var isPresentingRequestBookPage: Bool = false
     @State private var bookRequest: BookRequest
-    init(bookRequest: BookRequest = BookRequest(id: UUID(), bookName: "", author: "", description: nil, edition: nil, status: 0)) {
+    init(bookRequest: BookRequest = BookRequest(id: UUID(), name: "", author: "", description: nil, edition: nil, status: 0, category: "",library_id: "1")) {
             _bookRequest = State(initialValue: bookRequest)
         }
 
@@ -85,40 +85,46 @@ struct RequestsPage: View {
         }
     }
     func fetchRequestHistory() {
-          guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
-    
-            let db = Firestore.firestore()
-   
-        db.collection("requests")
-              .whereField("id", isEqualTo: userID)
-    ////            .whereField("library_id", isEqualTo: "1")
-           .getDocuments { snapshot, error in
-                if let error = error {
-                        print("Error fetching request history: \(error.localizedDescription)")
+         guard let userID = UserDefaults.standard.string(forKey: "userID") else { return }
+
+         let db = Firestore.firestore()
+
+         db.collection("requests")
+//             .whereField("user_id", isEqualTo: userID)
+//             .whereField("library_id", isEqualTo: "1")
+             .getDocuments { snapshot, error in
+                 if let error = error {
+                     print("Error fetching request history: \(error.localizedDescription)")
                      return
-                  }
-  
-                  guard let documents = snapshot?.documents else {
-                       print("No request history found")
-                        return
-                  }
-                   self.requestHistory = documents.compactMap { document in
-                       guard let bookName = document["bookName"] as? String,
-                              let author = document["author"] as? String,
-                              let status = document["status"] as? Int else {
-                           // Ensure essential data is present
-                         return nil
-                      }
-   
-                       // Optional properties
-                    let description = document["description"] as? String
-                        let edition = document["edition"] as? String
-                        print(bookName , status)
-                       return BookRequest(id: UUID(), bookName: bookName, author: author, description: description, edition: edition, status: status)
-   
-                  }
-               }
-       }
+                 }
+
+                 guard let documents = snapshot?.documents else {
+                     print("No request history found")
+                     return
+                 }
+                 print(documents)
+                 self.requestHistory = documents.compactMap { document in
+//                     guard let bookName = document["name"] as? String,
+//                           let author = document["author"] as? String,
+//                           let status = document["status"] as? Int else {
+//                         // Ensure essential data is present
+//                         return nil
+//                     }v
+                     print("meow")
+                      var bookName = document["name"] as? String
+                           var author = document["author"] as? String
+                           var status = document["status"] as? Int
+                     var category = document["category"] as? String
+                     var library_id = document["library_id"] as? String
+                     // Optional properties
+                     var description = document["description"] as? String
+                     var edition = document["edition"] as? String
+                     print(bookName , status)
+                     return BookRequest(id: UUID(), name: bookName ??  "", author: author ??  "", description: description, edition: edition, status: status ??  69, category: category ?? "",library_id: library_id ?? "")
+
+                 }
+             }
+     }
 
 
     
@@ -136,17 +142,19 @@ struct RequestHistoryRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Book Name: \(request.bookName)")
+            Text("Book Name: \(request.name)")
                 .font(.headline)
                 .foregroundColor(.black)
-            
+//            print(request.bookName)
+//            
             Text("Author: \(request.author)")
                 .font(.subheadline)
-                .foregroundColor(.black)
-            
+//                .foregroundColor(.black)
+//            print(request.author)
             Text("Status: \(request.status == 0 ? "Requested" : (request.status == 1 ? "Approved" : "Rejected"))")
                 .font(.subheadline)
                 .foregroundColor(.black)
+//            print(request.status)
         }
         .padding(.vertical, 10)
         .padding(.horizontal)
