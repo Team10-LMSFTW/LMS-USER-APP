@@ -24,7 +24,7 @@ struct libmgmtftwApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CarouselView()
+            HistoryViewPage()
         }
     }
 }
