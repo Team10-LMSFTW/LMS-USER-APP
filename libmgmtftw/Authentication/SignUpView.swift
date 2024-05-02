@@ -74,7 +74,7 @@ struct SignUpView: View {
                     
                  
                     HStack {
-                        Text("UserName")
+                        Text("Email")
                             .foregroundColor(.white)
                             .font(.footnote)
                             
