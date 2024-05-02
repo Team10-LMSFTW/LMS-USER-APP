@@ -37,7 +37,7 @@ struct Tab_Bar: View {
                             Label("Explore", systemImage: "magnifyingglass")
                         }.tag(3)
                     
-                    demoPage()
+                    RequestsPage()
                         .tabItem {
                             Label("Add", systemImage: "plus")
                         }.tag(4)
