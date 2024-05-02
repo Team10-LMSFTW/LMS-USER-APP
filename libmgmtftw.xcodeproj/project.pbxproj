@@ -38,6 +38,8 @@
 		4CEFCA762BD62EAF00CC0B4F /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4CEFCA752BD62EAF00CC0B4F /* FirebaseFirestoreSwift */; };
 		4CEFCA7B2BD6359400CC0B4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFCA7A2BD6359400CC0B4F /* GoogleService-Info.plist */; };
 		4CEFCA802BD636B700CC0B4F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */; };
+		84B4E1E12BE409CB007F7807 /* AddRequestForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4E1E02BE409CB007F7807 /* AddRequestForm.swift */; };
+		84B4E1E32BE40A20007F7807 /* RequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4E1E22BE40A20007F7807 /* RequestsView.swift */; };
 		98B898C42BD61C50007027A1 /* libmgmtftwApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B898C32BD61C50007027A1 /* libmgmtftwApp.swift */; };
 		98B898C62BD61C50007027A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B898C52BD61C50007027A1 /* ContentView.swift */; };
 		98B898C82BD61C51007027A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98B898C72BD61C51007027A1 /* Assets.xcassets */; };
@@ -84,6 +86,8 @@
 		4CCCDC1D2BD910E600FFF854 /* PreLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreLoginView.swift; sourceTree = "<group>"; };
 		4CEFCA7A2BD6359400CC0B4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		84B4E1E02BE409CB007F7807 /* AddRequestForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRequestForm.swift; sourceTree = "<group>"; };
+		84B4E1E22BE40A20007F7807 /* RequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsView.swift; sourceTree = "<group>"; };
 		98B898C02BD61C50007027A1 /* libmgmtftw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = libmgmtftw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98B898C32BD61C50007027A1 /* libmgmtftwApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = libmgmtftwApp.swift; sourceTree = "<group>"; };
 		98B898C52BD61C50007027A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -179,6 +183,15 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		84B4E1DF2BE4099D007F7807 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				84B4E1E02BE409CB007F7807 /* AddRequestForm.swift */,
+				84B4E1E22BE40A20007F7807 /* RequestsView.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
 		98B898B72BD61C50007027A1 = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +215,7 @@
 		98B898C22BD61C50007027A1 /* libmgmtftw */ = {
 			isa = PBXGroup;
 			children = (
+				84B4E1DF2BE4099D007F7807 /* Requests */,
 				98B898C32BD61C50007027A1 /* libmgmtftwApp.swift */,
 				98B898C52BD61C50007027A1 /* ContentView.swift */,
 				4C84F3B62BD929F600AEB7A9 /* Color Extension */,
@@ -389,6 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B4E1E32BE40A20007F7807 /* RequestsView.swift in Sources */,
 				4C84F3CF2BDF73BB00AEB7A9 /* newColor.swift in Sources */,
 				4CEFCA802BD636B700CC0B4F /* SignInView.swift in Sources */,
 				4CCCDC182BD9061500FFF854 /* SignUpView.swift in Sources */,
@@ -403,6 +418,7 @@
 				4C84F3C32BDA24D100AEB7A9 /* ExplorePageView.swift in Sources */,
 				4C84F3BC2BDA0D4700AEB7A9 /* UserListView.swift in Sources */,
 				4C84F3D32BE021EE00AEB7A9 /* demoPage.swift in Sources */,
+				84B4E1E12BE409CB007F7807 /* AddRequestForm.swift in Sources */,
 				4C84F3C12BDA17FD00AEB7A9 /* BookImageLoader.swift in Sources */,
 				4CCCDC1A2BD9062C00FFF854 /* LoginView.swift in Sources */,
 				4C3AA70C2BE163A2006E836A /* HistoryPage.swift in Sources */,
