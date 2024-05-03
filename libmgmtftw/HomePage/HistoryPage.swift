@@ -172,6 +172,8 @@ struct LoanRow: View {
             return .yellow.opacity(0.5)
         case "returned":
             return .white.opacity(0.5)
+        case "unavailable":
+            return .white.opacity(0.5)
         default:
             return .white // Default color
         }
