@@ -22,7 +22,7 @@ struct Tab_Bar: View {
         VStack {
             if isLoggedIn {
                 TabView(selection:$selection) {
-                    demoPage()
+                    UserDashboardView()
                         .tabItem {
                             Label("Home", systemImage: "house")
                         }.tag(1)

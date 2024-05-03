@@ -174,7 +174,7 @@ struct BorrowPageUI: View {
                             "due_date": dueDate,
                             "lending_date": lendingDate,
                             "library_id": 1, // Default library ID
-                            "loan_status": "active",
+                            "loan_status": "requested",
                             "penalty_amount": 0,
                             "user_id": userID // Use the userID retrieved from UserDefaults
                         ]
