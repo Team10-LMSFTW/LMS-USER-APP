@@ -71,9 +71,8 @@ struct RequestsaddView: View {
                         Text("Submit")
                             .padding()
                             .foregroundColor(.white)
-                            .background(LinearGradient(gradient: Gradient(colors: [Color.orange, Color.red]), startPoint: .leading, endPoint: .trailing)).ignoresSafeArea()
+                            .background(Color(hex:"FD5F00", opacity :0.8))
                             .cornerRadius(10)
-                            .shadow(color: .gray, radius: 2.0, x: 2.0, y: 2.0)
                     }
                     .padding()
                 }

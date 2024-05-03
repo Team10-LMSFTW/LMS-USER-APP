@@ -4,15 +4,15 @@ import FirebaseFirestore
 
 struct RequestsPage: View {
     @AppStorage("userID") private var userID: String = ""
-
     @State private var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @State private var userEmail: String = ""
-    @State private var requestHistory : [BookRequest] = [] // Changed loanHistory to requestHistory
+    @State private var requestHistory : [BookRequest] = []
     @State private var isPresentingRequestBookPage: Bool = false
     @State private var bookRequest: BookRequest
+
     init(bookRequest: BookRequest = BookRequest(id: UUID(), name: "", author: "", description: nil, edition: nil, status: 0, category: "",library_id: "1")) {
-            _bookRequest = State(initialValue: bookRequest)
-        }
+        _bookRequest = State(initialValue: bookRequest)
+    }
 
     var body: some View {
         if isLoggedIn {
@@ -21,58 +21,64 @@ struct RequestsPage: View {
                     RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
                         .ignoresSafeArea()
                     
-                    VStack {
-                        Text("Request New Books")
-                            .foregroundColor(.white)
-                            .font(.title)
-//                            .padding(.top,20)
-//                        Text("Logged in as: \(userEmail)")
-//                            .foregroundColor(.white)
-//                            .padding()
-//                        Text()
-                        
-//                        List {
-//                        Spacer()
-                            ForEach(requestHistory) { request in
-                                RequestHistoryRow(request: request)
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 20) {
+                            Text("Request New Book")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.top, 20)
+                                .padding(.leading, 20)
+                            
+                            Spacer().frame(height: 10)
+                            
+                            if requestHistory.isEmpty {
+                                Spacer()
+                                Text("No requests pending, press Add(+) to make one today!")
+                                    .font(.title3)
+                                    .foregroundColor(.white.opacity(0.6))
+                                    .padding()
+                            } else {
+                                ForEach(requestHistory) { request in
+                                    RequestHistoryRow(request: request)
+                                }
                             }
-//                        }
-//                        .listStyle(PlainListStyle())
-//                        .padding()
+                            
+                            Spacer()
+                        }
+                        .padding(20)
                     }
                     
-//                    ZStack
                     VStack {
-                                            Spacer()
-                                            
-                                            HStack {
-                                                Spacer()
-                                                
-                                                Button(action: {
-                                                    // Navigate to RequestBookPage
-                                                    self.isPresentingRequestBookPage = true
-                                                }) {
-                                                    Image(systemName: "plus.app")
-                                                        .resizable()
-                                                        .frame(width: 24, height: 24)
-                                                        .padding()
-                                                }
-                                                .background(Color.orange)
-                                                .cornerRadius(12)
-                                                .padding(.trailing, 20) // Adjust the trailing padding
-                                                .padding(.bottom, 20) // Adjust the bottom padding
-                                                .sheet(isPresented: $isPresentingRequestBookPage) {
-                                                    RequestsaddView(bookRequest: bookRequest)
-                                                }
-                                            }
-                                        }
-                                    }
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.isPresentingRequestBookPage = true
+                            }) {
+                                Image(systemName: "plus.app")
+                                    .resizable()
+                                    .foregroundColor(.white)
+                                    .frame(width: 24, height: 24)
+                                    .padding()
+                            }
+                            .background(Color(hex:"FD5F00", opacity :0.8))
+                            .cornerRadius(12)
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 20)
+                            .sheet(isPresented: $isPresentingRequestBookPage) {
+                                RequestsaddView(bookRequest: bookRequest)
+                            }
+                        }
+                    }
+                }
                 .navigationBarBackButtonHidden(true)
                 .onAppear {
                     fetchUserEmail()
                     fetchRequestHistory()
                 }
-            }.navigationBarBackButtonHidden(true)
+            }
+            .navigationBarBackButtonHidden(true)
         } else {
             NavigationLink(destination: LoginView(), isActive: $isLoggedIn) {
             }
@@ -87,6 +93,7 @@ struct RequestsPage: View {
             }
         }
     }
+    
     func fetchRequestHistory() {
         let db = Firestore.firestore()
         
@@ -118,10 +125,6 @@ struct RequestsPage: View {
                 }
             }
     }
-
-
-    
-    
 }
 
 //struct RequestsPage_Previews: PreviewProvider {
@@ -141,12 +144,30 @@ struct RequestHistoryRow: View {
                     .foregroundStyle(Color.white)
                 Text("by \(request.author)") // Display author
                     .font(.subheadline)
-                    .foregroundStyle(Color.white)
-                Text("Status: \(requestStatusText(for: request.status))") // Display status
-                    .font(.subheadline)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(Color.white.opacity(0.7))
             }
             Spacer()
+            Spacer()
+            Spacer()
+                ZStack {
+                    let requestStatusString = requestStatusText(for: request.status)
+                    
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(statusColor(for: requestStatusString))
+                        .frame(width: 80, height: 20)
+
+                    Text("\(requestStatusString)")
+                        .font(.caption)
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal, 8)
+                .padding(.leading, 18)
+
+                // Adjust statusColor function to accept a String parameter
+              
+
+
+
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
@@ -165,14 +186,14 @@ struct RequestHistoryRow: View {
         }
     }
     
-    private func statusColor(for status: Int) -> Color {
+    private func statusColor(for status: String) -> Color {
         switch status {
-        case 0:
-            return .yellow // Requested
-        case 1:
-            return .green // Approved
+        case "Requested":
+            return .yellow.opacity(0.5)
+        case "Approved":
+            return .green.opacity(0.5)
         default:
-            return .red // Rejected
+            return .red.opacity(0.5)
         }
     }
 
