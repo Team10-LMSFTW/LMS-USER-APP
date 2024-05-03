@@ -17,7 +17,7 @@ struct Loan: Identifiable, Codable, Hashable {
 struct HistoryPage: View {
     @State private var loans: [Loan] = []
     @AppStorage("userID") private var userID: String = ""
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -34,8 +34,16 @@ struct HistoryPage: View {
                         
                         Spacer().frame(height: 10)
                         
-                        ForEach(loans) { loan in
-                            LoanRow(loan: loan)
+                        if loans.isEmpty {
+                            Spacer()
+                            Text("No history available")
+                                .font(.title3)
+                                .foregroundColor(.white.opacity(0.6))
+                                .padding()
+                        } else {
+                            ForEach(loans) { loan in
+                                LoanRow(loan: loan)
+                            }
                         }
                         
                         Spacer()
@@ -109,14 +117,8 @@ struct HistoryPage: View {
                 }
             }
     }
-
-    
-    private func formattedDate(from timestamp: Timestamp) -> String {
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateFormat = "dd MMM yyyy" // Format: Day Month Year (e.g., 01 Jan 2022)
-           return dateFormatter.string(from: timestamp.dateValue())
-       }
 }
+
 
 struct LoanRow: View {
     var loan: Loan

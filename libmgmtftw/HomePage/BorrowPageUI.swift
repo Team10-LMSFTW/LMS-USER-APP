@@ -4,8 +4,11 @@ import Firebase
 struct BorrowPageUI: View {
     @State private var selectedDate = Date()
     @State private var isConfirmed = false
+    @State private var isAlertShown = false
     @State private var isDatePickerVisible = false
     @State private var book: Books?
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @AppStorage("userID") private var userID: String = ""
     let bookID: String
 
     var body: some View {
@@ -89,9 +92,14 @@ struct BorrowPageUI: View {
                     }
                 }
             }
-            .alert(isPresented: $isConfirmed) {
-                Alert(title: Text("Booked"), message: Text("Your book has been successfully booked, ensure you collect your book!"), dismissButton: .default(Text("OK")))
+            .alert(isPresented: $isAlertShown) {
+                if isConfirmed {
+                    return Alert(title: Text("Booked"), message: Text("Your book has been successfully booked, ensure you collect your book!"), dismissButton: .default(Text("OK")))
+                } else {
+                    return Alert(title: Text("Sorry"), message: Text("You already have requested or have borrowed this book!"), dismissButton: .default(Text("OK")))
+                }
             }
+
             .onAppear {
                 fetchData()
             }
@@ -126,10 +134,16 @@ struct BorrowPageUI: View {
         let dueDate = Calendar.current.date(byAdding: .day, value: 5, to: selectedDate) ?? selectedDate // Due date is 5 days from lending date
         
         // Retrieve userID from UserDefaults
-        let userID = UserDefaults.standard.string(forKey: "userID") ?? ""
         
         // Check if the user has already borrowed a book
-        db.collection("user_loans").whereField("user_id", isEqualTo: userID).whereField("loan_status", isEqualTo: "active").getDocuments { (snapshot, error) in
+        db.collection("loans")
+            .whereField("user_id", isEqualTo: userID)
+            .whereField("loan_status", isEqualTo: "active")
+            .whereField("book_ref_id", isEqualTo: bookID)
+            .getDocuments { (snapshot, error) in
+                // Your existing code here
+            
+
             guard let documents = snapshot?.documents else {
                 print("Error fetching user loans: \(error?.localizedDescription ?? "Unknown error")")
                 return
@@ -199,11 +213,14 @@ struct BorrowPageUI: View {
                     } else {
                         print("Transaction succeeded")
                         isConfirmed = true // Show confirmation alert
+                        isAlertShown = true // Show confirmation alert
                     }
                 }
             } else {
                 // User already has an active loan
                 print("User already has an active loan")
+                isAlertShown = true
+                //isBorrowed = true
                 // Show appropriate message to the user
             }
         }
