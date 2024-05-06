@@ -8,20 +8,22 @@ struct Tab_Bar: View {
     @State private var selection = 1
 
     
-    init() {
-        UITabBar.appearance().barTintColor = UIColor.black // Set the background color of the tab bar
-        UITabBar.appearance().shadowImage = UIImage() // Remove the default shadow
-        UITabBar.appearance().backgroundImage = UIImage() // Remove the default background image
-        UITabBar.appearance().layer.shadowOffset = CGSize(width: 0, height: 10) // Add a shadow
-        UITabBar.appearance().layer.shadowRadius = 8 // Adjust the shadow radius
-        UITabBar.appearance().layer.shadowColor = UIColor.black.cgColor // Shadow color
-        UITabBar.appearance().layer.shadowOpacity = 1 // Shadow opacity
-    }
+//    init() {
+//        UITabBar.appearance().barTintColor = UIColor.white // Set the background color of the tab bar
+//        UITabBar.appearance().shadowImage = UIImage() // Remove the default shadow
+//        UITabBar.appearance().backgroundImage = UIImage()
+//        
+//        // Remove the default background image
+//        UITabBar.appearance().layer.shadowOffset = CGSize(width: 0, height: 10) // Add a shadow
+//        UITabBar.appearance().layer.shadowRadius = 8 // Adjust the shadow radius
+//        UITabBar.appearance().layer.shadowColor = UIColor.black.cgColor // Shadow color
+//        UITabBar.appearance().layer.shadowOpacity = 1 // Shadow opacity
+//    }
     
     var body: some View {
         VStack {
             if isLoggedIn {
-                TabView(selection:$selection) {
+                TabView(selection: $selection) {
                     UserDashboardView()
                         .tabItem {
                             Label("Home", systemImage: "house")
@@ -43,9 +45,13 @@ struct Tab_Bar: View {
                         }.tag(4)
                 }
                 .accentColor(.white) // Set the color of the selected tab
+                .background(Color.black)
                 .foregroundColor(.white)
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
+                .preferredColorScheme(.dark)
+                .edgesIgnoringSafeArea(.all) // Ignore safe area to cover the entire screen
+
             } else {
                 // If user is not logged in, show the login view
                 LoginView()

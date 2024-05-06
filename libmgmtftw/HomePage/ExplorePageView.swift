@@ -44,7 +44,7 @@ struct ExplorePageView: View {
                                 .padding()
                                 .frame(width:320, height: 40)
                                 .background(Color.white.opacity(0.8))
-                                .foregroundColor(.black)
+                                .foregroundColor(.white)
                                 .cornerRadius(10)
                                 .padding()
                             //Spacer()
@@ -59,13 +59,13 @@ struct ExplorePageView: View {
                         
                        
                             VStack(alignment: .leading) {
-                                Text("Categories")
-                                    .bold()
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal)
-                                    //.padding(.top)
-                                
+//                                Text("Categories")
+//                                    .bold()
+//                                    .font(.largeTitle)
+//                                    .foregroundColor(.white)
+//                                    .padding(.horizontal)
+//                                    //.padding(.top)
+//                                
                                 CategoryScrollView(book: books, selectedCategory: $selectedCategory)
                                 
                                 Text("Collections")
@@ -220,25 +220,53 @@ struct RemoteImage: View {
 struct CategoryScrollView: View {
     var book: [Books]
     @Binding var selectedCategory: String?
+    @State private var isExpanded: Bool = false
+    @State private var showAllCategories: Bool = false
+    @State private var displayedCategoriesCount: Int = 2 // Initially display 2 categories
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack() {
-                ForEach(categories, id: \.self) { category in
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(selectedCategory == category ? Color(#colorLiteral(red: 0.6862745098039216, green: 0.6862745098039216, blue: 0.7019607843137254, alpha: 1)) : Color(#colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)))
-
-                            .frame(width: 135, height: 40)
-                            .onTapGesture {
-                                selectedCategory = category == "All Categories" ? nil : category
-                            }
-                        Text(category)
+        VStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(categories.prefix(displayedCategoriesCount), id: \.self) { category in // Display only 'displayedCategoriesCount' categories initially
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(selectedCategory == category ? Color(#colorLiteral(red: 0.6862745098039216, green: 0.6862745098039216, blue: 0.7019607843137254, alpha: 1)) : Color(#colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)))
+                                .frame(width: 92, height: 32)
+                                .onTapGesture {
+                                    selectedCategory = category == "All Categories" ? nil : category
+                                }
+                            Text(category)
+                                .foregroundColor(.white)
+                                .font(.footnote)
+                        }
+                    }
+                    // Show ">" button to toggle list view
+                    Button(action: {
+                        isExpanded.toggle()
+                        if isExpanded {
+                            displayedCategoriesCount = categories.count // Show all categories
+                        } else {
+                            displayedCategoriesCount = 3 // Show only 2 categories
+                        }
+                    }) {
+                        Image(systemName: isExpanded ? "chevron.left" : "chevron.right") // Change arrow direction based on state
+                            .frame(width: 45, height: 28)
+                            .background(Color(hex: "AFAFB3", opacity: 0.2))
+                            .cornerRadius(80.0)
                             .foregroundColor(.white)
                     }
+                    .padding(.leading, 8)
                 }
+                .padding()
             }
-            .padding()
+            
+            if isExpanded {
+                List(categories.dropFirst(3), id: \.self) { category in // Show other categories in a list if expanded
+                    Text(category)
+                }
+                .padding()
+            }
         }
     }
 
