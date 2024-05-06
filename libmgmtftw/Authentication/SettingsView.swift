@@ -32,7 +32,7 @@ struct SettingsView: View {
             .background(Color(hex: "#14110F").ignoresSafeArea()) // Set background color for entire ZStack
         }
         .navigationViewStyle(StackNavigationViewStyle()) // Use StackNavigationViewStyle to ensure consistent navigation behavior
-        .preferredColorScheme(.dark) // Set preferred color scheme to dark mode
+       // .preferredColorScheme(.dark) // Set preferred color scheme to dark mode
     }
 }
 

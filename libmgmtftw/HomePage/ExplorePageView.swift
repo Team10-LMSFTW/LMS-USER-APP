@@ -153,7 +153,8 @@ struct TrendingCollectionsView: View {
                         NavigationLink(destination: BookDetailsView(bookID: book.id ?? "")) {
                             VStack {
                                 RemoteImage(url: book.cover_url)
-                                    .aspectRatio(contentMode: .fill)
+                                    .scaledToFill()
+                                    .aspectRatio(contentMode: .fit)
                                     .frame(width: 140, height: 180)
                                     .cornerRadius(10)
                                     .padding(.top)
