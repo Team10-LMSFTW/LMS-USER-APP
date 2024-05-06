@@ -11,8 +11,7 @@ struct BookDetailsView: View {
     var body: some View {
         //NavigationStack{
             ZStack {
-                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
-                    .ignoresSafeArea()
+                Color.black.ignoresSafeArea()
                 
                 if let book = book {
                     ScrollView {
@@ -102,7 +101,7 @@ struct BookDetailsView: View {
                 Spacer()
             }
             .padding(.vertical, 20)
-            .background(Color(hex: "AFAFB3", opacity: 0.2))
+            .background(Color.primary.opacity(0.08))
             .cornerRadius(10)
             .shadow(radius: 3)
         }
@@ -177,7 +176,7 @@ struct ActionButtonsView: View {
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
-                    .background(Color(hex:"FD5F00", opacity :0.8)) // Grey background color with opacity
+                    .background(Color.primary.opacity(0.08)) // Grey background color with opacity
                     .cornerRadius(8)
             }
             .padding(.horizontal)

@@ -52,7 +52,7 @@ struct Tab_Bar: View {
                            
                             
                         }
-                    }.padding(.top,-23.3)
+                    }//.padding(.top,-23.3)
                     
                     
                     

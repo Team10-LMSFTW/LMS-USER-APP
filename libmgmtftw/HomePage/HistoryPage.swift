@@ -21,8 +21,9 @@ struct HistoryPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
-                    .ignoresSafeArea()
+                Color.black.ignoresSafeArea()
+//                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
+//                    .ignoresSafeArea()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         Text("History")
@@ -124,58 +125,67 @@ struct LoanRow: View {
     var loan: Loan
     
     var body: some View {
-        HStack {
-            RemoteImage2(url: loan.cover_url) // Display cover image
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 50, height: 70)
-                .cornerRadius(10)
-                .padding(.top)
-                .padding(.trailing)
-            
-            VStack(alignment: .leading, spacing: 2){
-                Text("\(loan.book_name)") // Display book_name
-                    .font(.headline)
-                    //.lineLimit(2)
-                    .foregroundStyle(Color.white)
-                Spacer()
+        ZStack{
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.primary.opacity(0.08))
+                .frame(width:350,height: 160)
+                .padding(10)
+                .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
+            HStack {
+                RemoteImage2(url: loan.cover_url) // Display cover image
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 90, height: 120)
+                    .cornerRadius(10)
+//                    .padding(.top)
+//                    .padding(.trailing)
                 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(statusColor(for: loan.loan_status))
-                        .frame(width:80,height: 20)
-                        .padding(.horizontal, 8)
+                VStack(alignment: .leading, spacing: 2){
+                    Spacer()
+                    Text("\(loan.book_name)") // Display book_name
+                        .font(.title2)
+                    .lineLimit(2)
+                        .foregroundStyle(Color.white)
+                    Spacer()
                     
-                    Text("\(loan.loan_status)")
-                        .font(.footnote)
-                        .foregroundColor(.white)
-                }.padding(.leading,-15)
-
-
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(statusColor(for: loan.loan_status))
+                            .frame(width:80,height: 20)
+                            .padding(.horizontal, 8)
+                        
+                        Text("\(loan.loan_status)")
+                            .font(.footnote)
+                            .foregroundColor(.black)
+                    }.padding(.leading,-15)
+                    .padding(.top,-45)
+                    
+                    
+                }
+                Spacer()
+                Text("\(formattedDate(from: loan.lending_date))")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.white)
             }
-            Spacer()
-            Text("\(formattedDate(from: loan.lending_date))")
-                .font(.subheadline)
-                .foregroundStyle(Color.white)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
+            //.background(Color(red: 0.3, green: 0.3, blue: 0.3, opacity: 0.5))
+            .cornerRadius(10)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-        .background(Color(red: 0.3, green: 0.3, blue: 0.3, opacity: 0.5))
-        .cornerRadius(10)
     }
     private func statusColor(for status: String) -> Color {
         switch status {
         case "due":
-            return .red.opacity(0.5)
+            return .red
         case "accepted":
-            return .green.opacity(0.5)
+            return .green
         case "requested":
-            return .yellow.opacity(0.5)
+            return .yellow
         case "returned":
-            return .black.opacity(0.5)
+            return .black
         case "rejected":
-            return .gray.opacity(0.5)
+            return .gray
         default:
-            return .gray.opacity(0.5) // Default color
+            return .gray // Default color
         }
     }
 
@@ -196,7 +206,7 @@ struct RemoteImage2: View {
             Image(uiImage: image)
                 .resizable()
                 .cornerRadius(2)
-                .frame(width: 50, height: 70)
+                .frame(width: 70, height: 110)
         } else {
             ProgressView()
                 .foregroundColor(.white)

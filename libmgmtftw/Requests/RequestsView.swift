@@ -18,8 +18,7 @@ struct RequestsPage: View {
         if isLoggedIn {
             NavigationStack {
                 ZStack {
-                    RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
-                        .ignoresSafeArea()
+                    Color.black.ignoresSafeArea()
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {

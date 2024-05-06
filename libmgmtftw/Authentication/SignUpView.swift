@@ -18,8 +18,7 @@ struct SignUpView: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
-                    .ignoresSafeArea()
+                Color.black.ignoresSafeArea()
                 
                 VStack( alignment: .leading, spacing: 15){
                     HStack{
@@ -48,7 +47,7 @@ struct SignUpView: View {
                             .foregroundColor(.white)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
-                        .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .background(Color.primary.opacity(0.08))
                         .cornerRadius(10.0)
                    
                     HStack {
@@ -69,7 +68,7 @@ struct SignUpView: View {
                             .foregroundColor(.white)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
-                        .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .background(Color.primary.opacity(0.08))
                         .cornerRadius(10.0)
                     
                  
@@ -91,7 +90,7 @@ struct SignUpView: View {
                             .foregroundColor(.white)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
-                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .background(Color.primary.opacity(0.08))
                     .cornerRadius(10.0)
                         
                     
@@ -112,7 +111,7 @@ struct SignUpView: View {
                             .foregroundColor(.white)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
-                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .background(Color.primary.opacity(0.08))
                     .cornerRadius(10.0)
                     .padding(.bottom,10)
                     
@@ -134,12 +133,12 @@ struct SignUpView: View {
                             .foregroundColor(.white)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
-                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                        .background(Color.primary.opacity(0.08))
                     .cornerRadius(10.0)
                     .padding(.bottom,10)
                 
                     
-                    Divider().background(Color.white).frame(maxWidth: 400)
+                    Divider().background(Color.secondary).frame(maxWidth: 400)
                     
                     
                     VStack(spacing:25) {

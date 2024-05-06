@@ -35,22 +35,24 @@ struct ExplorePageView: View {
         GeometryReader { geo in
             NavigationStack{
                 ZStack {
-                    RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
-                        .ignoresSafeArea()
+                    
+                    Color.black.ignoresSafeArea()
+                    
                     VStack(alignment: .leading) {
                         ScrollView {
                         HStack{
                             TextField("Search", text: $searchText)
                                 .padding()
                                 .frame(width:320, height: 40)
-                                .background(Color.white.opacity(0.8))
-                                .foregroundColor(.white)
+                                .background(Color.primary.opacity(0.8))
+                                .foregroundColor(.black)
                                 .cornerRadius(10)
                                 .padding()
                             //Spacer()
                             Button(action: search) {
                                 Image(systemName: "magnifyingglass.circle.fill")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.primary.opacity(0.8))
+                                
                                     .font(.largeTitle)
                                 
                             }
@@ -81,6 +83,9 @@ struct ExplorePageView: View {
                     }
                 }//.navigationBarHidden(true)
                // .navigationBarBackButtonHidden(true)
+                .onChange(of: searchText) { _ in
+                            search()
+                        }
                 .onAppear {
                     fetchData()
                 }
@@ -122,7 +127,13 @@ struct ExplorePageView: View {
             filteredBooks = books
         } else {
             // Filter books based on search text
-            let filtered = books.filter { $0.book_name.lowercased().contains(searchText.lowercased()) }
+            let filtered = books.filter { book in
+                let lowercasedSearchText = searchText.lowercased()
+                return book.author_name.lowercased().contains(lowercasedSearchText) ||
+                       book.book_name.lowercased().contains(lowercasedSearchText) ||
+                       book.category.lowercased().contains(lowercasedSearchText)
+                // Add more properties if needed
+            }
             if filtered.isEmpty {
                 // If no books match the search criteria, display a message
                 filteredBooks = [Books(id: nil, author_name: "N/A", book_name: "Book not available", category: "N/A", cover_url: "N/A", isbn: "N/A", library_id: "N/A", loan_id: "N/A", quantity: 0, thumbnail_url: "N/A")]
@@ -132,6 +143,7 @@ struct ExplorePageView: View {
             }
         }
     }
+
 }
 
 struct ExplorePageView_Previews: PreviewProvider {
@@ -170,9 +182,9 @@ struct TrendingCollectionsView: View {
                                 }
                                 .padding([.horizontal, .bottom])
                             }
-                            .background(Color(hex: "AFAFB3", opacity: 0.2))
+                            .background(Color.primary.opacity(0.08))
                             .cornerRadius(20)
-                        }
+                                        }
                     }
                 }
             }
@@ -232,7 +244,7 @@ struct CategoryScrollView: View {
                     ForEach(categories.prefix(displayedCategoriesCount), id: \.self) { category in // Display only 'displayedCategoriesCount' categories initially
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(selectedCategory == category ? Color(#colorLiteral(red: 0.6862745098039216, green: 0.6862745098039216, blue: 0.7019607843137254, alpha: 1)) : Color(#colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)))
+                                .fill(Color.primary.opacity(0.08))
                                 .frame(width: 92, height: 32)
                                 .onTapGesture {
                                     selectedCategory = category == "All Categories" ? nil : category
@@ -253,7 +265,7 @@ struct CategoryScrollView: View {
                     }) {
                         Image(systemName: isExpanded ? "chevron.left" : "chevron.right") // Change arrow direction based on state
                             .frame(width: 45, height: 28)
-                            .background(Color(hex: "AFAFB3", opacity: 0.2))
+                            .background(Color.primary.opacity(0.08))
                             .cornerRadius(80.0)
                             .foregroundColor(.white)
                     }
