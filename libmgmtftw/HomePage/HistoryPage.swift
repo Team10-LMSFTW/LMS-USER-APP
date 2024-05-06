@@ -166,16 +166,16 @@ struct LoanRow: View {
         switch status {
         case "due":
             return .red.opacity(0.5)
-        case "active":
+        case "accepted":
             return .green.opacity(0.5)
         case "requested":
             return .yellow.opacity(0.5)
         case "returned":
-            return .white.opacity(0.5)
-        case "unavailable":
-            return .white.opacity(0.5)
+            return .black.opacity(0.5)
+        case "rejected":
+            return .gray.opacity(0.5)
         default:
-            return .white // Default color
+            return .gray.opacity(0.5) // Default color
         }
     }
 

@@ -21,6 +21,8 @@
 		4C84F3CF2BDF73BB00AEB7A9 /* newColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3CE2BDF73BB00AEB7A9 /* newColor.swift */; };
 		4C84F3D12BE0159400AEB7A9 /* Tab_Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3D02BE0159400AEB7A9 /* Tab_Bar.swift */; };
 		4C84F3D32BE021EE00AEB7A9 /* demoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C84F3D22BE021EE00AEB7A9 /* demoPage.swift */; };
+		4C95CEA02BE892FC00417BE5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C95CE9F2BE892FC00417BE5 /* SettingsView.swift */; };
+		4C95CEA22BE8931E00417BE5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C95CEA12BE8931E00417BE5 /* SettingsViewModel.swift */; };
 		4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC112BD7A86100FFF854 /* colors.swift */; };
 		4CCCDC182BD9061500FFF854 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC172BD9061500FFF854 /* SignUpView.swift */; };
 		4CCCDC1A2BD9062C00FFF854 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC192BD9062C00FFF854 /* LoginView.swift */; };
@@ -81,6 +83,8 @@
 		4C84F3CE2BDF73BB00AEB7A9 /* newColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newColor.swift; sourceTree = "<group>"; };
 		4C84F3D02BE0159400AEB7A9 /* Tab_Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab_Bar.swift; sourceTree = "<group>"; };
 		4C84F3D22BE021EE00AEB7A9 /* demoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = demoPage.swift; sourceTree = "<group>"; };
+		4C95CE9F2BE892FC00417BE5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4C95CEA12BE8931E00417BE5 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4CCCDC112BD7A86100FFF854 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		4CCCDC172BD9061500FFF854 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4CCCDC192BD9062C00FFF854 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -160,16 +164,16 @@
 			children = (
 				4C84F3D02BE0159400AEB7A9 /* Tab_Bar.swift */,
 				4C3AA70B2BE163A2006E836A /* HistoryPage.swift */,
-				4C84F3D22BE021EE00AEB7A9 /* demoPage.swift */,
+				84B4E1E42BE49578007F7807 /* UserDashboardView.swift */,
 				4C3AA70D2BE26C69006E836A /* HistoryViewPage.swift */,
-				4CCCDC112BD7A86100FFF854 /* colors.swift */,
 				4C84F3B92BDA09E700AEB7A9 /* BooklistView.swift */,
 				4C84F3C02BDA17FD00AEB7A9 /* BookImageLoader.swift */,
 				4C84F3C22BDA24D100AEB7A9 /* ExplorePageView.swift */,
-				4C84F3CE2BDF73BB00AEB7A9 /* newColor.swift */,
 				4C84F3C42BDAD4B700AEB7A9 /* BookDetailsView.swift */,
 				4C84F3C62BDBB53A00AEB7A9 /* BorrowPageUI.swift */,
-				84B4E1E42BE49578007F7807 /* UserDashboardView.swift */,
+				4CCCDC112BD7A86100FFF854 /* colors.swift */,
+				4C84F3CE2BDF73BB00AEB7A9 /* newColor.swift */,
+				4C84F3D22BE021EE00AEB7A9 /* demoPage.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -178,6 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */,
+				4C95CE9F2BE892FC00417BE5 /* SettingsView.swift */,
+				4C95CEA12BE8931E00417BE5 /* SettingsViewModel.swift */,
 				4CCCDC172BD9061500FFF854 /* SignUpView.swift */,
 				4C84F3BB2BDA0D4700AEB7A9 /* UserListView.swift */,
 				4CCCDC192BD9062C00FFF854 /* LoginView.swift */,
@@ -415,6 +421,8 @@
 				4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */,
 				4C84F3C52BDAD4B700AEB7A9 /* BookDetailsView.swift in Sources */,
 				4C84F3B82BD92A0F00AEB7A9 /* color.swift in Sources */,
+				4C95CEA02BE892FC00417BE5 /* SettingsView.swift in Sources */,
+				4C95CEA22BE8931E00417BE5 /* SettingsViewModel.swift in Sources */,
 				4C84F3B52BD927A700AEB7A9 /* OnboardingView.swift in Sources */,
 				4C84F3D12BE0159400AEB7A9 /* Tab_Bar.swift in Sources */,
 				98B898C62BD61C50007027A1 /* ContentView.swift in Sources */,

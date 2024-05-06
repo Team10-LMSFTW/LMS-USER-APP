@@ -5,7 +5,7 @@ struct Tab_Bar: View {
    // @State private var isLoggedIn = false
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @AppStorage("userID") private var userID: String = ""
-    @State private var selection = 3
+    @State private var selection = 1
 
     
     init() {

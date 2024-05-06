@@ -79,8 +79,8 @@ struct ExplorePageView: View {
                             }
                         }
                     }
-                }.navigationBarHidden(true)
-                .navigationBarBackButtonHidden(true)
+                }//.navigationBarHidden(true)
+               // .navigationBarBackButtonHidden(true)
                 .onAppear {
                     fetchData()
                 }
