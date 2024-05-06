@@ -198,8 +198,8 @@ struct RemoteImage2: View {
                 .cornerRadius(2)
                 .frame(width: 50, height: 70)
         } else {
-            Image("placeholder") // Placeholder image
-                .resizable()
+            ProgressView()
+                .foregroundColor(.white)
                 .onAppear {
                     loadImage(from: url)
                 }
