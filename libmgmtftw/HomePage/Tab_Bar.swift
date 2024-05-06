@@ -12,10 +12,11 @@ struct Tab_Bar: View {
     
     var body: some View {
         NavigationView{
+            
             ZStack {
                 
                 //Color.white.ignoresSafeArea()
-                VStack {
+                VStack(spacing:0) {
                     HStack(spacing: 0) {
                         Text("LMS")
                             .font(.largeTitle)
@@ -51,7 +52,7 @@ struct Tab_Bar: View {
                            
                             
                         }
-                    }
+                    }.padding(.top,-23.3)
                     
                     
                     
@@ -82,7 +83,7 @@ struct Tab_Bar: View {
                         .foregroundColor(.white)
                         .navigationBarHidden(true)
                         .navigationBarBackButtonHidden(true)
-                        //.preferredColorScheme(.dark)
+                        .preferredColorScheme(.dark)
                         .edgesIgnoringSafeArea(.all) // Ignore safe area to cover the entire screen
                         
                     } else {
@@ -90,7 +91,9 @@ struct Tab_Bar: View {
                         LoginView()
                     }
                     
-                }
+                }.navigationBarHidden(true)
+                    .navigationBarBackButtonHidden(true)
+                .padding(.top,-25)
             }
             .onAppear {
                 // Check user authentication state when the view appears
