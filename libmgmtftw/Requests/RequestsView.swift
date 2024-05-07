@@ -71,13 +71,13 @@ struct RequestsPage: View {
                         }
                     }
                 }
-                .navigationBarBackButtonHidden(true)
+                //.navigationBarBackButtonHidden(true)
                 .onAppear {
                     fetchUserEmail()
                     fetchRequestHistory()
                 }
             }
-            .navigationBarBackButtonHidden(true)
+           // .navigationBarBackButtonHidden(true)
         } else {
             NavigationLink(destination: LoginView(), isActive: $isLoggedIn) {
             }

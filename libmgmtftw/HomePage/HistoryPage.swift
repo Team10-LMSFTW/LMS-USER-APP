@@ -26,14 +26,7 @@ struct HistoryPage: View {
 //                    .ignoresSafeArea()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        Text("History")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding(.top, 20)
-                            .padding(.leading, 20)
-                        
-                        Spacer().frame(height: 10)
+                   
                         
                         if loans.isEmpty {
                             Spacer()
@@ -55,7 +48,7 @@ struct HistoryPage: View {
                     // Fetch data from Firebase Firestore initially
                     fetchData()
                 }
-            }
+            }.navigationBarTitle("History")
         }
     }
     
@@ -178,12 +171,13 @@ struct LoanRow: View {
             return .red
         case "accepted":
             return .green
-        case "requested":
-            return .yellow
+        
+        case "active":
+            return .green
         case "returned":
-            return .black
+            return .pink
         case "rejected":
-            return .gray
+            return .red
         default:
             return .gray // Default color
         }

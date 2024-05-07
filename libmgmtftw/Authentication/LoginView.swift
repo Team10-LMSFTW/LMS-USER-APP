@@ -40,7 +40,7 @@ struct LoginView: View {
                                             .accentColor(.white)
                                     }
                                     .frame(width: 360, height: 50)
-                                    .background(Color(hex: "AFAFB3", opacity: 0.4))
+                                    .background(Color.secondary.opacity(0.3))
                                     .cornerRadius(10.0)
                                     
                                     HStack {
@@ -60,7 +60,7 @@ struct LoginView: View {
                                             .accentColor(.white)
                                     }
                                     .frame(width: 360, height: 50)
-                                    .background(Color.primary.opacity(0.08))
+                                    .background(Color.secondary.opacity(0.3))
                                     .cornerRadius(10.0)
                                     .padding(.bottom, 10)
                                     

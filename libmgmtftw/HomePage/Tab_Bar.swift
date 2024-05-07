@@ -11,11 +11,10 @@ struct Tab_Bar: View {
  
     
     var body: some View {
-        NavigationView{
+       // NavigationView{
             
             ZStack {
-                
-                //Color.white.ignoresSafeArea()
+                Color.black.ignoresSafeArea()
                 VStack(spacing:0) {
                     HStack(spacing: 0) {
                         Text("LMS")
@@ -52,7 +51,7 @@ struct Tab_Bar: View {
                            
                             
                         }
-                    }//.padding(.top,-23.3)
+                    }.padding(.horizontal)
                     
                     
                     
@@ -91,15 +90,14 @@ struct Tab_Bar: View {
                         LoginView()
                     }
                     
-                }.navigationBarHidden(true)
-                    .navigationBarBackButtonHidden(true)
-                .padding(.top,-25)
-            }
+                }
+                //.padding(.top,-25)
+            }.navigationBarBackButtonHidden(true)
             .onAppear {
                 // Check user authentication state when the view appears
                 isLoggedIn = Auth.auth().currentUser != nil
             }
-        }
+      //  }
     }
 }
 

@@ -2,7 +2,6 @@ import SwiftUI
 import Firebase
 import FirebaseFirestoreSwift
 
-
 struct Books: Identifiable, Codable {
     @DocumentID var id: String?
     var author_name: String
@@ -25,7 +24,8 @@ struct ExplorePageView: View {
     @State private var filteredBooks: [Books] = []
     @State private var selectedBookID: String?
     @State private var selectedCategory: String?
-    
+    @State private var topBooks: [Books] = []
+
     init(userID: String, username: String) {
         self.userID = userID
         self.username = username
@@ -35,39 +35,27 @@ struct ExplorePageView: View {
         GeometryReader { geo in
             NavigationStack{
                 ZStack {
-                    
                     Color.black.ignoresSafeArea()
                     
                     VStack(alignment: .leading) {
                         ScrollView {
-                        HStack{
-                            TextField("Search", text: $searchText)
-                                .padding()
-                                .frame(width:320, height: 40)
-                                .background(Color.primary.opacity(0.8))
-                                .foregroundColor(.black)
-                                .cornerRadius(10)
-                                .padding()
-                            //Spacer()
-                            Button(action: search) {
-                                Image(systemName: "magnifyingglass.circle.fill")
-                                    .foregroundColor(.primary.opacity(0.8))
-                                
-                                    .font(.largeTitle)
-                                
+                            HStack{
+                                TextField("Search", text: $searchText)
+                                    .padding()
+                                    .frame(width:320, height: 40)
+                                    .background(Color.primary.opacity(0.8))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(10)
+                                    .padding()
+                                Button(action: search) {
+                                    Image(systemName: "magnifyingglass.circle.fill")
+                                        .foregroundColor(.primary.opacity(0.8))
+                                        .font(.largeTitle)
+                                }
+                                .padding(.leading, -15)
                             }
-                            .padding(.leading, -15)
-                        }
-                        
-                       
+                            
                             VStack(alignment: .leading) {
-//                                Text("Categories")
-//                                    .bold()
-//                                    .font(.largeTitle)
-//                                    .foregroundColor(.white)
-//                                    .padding(.horizontal)
-//                                    //.padding(.top)
-//                                
                                 CategoryScrollView(book: books, selectedCategory: $selectedCategory)
                                 
                                 Text("Collections")
@@ -75,21 +63,57 @@ struct ExplorePageView: View {
                                     .font(.largeTitle)
                                     .foregroundColor(.white)
                                     .padding(.horizontal)
-                                    //.padding(.top)
                                 
                                 TrendingCollectionsView(books: filteredBooks, selectedCategory: selectedCategory)
+                                
+                                Text("Top Books")
+                                    .bold()
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal)
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 15) {
+                                        ForEach(topBooks) { book in
+                                            NavigationLink(destination: BookDetailsView(bookID: book.id ?? "")) {
+                                                VStack {
+                                                    RemoteImage(url: book.cover_url)
+                                                        .scaledToFill()
+                                                        .aspectRatio(contentMode: .fit)
+                                                        .frame(width: 140, height: 180)
+                                                        .cornerRadius(10)
+                                                        .padding(.top)
+                                                    
+                                                    VStack(spacing: 4) {
+                                                        Text(book.book_name)
+                                                            .foregroundColor(.white)
+                                                            .lineLimit(1) // Limit to one line
+                                                            .frame(width: 140) // Fixed width
+                                                            .truncationMode(.tail) // Truncate with "..."
+                                                        Text(String(book.quantity))
+                                                            .foregroundColor(.white)
+                                                    }
+                                                    .padding([.horizontal, .bottom])
+                                                }
+                                                .background(Color.primary.opacity(0.08))
+                                                .cornerRadius(20)
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding(.horizontal)
                             }
                         }
                     }
-                }//.navigationBarHidden(true)
-               // .navigationBarBackButtonHidden(true)
+                }
+                .navigationBarTitle("Explore")
                 .onChange(of: searchText) { _ in
-                            search()
-                        }
+                    search()
+                }
                 .onAppear {
                     fetchData()
+                    fetchTopBooks()
                 }
-                
             }
         }
     }
@@ -130,8 +154,8 @@ struct ExplorePageView: View {
             let filtered = books.filter { book in
                 let lowercasedSearchText = searchText.lowercased()
                 return book.author_name.lowercased().contains(lowercasedSearchText) ||
-                       book.book_name.lowercased().contains(lowercasedSearchText) ||
-                       book.category.lowercased().contains(lowercasedSearchText)
+                    book.book_name.lowercased().contains(lowercasedSearchText) ||
+                    book.category.lowercased().contains(lowercasedSearchText)
                 // Add more properties if needed
             }
             if filtered.isEmpty {
@@ -143,7 +167,58 @@ struct ExplorePageView: View {
             }
         }
     }
+    
+    private func fetchTopBooks() {
+        let db = Firestore.firestore()
+        db.collection("loans").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching loan documents: \(error)")
+            } else {
+                guard let documents = snapshot?.documents else {
+                    print("No loan documents found.")
+                    return
+                }
 
+                // Count the occurrences of book_ref_id
+                var bookRefCounts: [String: Int] = [:]
+                for document in documents {
+                    if let bookRefId = document.get("book_ref_id") as? String {
+                        bookRefCounts[bookRefId] = (bookRefCounts[bookRefId] ?? 0) + 1
+                    }
+                }
+
+                // Sort the book_ref_id counts in descending order
+                let sortedBookRefCounts = bookRefCounts.sorted { $0.value > $1.value }
+
+                // Get the top 5 book_ref_id
+                let topBookRefIds = Array(sortedBookRefCounts.prefix(5))
+
+                // Fetch the book details for the top book_ref_id
+                fetchTopBookDetails(topBookRefIds: topBookRefIds.map { $0.key })
+            }
+        }
+    }
+
+    private func fetchTopBookDetails(topBookRefIds: [String]) {
+        let db = Firestore.firestore()
+        var topBooks: [Books] = []
+
+        for bookRefId in topBookRefIds {
+            db.collection("books").document(bookRefId).getDocument { snapshot, error in
+                if let error = error {
+                    print("Error fetching book document: \(error)")
+                } else {
+                    guard let bookData = snapshot?.data(), let book = try? snapshot?.data(as: Books.self) else {
+                        print("Book data not found.")
+                        return
+                    }
+                    topBooks.append(book)
+                    // Update the UI with the top books
+                    self.topBooks = topBooks
+                }
+            }
+        }
+    }
 }
 
 struct ExplorePageView_Previews: PreviewProvider {
@@ -151,7 +226,6 @@ struct ExplorePageView_Previews: PreviewProvider {
         ExplorePageView(userID: "your_user_id_here", username: "your_username_here")
     }
 }
-
 
 struct TrendingCollectionsView: View {
     var books: [Books]
@@ -170,7 +244,7 @@ struct TrendingCollectionsView: View {
                                     .frame(width: 140, height: 180)
                                     .cornerRadius(10)
                                     .padding(.top)
-
+                                
                                 VStack(spacing: 4) {
                                     Text(book.book_name)
                                         .foregroundColor(.white)
@@ -184,15 +258,13 @@ struct TrendingCollectionsView: View {
                             }
                             .background(Color.primary.opacity(0.08))
                             .cornerRadius(20)
-                                        }
+                        }
                     }
                 }
             }
         }.padding(.horizontal)
     }
 }
-
-
 
 struct RemoteImage: View {
     let url: String
@@ -244,7 +316,8 @@ struct CategoryScrollView: View {
                     ForEach(categories.prefix(displayedCategoriesCount), id: \.self) { category in // Display only 'displayedCategoriesCount' categories initially
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.primary.opacity(0.08))
+                                .fill(selectedCategory == category ? Color.primary.opacity(0.5) : Color.primary.opacity(0.08))
+                                                                
                                 .frame(width: 92, height: 32)
                                 .onTapGesture {
                                     selectedCategory = category == "All Categories" ? nil : category
