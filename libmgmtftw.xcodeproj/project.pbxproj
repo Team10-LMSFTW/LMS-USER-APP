@@ -46,6 +46,7 @@
 		4CEFCA7B2BD6359400CC0B4F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CEFCA7A2BD6359400CC0B4F /* GoogleService-Info.plist */; };
 		4CEFCA802BD636B700CC0B4F /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */; };
 		4CF461772BEB2D6E009CA495 /* ViewBookDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF461762BEB2D6E009CA495 /* ViewBookDetail.swift */; };
+		4CF461792BEB4E10009CA495 /* CommonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF461782BEB4E10009CA495 /* CommonDetailView.swift */; };
 		84B4E1E12BE409CB007F7807 /* AddRequestForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4E1E02BE409CB007F7807 /* AddRequestForm.swift */; };
 		84B4E1E32BE40A20007F7807 /* RequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4E1E22BE40A20007F7807 /* RequestsView.swift */; };
 		84B4E1E52BE49578007F7807 /* UserDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4E1E42BE49578007F7807 /* UserDashboardView.swift */; };
@@ -103,6 +104,7 @@
 		4CEFCA7A2BD6359400CC0B4F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CEFCA7F2BD636B700CC0B4F /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		4CF461762BEB2D6E009CA495 /* ViewBookDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBookDetail.swift; sourceTree = "<group>"; };
+		4CF461782BEB4E10009CA495 /* CommonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDetailView.swift; sourceTree = "<group>"; };
 		84B4E1E02BE409CB007F7807 /* AddRequestForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRequestForm.swift; sourceTree = "<group>"; };
 		84B4E1E22BE40A20007F7807 /* RequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsView.swift; sourceTree = "<group>"; };
 		84B4E1E42BE49578007F7807 /* UserDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				4CF461762BEB2D6E009CA495 /* ViewBookDetail.swift */,
 				84B4E1E42BE49578007F7807 /* UserDashboardView.swift */,
 				4C95CEA32BE93CF000417BE5 /* UserDashboardView_New.swift */,
+				4CF461782BEB4E10009CA495 /* CommonDetailView.swift */,
 				4C95CEAB2BE95EBE00417BE5 /* DonutView.swift */,
 				4C95CEA92BE94DEC00417BE5 /* HomePageViewModel.swift */,
 				4C95CEA52BE9400C00417BE5 /* NotificationView.swift */,
@@ -438,6 +441,7 @@
 				4C84F3BA2BDA09E700AEB7A9 /* BooklistView.swift in Sources */,
 				4C84F3C72BDBB53A00AEB7A9 /* BorrowPageUI.swift in Sources */,
 				4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */,
+				4CF461792BEB4E10009CA495 /* CommonDetailView.swift in Sources */,
 				4C95CEA62BE9400C00417BE5 /* NotificationView.swift in Sources */,
 				4C84F3C52BDAD4B700AEB7A9 /* BookDetailsView.swift in Sources */,
 				4C84F3B82BD92A0F00AEB7A9 /* color.swift in Sources */,

@@ -12,7 +12,7 @@ struct LoginView: View {
     @AppStorage("userID") private var userID: String = ""
 
     var body: some View {
-        NavigationView {
+        //NavigationView {
             ZStack {
                 Color.black.ignoresSafeArea()
                 VStack(alignment: .leading, spacing: 15) {
@@ -131,7 +131,7 @@ struct LoginView: View {
                 }
             }
             }
-        }
+        //}
     }
 
     func login() {

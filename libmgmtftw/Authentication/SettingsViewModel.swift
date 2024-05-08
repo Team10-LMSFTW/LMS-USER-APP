@@ -29,7 +29,7 @@ final class SettingsViewModel:ObservableObject{
                     window.makeKeyAndVisible()
                 }
             } else {
-                let loginView = CarouselView()
+                let loginView = Tab_Bar()
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: loginView)
                     window.makeKeyAndVisible()

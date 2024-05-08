@@ -133,7 +133,7 @@ struct UserDashboardView_New: View {
                             .padding(.leading, 20))
                         {
                             HStack{
-                                NavigationLink(destination: EmptyView()){
+                                NavigationLink(destination: CommonDetailView(detailType: .author("\(topAuthor)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
                                         .frame(width:165, height: 160)
@@ -171,7 +171,7 @@ struct UserDashboardView_New: View {
                                 }
                                 
                                 Spacer()
-                                NavigationLink(destination: EmptyView()){
+                                NavigationLink(destination: CommonDetailView(detailType: .genre("\(topGenre)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
                                         .frame(width:165,height: 160)
@@ -209,7 +209,7 @@ struct UserDashboardView_New: View {
                             }
                             
                             HStack{
-                                NavigationLink(destination: EmptyView()){
+                                NavigationLink(destination: CommonDetailView(detailType: .membership("\(membership_type)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
                                         .frame(width:165, height: 160)
@@ -248,7 +248,7 @@ struct UserDashboardView_New: View {
                                 }
                                 
                                 Spacer()
-                                NavigationLink(destination: EmptyView()){
+                                NavigationLink(destination: CommonDetailView(detailType: .penalty("\(totalPendingPenalty)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
                                         .frame(width:165,height: 160)
