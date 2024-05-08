@@ -21,11 +21,11 @@ struct HistoryPage: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.black.ignoresSafeArea()
+               // Color.black.ignoresSafeArea()
 //                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
 //                    .ignoresSafeArea()
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: -12) {
                    
                         
                         if loans.isEmpty {
@@ -140,7 +140,7 @@ struct LoanRow: View {
                         Text("\(loan.book_name)") // Display book_name
                             .font(.title2)
                             .lineLimit(2)
-                            .foregroundStyle(Color.white)
+                            .foregroundStyle(Color.primary)
                         Spacer()
                         
                         ZStack {
@@ -160,7 +160,7 @@ struct LoanRow: View {
                     Spacer()
                     Text("\(formattedDate(from: loan.lending_date))")
                         .font(.subheadline)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(Color.secondary)
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 10)
@@ -173,11 +173,14 @@ struct LoanRow: View {
         switch status {
         case "due":
             return .red
+        case "requested":
+            return .yellow
         case "accepted":
             return .green
-        
         case "active":
             return .green
+        case "inactive":
+            return .mint
         case "returned":
             return .pink
         case "rejected":

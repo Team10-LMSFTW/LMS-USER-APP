@@ -18,14 +18,14 @@ struct RequestsPage: View {
         if isLoggedIn {
             NavigationStack {
                 ZStack {
-                    Color.black.ignoresSafeArea()
+                  //  Color.black.ignoresSafeArea()
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
                             Text("Request New Book")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(.primary)
                                 .padding(.top, 20)
                                 .padding(.leading, 20)
                             
@@ -35,7 +35,7 @@ struct RequestsPage: View {
                                 Spacer()
                                 Text("No requests pending, press Add(+) to make one today!")
                                     .font(.title3)
-                                    .foregroundColor(.white.opacity(0.6))
+                                    .foregroundColor(.secondary.opacity(0.6))
                                     .padding()
                             } else {
                                 ForEach(requestHistory) { request in
@@ -140,10 +140,10 @@ struct RequestHistoryRow: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("\(request.name)") // Display book name
                     .font(.headline)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(Color.primary)
                 Text("by \(request.author)") // Display author
                     .font(.subheadline)
-                    .foregroundStyle(Color.white.opacity(0.7))
+                    .foregroundStyle(Color.primary.opacity(0.7))
             }
             Spacer()
             Spacer()
@@ -157,7 +157,7 @@ struct RequestHistoryRow: View {
 
                     Text("\(requestStatusString)")
                         .font(.caption)
-                        .foregroundColor(.white)
+                        .foregroundColor(.secondary)
                 }
                 .padding(.horizontal, 8)
                 .padding(.leading, 18)
@@ -308,34 +308,3 @@ struct RequestsPage_Previews: PreviewProvider {
         RequestsPage()
     }
 }
-//
-//struct RequestHistoryRow: View {
-//    var request: BookRequest
-//
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            Text("Book Name: \(request.bookName)")
-//                .font(.headline)
-//                .foregroundColor(.black)
-//
-//            Text("Author: \(request.author)")
-//                .font(.subheadline)
-//                .foregroundColor(.black)
-//
-//            Text("Status: \(request.status == 0 ? "Requested" : (request.status == 1 ? "Approved" : "Rejected"))")
-//                .font(.subheadline)
-//                .foregroundColor(.black)
-//        }
-//        .padding(.vertical, 10)
-//        .padding(.horizontal)
-//    }
-//}
-//
-////struct Bookrequest: Identifiable { // Conforming to Identifiable
-////    let id: UUID
-////    let bookName: String
-////    let author: String
-////    let description: String?
-////    let edition: String?
-////    let status: Int
-////}

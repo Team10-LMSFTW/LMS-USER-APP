@@ -25,7 +25,7 @@ struct libmgmtftwApp: App {
     var body: some Scene {
         WindowGroup {
             CarouselView()
-                .preferredColorScheme(.dark)
+               // .preferredColorScheme(.dark)
         }
     }
 }

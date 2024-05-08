@@ -11,7 +11,7 @@ struct BookDetailsView: View {
     var body: some View {
         //NavigationStack{
             ZStack {
-                Color.black.ignoresSafeArea()
+                //Color.black.ignoresSafeArea()
                 
                 if let book = book {
                     ScrollView {
@@ -109,7 +109,7 @@ struct RemoteImage3: View {
                     Text(book.book_name)
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                     
                    // StarRatingView(rating: 4.5)
                     
@@ -119,7 +119,7 @@ struct RemoteImage3: View {
                     
                     Text("Genre: \(book.category)")
                         .font(.subheadline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                     
                    
                 }
@@ -142,6 +142,7 @@ struct BookDetailInfoView: View {
             HStack {
                 Text("Author: \(book.author_name)")
                 .font(.title2)
+                .foregroundStyle(Color.primary)
             
 //                Spacer()
 //                Button(action: {
@@ -171,10 +172,11 @@ struct BookDetailInfoView: View {
                     }
                 }) {
                     Image(systemName: "square.and.arrow.up")
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                 }
             }.padding()
             Divider()
+                .foregroundColor(.secondary)
                 
 
 //            Text("Overview:")
@@ -224,7 +226,7 @@ struct ActionButtonsView: View {
                 isShowingBorrowSheet.toggle()
             }) {
                 Text("Borrow now")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding(.vertical, 10)
                     .frame(maxWidth: .infinity)
                     .background(Color.primary.opacity(0.08)) // Grey background color with opacity

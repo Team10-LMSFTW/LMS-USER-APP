@@ -14,12 +14,12 @@ struct BorrowPageUI: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.black.ignoresSafeArea()
+               // Color.black.ignoresSafeArea()
                 
                 VStack {
                     Text("Book Confirmation")
                         .font(.title)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.primary)
                         .fontWeight(.bold)
                         .padding(.top, 10)
                     
@@ -35,18 +35,18 @@ struct BorrowPageUI: View {
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text("Select Date:")
-                                        .foregroundStyle(.white)
+                                        .foregroundStyle(.primary)
                                         .font(.headline)
                                     HStack {
                                         Text(selectedDate, style: .date)
-                                            .foregroundStyle(.white)
+                                            .foregroundStyle(.secondary)
                                         
                                         Spacer()
                                         Button(action: {
                                             isDatePickerVisible.toggle()
                                         }) {
                                             Image(systemName: "calendar")
-                                                .foregroundStyle(.white)
+                                                .foregroundStyle(.secondary)
                                         }
                                         
                                     }
@@ -75,7 +75,7 @@ struct BorrowPageUI: View {
                                     updateLoanInformation()
                                 }) {
                                     Text(book.quantity > 0 ? "Confirm" : "Book isn't available")
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.primary)
                                         .padding(.vertical, 10)
                                         .frame(maxWidth: .infinity)
                                         .background(book.quantity > 0 ? Color(hex: "FD5F00", opacity: 0.8) : Color.red.opacity(0.2))

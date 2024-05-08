@@ -35,7 +35,7 @@ struct ExplorePageView: View {
         GeometryReader { geo in
             NavigationStack{
                 ZStack {
-                    Color.black.ignoresSafeArea()
+                   // Color.black.ignoresSafeArea()
                     
                     VStack(alignment: .leading) {
                         ScrollView {
@@ -43,13 +43,13 @@ struct ExplorePageView: View {
                                 TextField("Search", text: $searchText)
                                     .padding()
                                     .frame(width:320, height: 40)
-                                    .background(Color.primary.opacity(0.8))
-                                    .foregroundColor(.black)
+                                    .background(Color.primary.opacity(0.1))
+                                    .foregroundColor(.secondary)
                                     .cornerRadius(10)
                                     .padding()
                                 Button(action: search) {
                                     Image(systemName: "magnifyingglass.circle.fill")
-                                        .foregroundColor(.primary.opacity(0.8))
+                                        .foregroundColor(.primary.opacity(0.3))
                                         .font(.largeTitle)
                                 }
                                 .padding(.leading, -15)
@@ -61,7 +61,7 @@ struct ExplorePageView: View {
                                 Text("Collections")
                                     .bold()
                                     .font(.largeTitle)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.secondary)
                                     .padding(.horizontal)
                                 
                                 TrendingCollectionsView(books: filteredBooks, selectedCategory: selectedCategory)
@@ -69,7 +69,7 @@ struct ExplorePageView: View {
                                 Text("Top Books")
                                     .bold()
                                     .font(.largeTitle)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.secondary)
                                     .padding(.horizontal)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
@@ -86,12 +86,12 @@ struct ExplorePageView: View {
                                                     
                                                     VStack(spacing: 4) {
                                                         Text(book.book_name)
-                                                            .foregroundColor(.white)
+                                                            .foregroundColor(.primary)
                                                             .lineLimit(1) // Limit to one line
                                                             .frame(width: 140) // Fixed width
                                                             .truncationMode(.tail) // Truncate with "..."
                                                         Text(String(book.quantity))
-                                                            .foregroundColor(.white)
+                                                            .foregroundColor(.secondary)
                                                     }
                                                     .padding([.horizontal, .bottom])
                                                 }
@@ -247,12 +247,12 @@ struct TrendingCollectionsView: View {
                                 
                                 VStack(spacing: 4) {
                                     Text(book.book_name)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.primary)
                                         .lineLimit(1) // Limit to one line
                                         .frame(width: 140) // Fixed width
                                         .truncationMode(.tail) // Truncate with "..."
                                     Text(String(book.quantity))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.secondary)
                                 }
                                 .padding([.horizontal, .bottom])
                             }
@@ -318,12 +318,12 @@ struct CategoryScrollView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(selectedCategory == category ? Color.primary.opacity(0.5) : Color.primary.opacity(0.08))
                                                                 
-                                .frame(width: 92, height: 32)
+                                .frame(width: 120, height: 32)
                                 .onTapGesture {
                                     selectedCategory = category == "All Categories" ? nil : category
                                 }
                             Text(category)
-                                .foregroundColor(.white)
+                                .foregroundColor(.primary)
                                 .font(.footnote)
                         }
                     }
@@ -340,19 +340,19 @@ struct CategoryScrollView: View {
                             .frame(width: 45, height: 28)
                             .background(Color.primary.opacity(0.08))
                             .cornerRadius(80.0)
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                     }
                     .padding(.leading, 8)
                 }
                 .padding()
             }
             
-            if isExpanded {
-                List(categories.dropFirst(3), id: \.self) { category in // Show other categories in a list if expanded
-                    Text(category)
-                }
-                .padding()
-            }
+//            if isExpanded {
+//                List(categories.dropFirst(3), id: \.self) { category in // Show other categories in a list if expanded
+//                    Text(category)
+//                }
+//                .padding()
+//            }
         }
     }
 

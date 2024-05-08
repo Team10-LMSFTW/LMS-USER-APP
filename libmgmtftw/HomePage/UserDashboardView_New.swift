@@ -19,7 +19,7 @@ struct UserDashboardView_New: View {
     var body: some View {
         NavigationView {
             ScrollView{
-                VStack(alignment:.leading,spacing: -5) {
+                VStack(alignment:.leading,spacing: -35) {
                     
                     //Day, Date, Hi UserName
                     HomePageView1()
@@ -29,7 +29,9 @@ struct UserDashboardView_New: View {
                     
                     Section(header:
                                 Text("Summary")
-                        .foregroundStyle(Color.primary)
+                        .font(.title3)
+                        .bold()
+                        .foregroundStyle(Color.secondary)
                         .padding(.leading, 20))
                     {
                         NavigationLink(destination: ViewBookDetail(bookID: book_id )){
@@ -44,7 +46,7 @@ struct UserDashboardView_New: View {
                                             
                                             Text("\(Image(systemName: "bookmark.circle")) Currently Reading")
                                                 .font(.title3)
-                                                .foregroundStyle(Color.yellow)
+                                                .foregroundStyle(Color.primary)
                                                 .padding(.top,40)
                                                 .padding(.leading,-10)
                                             Spacer()
@@ -54,21 +56,21 @@ struct UserDashboardView_New: View {
                                                     Text("\(currentBookName)")
                                                         .lineLimit(1)
                                                         .font(.title3)
-                                                        .foregroundStyle(Color.yellow)
+                                                        .foregroundStyle(Color.blue)
                                                         .bold()
                                                     //.padding(.leading,20)
-                                                        .padding(.bottom,40)
+                                                        .padding(.bottom,20)
                                                     
                                                     Text("\(currentBookAuthor)")
                                                         .font(.footnote)
-                                                        .foregroundStyle(Color.yellow)
+                                                        .foregroundStyle(Color.blue)
                                                     //.padding(.leading,20)
                                                         .padding(.top,-30)
                                                 }
                                                 
                                             }
                                         }.padding()
-                                                
+                                                Spacer()
                                                 RemoteImage2(url:
                                                                 "\(currentBookCover)") // Display cover image
                                                 .aspectRatio(contentMode: .fill)
@@ -95,7 +97,7 @@ struct UserDashboardView_New: View {
                                             
                                             Text("\(Image(systemName: "book")) Books Read")
                                                 .font(.title3)
-                                                .foregroundStyle(Color.green)
+                                                .foregroundStyle(Color.primary)
                                                 .padding()
                                                 .padding(.leading,-25)
                                             
@@ -104,21 +106,21 @@ struct UserDashboardView_New: View {
                                                 VStack(alignment:.leading){
                                                     Text("\(booksBorrowed) / \(booksBorrowedTotal)")
                                                         .font(.title2)
-                                                        .foregroundStyle(Color.green)
+                                                        .foregroundStyle(Color.purple)
                                                         .bold()
                                                     //.padding(.leading,20)
                                                         .padding(.bottom,40)
                                                     
                                                     Text("Books Returned / Borrowed")
                                                         .font(.footnote)
-                                                        .foregroundStyle(Color.green)
+                                                        .foregroundStyle(Color.purple)
                                                     //.padding(.leading,20)
                                                         .padding(.top,-30)
                                                 }
                                             }
                                             
                                         }
-                                        DonutView(fractionFilled: Double(booksBorrowed)/Double(booksBorrowedTotal), fillColor: .green)
+                                        DonutView(fractionFilled: Double(booksBorrowed)/Double(booksBorrowedTotal), fillColor: .purple)
                                             .padding()
                                         
                                         
@@ -129,14 +131,16 @@ struct UserDashboardView_New: View {
                         
                         Section(header:
                                     Text("Reccomendations")
-                            .foregroundStyle(Color.primary)
+                            .font(.title3)
+                            .bold()
+                            .foregroundStyle(Color.secondary)
                             .padding(.leading, 20))
                         {
                             HStack{
                                 NavigationLink(destination: CommonDetailView(detailType: .author("\(topAuthor)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165, height: 160)
+                                        .frame(width:165, height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
@@ -145,7 +149,7 @@ struct UserDashboardView_New: View {
                                                     
                                                     Text("\(Image(systemName: "medal.fill")) Author")
                                                         .font(.title3)
-                                                        .foregroundStyle(Color.blue)
+                                                        .foregroundStyle(Color.primary)
                                                         .padding()
                                                         .padding(.leading,-5)
                                                     
@@ -154,7 +158,7 @@ struct UserDashboardView_New: View {
                                                         VStack(alignment:.leading){
                                                             Text("\(topAuthor)")
                                                                 .font(.title3)
-                                                                .foregroundStyle(Color.blue)
+                                                                .foregroundStyle(Color.orange)
                                                                 .bold()
                                                             //.padding(.leading,20)
                                                                 .padding(.bottom,40)
@@ -174,7 +178,7 @@ struct UserDashboardView_New: View {
                                 NavigationLink(destination: CommonDetailView(detailType: .genre("\(topGenre)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165,height: 160)
+                                        .frame(width:165,height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
@@ -183,7 +187,7 @@ struct UserDashboardView_New: View {
                                                     
                                                     Text("\(Image(systemName: "medal.fill")) Genre")
                                                         .font(.title3)
-                                                        .foregroundStyle(Color.purple)
+                                                        .foregroundStyle(Color.primary)
                                                         .padding()
                                                         .padding(.leading,-5)
                                                     
@@ -192,7 +196,7 @@ struct UserDashboardView_New: View {
                                                         VStack(alignment:.leading){
                                                             Text("\(topGenre)")
                                                                 .font(.title3)
-                                                                .foregroundStyle(Color.purple)
+                                                                .foregroundStyle(Color.indigo)
                                                                 .bold()
                                                                 .padding(.leading,15)
                                                             //.padding(.leading,20)
@@ -212,7 +216,7 @@ struct UserDashboardView_New: View {
                                 NavigationLink(destination: CommonDetailView(detailType: .membership("\(membership_type)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165, height: 160)
+                                        .frame(width:165, height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
@@ -221,7 +225,7 @@ struct UserDashboardView_New: View {
                                                     
                                                     Text("\(Image(systemName: "person.crop.circle")) Membership")
                                                         .font(.title3)
-                                                        .foregroundStyle(Color.orange)
+                                                        .foregroundStyle(Color.primary)
                                                         .padding()
                                                         .padding(.leading,-10)
                                                     
@@ -231,7 +235,7 @@ struct UserDashboardView_New: View {
                                                             Text("\(membership_type)")
                                                                 .textCase(.uppercase)
                                                                 .font(.title2)
-                                                                .foregroundStyle(Color.orange)
+                                                                .foregroundStyle(Color.mint)
                                                                 .bold()
                                                             //.padding(.leading,20)
                                                                 .padding(.bottom,40)
@@ -251,7 +255,7 @@ struct UserDashboardView_New: View {
                                 NavigationLink(destination: CommonDetailView(detailType: .penalty("\(totalPendingPenalty)"))){
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165,height: 160)
+                                        .frame(width:165,height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
@@ -260,7 +264,7 @@ struct UserDashboardView_New: View {
                                                     
                                                     Text("\(Image(systemName: "indianrupeesign")) Penalty")
                                                         .font(.title3)
-                                                        .foregroundStyle(Color.red)
+                                                        .foregroundStyle(Color.primary)
                                                         .padding()
                                                         .padding(.leading,-40)
                                                     
@@ -269,7 +273,7 @@ struct UserDashboardView_New: View {
                                                         VStack(alignment:.leading){
                                                             Text("\(totalPendingPenalty)")
                                                                 .font(.title2)
-                                                                .foregroundStyle(Color.red)
+                                                                .foregroundStyle(Color.green)
                                                                 .bold()
                                                                 .padding(.leading,-25)
                                                             //.padding(.leading,20)
@@ -288,7 +292,7 @@ struct UserDashboardView_New: View {
                                     NavigationLink(destination: ExplorePageView(userID: "", username: "")){
                                         RoundedRectangle(cornerRadius: 20)
                                             .fill(Color.primary.opacity(0.08))
-                                            .frame(width:165, height: 160)
+                                            .frame(width:165, height: 120)
                                             .padding(10)
                                             .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                             .overlay(
@@ -297,7 +301,7 @@ struct UserDashboardView_New: View {
                                                         
                                                         Text("\(Image(systemName: "magnifyingglass.circle")) Explore")
                                                             .font(.title3)
-                                                            .foregroundStyle(Color.green)
+                                                            .foregroundStyle(Color.primary)
                                                             .padding()
                                                             .padding(.leading,-40)
                                                         
@@ -327,7 +331,7 @@ struct UserDashboardView_New: View {
                                     NavigationLink(destination: RequestsPage()){
                                         RoundedRectangle(cornerRadius: 20)
                                             .fill(Color.primary.opacity(0.08))
-                                            .frame(width:165,height: 160)
+                                            .frame(width:165,height: 120)
                                             .padding(10)
                                             .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                             .overlay(
@@ -336,7 +340,7 @@ struct UserDashboardView_New: View {
                                                         
                                                         Text("\(Image(systemName: "books.vertical.circle")) Request")
                                                             .font(.title3)
-                                                            .foregroundStyle(Color.yellow)
+                                                            .foregroundStyle(Color.primary)
                                                             .padding()
                                                             .padding(.leading,-40)
                                                         
@@ -345,7 +349,7 @@ struct UserDashboardView_New: View {
                                                             VStack(alignment:.leading){
                                                                 Text(">")
                                                                     .font(.title2)
-                                                                    .foregroundStyle(Color.yellow)
+                                                                    .foregroundStyle(Color.mint)
                                                                     .bold()
                                                                     .padding(.leading,-25)
                                                                 //.padding(.leading,20)

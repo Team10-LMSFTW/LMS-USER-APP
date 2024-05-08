@@ -14,18 +14,18 @@ struct Tab_Bar: View {
        // NavigationView{
             
             ZStack {
-                Color.black.ignoresSafeArea()
+                //Color.black.ignoresSafeArea()
                 VStack(spacing:0) {
                     HStack(spacing: 0) {
                         Text("LMS")
-                            .font(.largeTitle)
+                            .font(.title3)
                             .bold()
                             .foregroundColor(.green)
                             .padding(.leading, 20)
                         
                         Text("10")
                             .foregroundStyle(Color.primary)
-                            .font(.largeTitle)
+                            .font(.title3)
                             .bold()
                         
                         Spacer()
@@ -35,7 +35,7 @@ struct Tab_Bar: View {
                                 NotificationView()
                             }label: {
                                 Image(systemName: "bell")
-                                    .font(.title)
+                                    .font(.title3)
                                     .foregroundColor(.primary)
                                     .padding(.trailing,20)
                             }
@@ -44,7 +44,7 @@ struct Tab_Bar: View {
                                 SettingsView(showSignInView: $showSignInView)
                             }label: {
                                 Image(systemName: "gearshape")
-                                    .font(.title)
+                                    .font(.title3)
                                     .foregroundColor(.primary)
                                     .padding(.trailing,20)
                             }
@@ -82,7 +82,7 @@ struct Tab_Bar: View {
                         .foregroundColor(.white)
                         .navigationBarHidden(true)
                         .navigationBarBackButtonHidden(true)
-                        .preferredColorScheme(.dark)
+                        //.preferredColorScheme(.dark)
                         .edgesIgnoringSafeArea(.all) // Ignore safe area to cover the entire screen
                         
                     } else {
