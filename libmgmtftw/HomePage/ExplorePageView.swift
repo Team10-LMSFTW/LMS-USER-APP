@@ -30,7 +30,7 @@ struct ExplorePageView: View {
         self.userID = userID
         self.username = username
     }
-
+ 
     var body: some View {
         GeometryReader { geo in
             NavigationStack{

@@ -14,6 +14,7 @@ struct UserDashboardView_New: View {
     @State private var topAuthor: String = "Data Inadequate"
     @State private var currentBookCover: String = ""
     @State private var membership_type: String = ""
+    @State private var book_id: String = ""
     
     var body: some View {
         NavigationView {
@@ -22,6 +23,7 @@ struct UserDashboardView_New: View {
                     
                     //Day, Date, Hi UserName
                     HomePageView1()
+                        .padding(.leading,20)
                     
                     
                     
@@ -30,7 +32,7 @@ struct UserDashboardView_New: View {
                         .foregroundStyle(Color.primary)
                         .padding(.leading, 20))
                     {
-                        NavigationLink(destination: EmptyView()){
+                        NavigationLink(destination: ViewBookDetail(bookID: book_id )){
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.primary.opacity(0.08))
                                 .frame(width:350,height: 160)
@@ -38,20 +40,20 @@ struct UserDashboardView_New: View {
                                 .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                 .overlay(
                                     HStack{
-                                        VStack(alignment:.leading,spacing: 5){
+                                        VStack(alignment:.leading,spacing: 3){
                                             
                                             Text("\(Image(systemName: "bookmark.circle")) Currently Reading")
                                                 .font(.title3)
                                                 .foregroundStyle(Color.yellow)
-                                                .padding()
-                                                .padding(.leading,-25)
-                                            
+                                                .padding(.top,40)
+                                                .padding(.leading,-10)
+                                            Spacer()
                                             
                                             HStack{
                                                 VStack(alignment:.leading){
                                                     Text("\(currentBookName)")
                                                         .lineLimit(1)
-                                                        .font(.title2)
+                                                        .font(.title3)
                                                         .foregroundStyle(Color.yellow)
                                                         .bold()
                                                     //.padding(.leading,20)
@@ -63,18 +65,21 @@ struct UserDashboardView_New: View {
                                                     //.padding(.leading,20)
                                                         .padding(.top,-30)
                                                 }
-                                            }.padding()
+                                                
+                                            }
+                                        }.padding()
+                                                
+                                                RemoteImage2(url:
+                                                                "\(currentBookCover)") // Display cover image
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 90, height: 120)
+                                                .cornerRadius(10)
+                                                .padding()
                                             
-                                        }
-                                        RemoteImage2(url:
-                                                        "\(currentBookCover)") // Display cover image
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 90, height: 120)
-                                        .cornerRadius(10)
-                                        .padding(/*@START_MENU_TOKEN@*/EdgeInsets()/*@END_MENU_TOKEN@*/)
                                         
                                         
-                                    }
+                                        
+                                    }.padding()
                                 )
                         }
                         
@@ -113,7 +118,7 @@ struct UserDashboardView_New: View {
                                             }
                                             
                                         }
-                                        DonutView(fractionFilled: 4/5, fillColor: .green)
+                                        DonutView(fractionFilled: Double(booksBorrowed)/Double(booksBorrowedTotal), fillColor: .green)
                                             .padding()
                                         
                                         
@@ -292,7 +297,7 @@ struct UserDashboardView_New: View {
                                                         
                                                         Text("\(Image(systemName: "magnifyingglass.circle")) Explore")
                                                             .font(.title3)
-                                                            .foregroundStyle(Color.yellow)
+                                                            .foregroundStyle(Color.green)
                                                             .padding()
                                                             .padding(.leading,-40)
                                                         
@@ -301,7 +306,7 @@ struct UserDashboardView_New: View {
                                                             VStack(alignment:.leading){
                                                                 Text(Image(systemName: "ellipsis"))
                                                                     .font(.largeTitle)
-                                                                    .foregroundStyle(Color.yellow)
+                                                                    .foregroundStyle(Color.green)
                                                                     .bold()
                                                                 //.padding(.leading,20)
                                                                     .padding(.bottom,40)
@@ -331,7 +336,7 @@ struct UserDashboardView_New: View {
                                                         
                                                         Text("\(Image(systemName: "books.vertical.circle")) Request")
                                                             .font(.title3)
-                                                            .foregroundStyle(Color.green)
+                                                            .foregroundStyle(Color.yellow)
                                                             .padding()
                                                             .padding(.leading,-40)
                                                         
@@ -340,7 +345,7 @@ struct UserDashboardView_New: View {
                                                             VStack(alignment:.leading){
                                                                 Text(">")
                                                                     .font(.title2)
-                                                                    .foregroundStyle(Color.green)
+                                                                    .foregroundStyle(Color.yellow)
                                                                     .bold()
                                                                     .padding(.leading,-25)
                                                                 //.padding(.leading,20)
@@ -411,7 +416,8 @@ struct UserDashboardView_New: View {
         
         db.collection("loans")
             .whereField("user_id", isEqualTo: userID)
-            .whereField("loan_status", isEqualTo: "returned")
+            .whereField("loan_status", in: ["inactive", "due"])
+            
             .getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error fetching loans: \(error.localizedDescription)")
@@ -426,20 +432,20 @@ struct UserDashboardView_New: View {
                 print("Number of books borrowed: \(documents.count)")
             }
         
-        db.collection("loans")
-            .whereField("user_id", isEqualTo: userID)
-            .getDocuments { (snapshot, error) in
-                if let error = error {
-                    print("Error fetching loans: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let documents = snapshot?.documents else {
-                    print("No loan documents found")
-                    return
-                }
-                booksBorrowedTotal = documents.count
-                print("Number of books returned: \(documents.count)")
+        db.collection("books")
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        print("Error fetching books: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let documents = snapshot?.documents else {
+                        print("No book documents found")
+                        return
+                    }
+                    
+                    booksBorrowedTotal = documents.count
+                    print("Total number of books: \(documents.count)")
             }
     }
     func fetchTotalPendingPenalty() {
@@ -480,7 +486,7 @@ struct UserDashboardView_New: View {
         let db = Firestore.firestore()
         db.collection("loans")
             .whereField("user_id", isEqualTo: userID)
-            .whereField("loan_status", isEqualTo: "accepted")
+            .whereField("loan_status", isEqualTo: "active")
             .getDocuments { snapshot, error in
                 if let error = error {
                     print("Error fetching documents: \(error)")
@@ -497,7 +503,7 @@ struct UserDashboardView_New: View {
                         print("Book reference ID not found.")
                         return
                     }
-                    print(bookRefID)
+                   // print(bookRefID)
                     
                     db.collection("books").document(bookRefID).getDocument { bookSnapshot, bookError in
                         if let bookError = bookError {
@@ -517,6 +523,7 @@ struct UserDashboardView_New: View {
                         currentBookName = bookName
                         currentBookAuthor = authorName
                         currentBookCover = coverURL
+                        book_id = bookRefID
                     }
                 }
             }

@@ -19,8 +19,9 @@ struct BookDetailsView: View {
                             
                             BookHeaderView(book: book)
                             BookDetailInfoView(book: book)
+                            
                             Spacer()
-                            ActionButtonsView(bookID: bookID)
+                            ActionButtonsView(book: book, bookID: bookID)
                         }
                         .padding()
                     }
@@ -57,14 +58,48 @@ struct BookDetailsView: View {
         }
     }
 }
+struct RemoteImage3: View {
+    let url: String
+    @State private var image: UIImage?
 
+    var body: some View {
+        if let image = image {
+            Image(uiImage: image)
+                .resizable()
+                .cornerRadius(2)
+                .frame(width: 140, height: 180)
+        } else {
+            ProgressView()
+                .foregroundColor(.white)
+                .onAppear {
+                    loadImage(from: url)
+                }
+        }
+    }
+
+    private func loadImage(from url: String) {
+        guard let imageURL = URL(string: url) else {
+            return
+        }
+
+        URLSession.shared.dataTask(with: imageURL) { data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+            }
+        }.resume()
+    }
+}
     struct BookHeaderView: View {
         let book: Books
         
         var body: some View {
             HStack(spacing: 15) {
                 Spacer()
-                RemoteImage(url: book.cover_url)
+                RemoteImage3(url: book.cover_url)
                 //.resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 120, height: 200)
@@ -76,27 +111,17 @@ struct BookDetailsView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
-                    StarRatingView(rating: 4.5)
+                   // StarRatingView(rating: 4.5)
                     
-                    Text("Quantity : \(book.quantity)")
-                        .font(.caption)
-                        .foregroundColor(.white)
+//                    Text("Quantity : \(book.quantity)")
+//                        .font(.caption)
+//                        .foregroundColor(.white)
                     
                     Text("Genre: \(book.category)")
                         .font(.subheadline)
                         .foregroundColor(.white)
                     
-                    if book.quantity != 0 {
-                        Text("Available")
-                            .font(.subheadline)
-                            .foregroundColor(.green)
-                            .padding(.top, 5)
-                    } else {
-                        Text("Unavailable")
-                            .font(.subheadline)
-                            .foregroundColor(.red)
-                            .padding(.top, 5)
-                    }
+                   
                 }
                 Spacer()
             }
@@ -118,15 +143,15 @@ struct BookDetailInfoView: View {
                 Text("Author: \(book.author_name)")
                 .font(.title2)
             
+//                Spacer()
+//                Button(action: {
+//                    isFavorite.toggle()
+//                }) {
+//                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+//                        .foregroundColor(isFavorite ? .red : .white)
+//                }
+//                .padding()
                 Spacer()
-                Button(action: {
-                    isFavorite.toggle()
-                }) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .foregroundColor(isFavorite ? .red : .white)
-                }
-                .padding()
-                //Spacer()
                 Button(action: {
                     // Content to share
                     if book != nil {
@@ -148,7 +173,7 @@ struct BookDetailInfoView: View {
                     Image(systemName: "square.and.arrow.up")
                         .foregroundColor(.white)
                 }
-            }
+            }.padding()
             Divider()
                 
 
@@ -163,10 +188,36 @@ struct BookDetailInfoView: View {
 }
 
 struct ActionButtonsView: View {
+    
+    let book: Books
     let bookID: String
     @State private var isShowingBorrowSheet = false // State to control the presentation of the modal sheet
 
     var body: some View {
+        VStack(spacing: 15) { // Wrap in a VStack for better layout
+          
+                HStack{
+                    if book.quantity != 0 {
+                        Text("Available")
+                            .font(.subheadline)
+                            .foregroundColor(.green)
+                            .padding(.top, 5)
+                    } else {
+                        Text("Unavailable")
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                            .padding(.top, 5)
+                    }
+                }.foregroundColor(.white)
+                    .padding(.vertical, 10)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.primary.opacity(0.08)) // Grey background color with opacity
+                    .cornerRadius(8)
+            
+            .padding(.horizontal)
+        }
+        .padding()
+        .padding(.bottom, -20)
         VStack(spacing: 15) { // Wrap in a VStack for better layout
             Button(action: {
                 // Set the state to true to present the BorrowPageUI as a modal sheet
