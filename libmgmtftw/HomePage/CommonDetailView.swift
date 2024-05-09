@@ -21,6 +21,7 @@ struct CommonDetailView: View {
     var detailType: DetailType
     @AppStorage("userID") private var userID: String = ""
     @State private var books: [BookView] = []
+    @State private var penalties: [PenaltyView] = []
     
     enum DetailType {
         case author(String)
@@ -50,7 +51,8 @@ struct CommonDetailView: View {
             case .membership(let membership):
                 return "\(membership.uppercased())"
             case .penalty(let penalty):
-                return "Penalty: Rs.\(penalty)"
+                return "Amount Due ₹ \(penalty)"
+
             }
         }
     }
@@ -60,13 +62,36 @@ struct CommonDetailView: View {
             VStack(alignment:.leading) {
                 Spacer()
                 Text(detailType.content)
-                    .font(.largeTitle)
+                    .font(.title)
                     .bold()
                     .padding()
-                
-                ForEach(books) { book in
-                    BookDetailView2(book: book)
-                }
+                if detailType.title == "Penalty Details" {
+                                    ForEach(penalties) { penalty in
+                                        PenaltyDetailView(book: penalty)
+                                    }
+                    HStack{
+                        Spacer()
+                        
+                        Button(action: {
+                            // Add action to handle payment with Apple Pay
+                            // This could include navigating to a payment screen or performing a payment action
+                        }) {
+                            Text("Pay using Apple Pay")
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                                .frame(width: 150, height: 15)
+                                .padding()
+                                .background(Color.primary.opacity(0.08))
+                                .cornerRadius(10)
+                        }
+                        Spacer()
+                    }
+                                }
+                                else {
+                                    ForEach(books) { book in
+                                        BookDetailView2(book: book)
+                                    }
+                                }
                 
                 Spacer()
                 Spacer()
@@ -79,16 +104,103 @@ struct CommonDetailView: View {
                         .padding()
                 }
                 else if detailType.title == "Membership Details" {
-                    Text("Currently, you are on the \(detailType.content.lowercased()) plan! Visit the library to upgrade the plan.")
-                        .font(.footnote)
-                        .foregroundColor(Color.secondary.opacity(0.8)) // Changed from foregroundStyle to foregroundColor
-                        .bold()
-                        .padding()
+                    VStack(alignment:.leading, spacing: 20) {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.primary.opacity(0.08))
+                            .frame(width: 360, height: 160)
+                            .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
+                            .overlay(
+                                HStack{
+                                    VStack(alignment:.leading) {
+                                        Text("Premium Member")
+                                            .font(.title3)
+                                            .foregroundColor(.primary)
+                                            .padding()
+                                        Text("Unlock exclusive features with 10 books per month")
+                                            .font(.body)
+                                            .foregroundColor(.secondary)
+                                            .multilineTextAlignment(.leading)
+                                            .padding(.horizontal)
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                    Text("Rs. 300/Month")
+                                        .font(.body)
+                                        .underline()
+                                        .foregroundColor(.blue)
+                                        .multilineTextAlignment(.leading)
+                                        .padding(.horizontal)
+                                }
+                            )
+                        
+                       
+                            // Basic Membership
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.primary.opacity(0.08))
+                                .frame(width: 360, height: 160)
+                                .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
+                                .overlay(
+                                    HStack{
+                                        VStack(alignment:.leading) {
+                                            Text("Basic Member")
+                                                .font(.title3)
+                                                .foregroundColor(.primary)
+                                                .padding()
+                                            Text("Access to a wide range of books, 6 books per month")
+                                                .font(.body)
+                                                .foregroundColor(.secondary)
+                                                .multilineTextAlignment(.leading)
+                                                .padding(.horizontal)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                        Text("Rs. 100/Month")
+                                            .font(.body)
+                                            .underline()
+                                            .foregroundColor(.blue)
+                                            .multilineTextAlignment(.leading)
+                                            .padding(.horizontal)
+                                    }
+                                )
+                            
+                            // Premium Membership
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.primary.opacity(0.08))
+                                .frame(width: 360, height: 160)
+                                .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
+                                .overlay(
+                                    HStack{
+                                        VStack(alignment:.leading) {
+                                            Text("Free Member")
+                                                .font(.title3)
+                                                .foregroundColor(.primary)
+                                                .padding()
+                                            Text("Fundamental plan, 2 books per month")
+                                                .font(.body)
+                                                .foregroundColor(.secondary)
+                                                .multilineTextAlignment(.leading)
+                                                .padding(.horizontal)
+                                            Spacer()
+                                        }
+                                        Spacer()
+                                        Text("Free")
+                                            .font(.body)
+                                            .foregroundColor(.primary)
+                                            .multilineTextAlignment(.leading)
+                                            .padding(.horizontal)
+                                    }
+                                )
+                        }
+                        .padding(.vertical)
+                    
+                    .padding()
                 }
 
+                
             }
         }
         .navigationTitle(detailType.title)
+        .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             fetchData()
         }
@@ -136,7 +248,7 @@ struct CommonDetailView: View {
                 }
             }
     }
-
+    
     
     func fetchGenreDetails(genre: String) {
         let db = Firestore.firestore()
@@ -166,7 +278,7 @@ struct CommonDetailView: View {
                 }
             }
     }
-
+    
     
     func fetchMembershipDetails(membership: String) {
         // Implement fetch function for membership details
@@ -218,25 +330,27 @@ struct CommonDetailView: View {
                         let genre = bookData["category"] as? String ?? ""
                         let coverURL = bookData["cover_url"] as? String ?? ""
                         
-                        // Create BookView instance with extracted details
-                        let bookView = BookView(id: id, name: name, authorName: authorName, genre: genre, coverURL: coverURL)
-                        
-                        // Display the combined information as needed
-                        print("Book Name: \(bookView.name)")
-                        print("Author: \(bookView.authorName)")
-                        print("Genre: \(bookView.genre)")
+                        print("Book Name: \(name)")
                         print("Loan Status: \(loanStatus)")
                         print("Penalty Amount: \(penaltyAmount)")
                         print("------")
                         
-                        //return PenaltyView(id: id, name: name, coverURL: Int(penaltyAmount), loan_status: coverURL)
-                        // You can store or display the bookView as required
+                        // Create PenaltyView instance with extracted details
+                        let penaltyView = PenaltyView(id: id, name: name, coverURL: coverURL, loan_status: loanStatus,  penalty_amount: Int(penaltyAmount))
+                        
+                        // Append the PenaltyView instance to the penalties array
+                        DispatchQueue.main.async {
+                            self.penalties.append(penaltyView)
+                        }
                     }
                 }
             }
     }
-
 }
+                        
+                        // Display the combined information as needed
+                        
+      
 
 struct BookDetailView2: View {
     var book: BookView
@@ -249,14 +363,15 @@ struct BookDetailView2: View {
                     RemoteImage2(url: book.coverURL)
                     VStack(alignment: .leading, spacing: 5){
                         Text("\(book.name)")
-                            .font(.title)
+                            .font(.title3)
                             .bold()
                             .foregroundStyle(.primary)
                         Text("\(book.authorName)")
+                            .foregroundStyle(Color.secondary)
                             .font(.subheadline)
                         Text("Genre: \(book.genre)")
                             .font(.subheadline)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.secondary)
                         
                     }
                     Spacer()
@@ -266,7 +381,44 @@ struct BookDetailView2: View {
             }
             .padding()
             .background(Color.primary.opacity(0.08))
-            .cornerRadius(8)
+            .cornerRadius(20)
+            .padding(.vertical, 4)
+        }
+    
+}
+
+struct PenaltyDetailView: View {
+    var book: PenaltyView
+    
+    var body: some View {
+       
+            VStack(alignment: .leading, spacing: 8) {
+                //Text("Book ID: \(book.id)")
+                HStack(spacing:15){
+                    RemoteImage2(url: book.coverURL)
+                    VStack(alignment: .leading, spacing: 5){
+                        Text("\(book.name)")
+                            .font(.title3)
+                            .bold()
+                            .foregroundStyle(.primary)
+                        Text("\(book.loan_status.uppercased())")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.secondary)
+                        Text("Penalty Due: Rs. \(book.penalty_amount)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        
+                       
+                        
+                    }
+                    Spacer()
+                }
+                
+                
+            }
+            .padding()
+            .background(Color.primary.opacity(0.08))
+            .cornerRadius(20)
             .padding(.vertical, 4)
         }
     

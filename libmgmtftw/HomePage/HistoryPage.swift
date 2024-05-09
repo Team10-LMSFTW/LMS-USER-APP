@@ -19,7 +19,7 @@ struct HistoryPage: View {
     @AppStorage("userID") private var userID: String = ""
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                // Color.black.ignoresSafeArea()
 //                RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
@@ -36,7 +36,7 @@ struct HistoryPage: View {
                                 .padding()
                         } else {
                             ForEach(loans) { loan in
-                                LoanRow(loan: loan)
+                                LoanRow(loan: loan).padding(.bottom)
                             }
                         }
                         
@@ -48,7 +48,11 @@ struct HistoryPage: View {
                     // Fetch data from Firebase Firestore initially
                     fetchData()
                 }
-            }.navigationBarTitle("History")
+            }
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitle("History")
+            .padding(.leading, -10)
+                
         }
     }
     
@@ -123,7 +127,7 @@ struct LoanRow: View {
             
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.primary.opacity(0.08))
-                    .frame(width:350,height: 160)
+                    .frame(width:360,height: 160)
                     .padding(10)
                     .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
             NavigationLink(destination: ViewBookDetail(bookID: loan.book_ref_id)){
@@ -135,10 +139,11 @@ struct LoanRow: View {
                     //                    .padding(.top)
                     //                    .padding(.trailing)
                     
-                    VStack(alignment: .leading, spacing: 2){
+                    VStack(alignment: .leading, spacing: 20){
                         Spacer()
                         Text("\(loan.book_name)") // Display book_name
-                            .font(.title2)
+                            .font(.title3)
+                            .frame(alignment: .leading)
                             .lineLimit(2)
                             .foregroundStyle(Color.primary)
                         Spacer()

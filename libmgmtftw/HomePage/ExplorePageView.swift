@@ -59,17 +59,17 @@ struct ExplorePageView: View {
                                 CategoryScrollView(book: books, selectedCategory: $selectedCategory)
                                 
                                 Text("Collections")
-                                    .bold()
+                                    
                                     .font(.largeTitle)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.primary)
                                     .padding(.horizontal)
                                 
                                 TrendingCollectionsView(books: filteredBooks, selectedCategory: selectedCategory)
                                 
                                 Text("Top Books")
-                                    .bold()
+                                    
                                     .font(.largeTitle)
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.primary)
                                     .padding(.horizontal)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
@@ -90,8 +90,7 @@ struct ExplorePageView: View {
                                                             .lineLimit(1) // Limit to one line
                                                             .frame(width: 140) // Fixed width
                                                             .truncationMode(.tail) // Truncate with "..."
-                                                        Text(String(book.quantity))
-                                                            .foregroundColor(.secondary)
+                                                        
                                                     }
                                                     .padding([.horizontal, .bottom])
                                                 }
@@ -106,6 +105,7 @@ struct ExplorePageView: View {
                         }
                     }
                 }
+                .navigationBarTitleDisplayMode(.large)
                 .navigationBarTitle("Explore")
                 .onChange(of: searchText) { _ in
                     search()
@@ -251,8 +251,7 @@ struct TrendingCollectionsView: View {
                                         .lineLimit(1) // Limit to one line
                                         .frame(width: 140) // Fixed width
                                         .truncationMode(.tail) // Truncate with "..."
-                                    Text(String(book.quantity))
-                                        .foregroundColor(.secondary)
+                                    
                                 }
                                 .padding([.horizontal, .bottom])
                             }
@@ -316,8 +315,7 @@ struct CategoryScrollView: View {
                     ForEach(categories.prefix(displayedCategoriesCount), id: \.self) { category in // Display only 'displayedCategoriesCount' categories initially
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
-                                .fill(selectedCategory == category ? Color.primary.opacity(0.5) : Color.primary.opacity(0.08))
-                                                                
+                                .fill(selectedCategory == category || (selectedCategory == nil && category == "All Categories") ? Color.primary.opacity(0.5) : Color.primary.opacity(0.08))
                                 .frame(width: 120, height: 32)
                                 .onTapGesture {
                                     selectedCategory = category == "All Categories" ? nil : category
@@ -326,6 +324,7 @@ struct CategoryScrollView: View {
                                 .foregroundColor(.primary)
                                 .font(.footnote)
                         }
+
                     }
                     // Show ">" button to toggle list view
                     Button(action: {
@@ -333,7 +332,7 @@ struct CategoryScrollView: View {
                         if isExpanded {
                             displayedCategoriesCount = categories.count // Show all categories
                         } else {
-                            displayedCategoriesCount = 3 // Show only 2 categories
+                            displayedCategoriesCount = 2 // Show only 2 categories
                         }
                     }) {
                         Image(systemName: isExpanded ? "chevron.left" : "chevron.right") // Change arrow direction based on state

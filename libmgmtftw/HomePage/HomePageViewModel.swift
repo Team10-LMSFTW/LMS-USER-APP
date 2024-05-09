@@ -4,6 +4,7 @@ import FirebaseFirestore
 
 struct HomePageView1: View {
     @State private var userName: String = ""
+    @State private var showSignInView = false
     let currentDate = Date()
     let dateFormatter = DateFormatter()
 
@@ -23,32 +24,42 @@ struct HomePageView1: View {
     }
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("\(dayOfWeek(date: currentDate)), ")
-                    .font(.subheadline)
-                    .padding(.leading, 20)
-                Text(monthOfYear(date: currentDate))
-                    .font(.subheadline)
-                    .padding(.leading, -10)
-                Text(dayOfMonth(date: currentDate))
-                    .font(.subheadline)
-                    .padding(.leading, -6)
-                Spacer()
-            }
-            .foregroundColor(.gray)
-           // .padding(.bottom, 15)
+        HStack(spacing: 0) {
+        VStack (alignment:.leading,spacing: 5) {
+            Text("\(dayOfWeek(date: currentDate)), \(monthOfYear(date: currentDate)) \(dayOfMonth(date: currentDate))")
+                .font(.subheadline)
+            
+                .foregroundColor(.gray)
+            
+            Text("Hey, ")
+                .font(.title)
+                .foregroundColor(.primary)
+            +
+            Text("\(userName)!")
+                .font(.title)
+                .bold()
+                .foregroundColor(.primary)
 
-            HStack {
-                Text("Hi, \(userName)")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(.primary)
-                    .padding(.leading, 20)
-                Spacer()
-            }
-            .padding(.bottom, 35)
         }
+       
+            
+            Spacer()
+            HStack{
+                NavigationLink(destination: NotificationView()) {
+                    Image(systemName: "bell")
+                        .font(.title2)
+                        .foregroundColor(.primary)
+                        .padding(.trailing,20)
+                }
+                
+                NavigationLink(destination: SettingsView(showSignInView: $showSignInView)) {
+                    Image("male")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                }
+            }
+        }.padding()
         .onAppear {
             fetchUserName()
         }

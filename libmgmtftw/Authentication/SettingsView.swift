@@ -4,6 +4,9 @@ struct SettingsView: View {
     
     @StateObject private var viewModel = SettingsViewModel()
     @Binding var showSignInView: Bool
+    @State private var totalPendingPenalty: Int = 0
+    @State private var membership_type: String = ""
+    @State private var isMembershipDetailsActive = false // New state to control navigation
     
     var body: some View {
         
@@ -13,28 +16,32 @@ struct SettingsView: View {
                     .ignoresSafeArea()
                 
                 List {
-                    Button("Log Out") {
-                        Task {
-                            do {
-                                try viewModel.logout()
-                                showSignInView = true
-                                print(showSignInView)
-                            } catch {
-                                print("Error: \(error)")
-                            }
-                        }
-                    }
-                }
-                .listRowBackground(Color.green) // Set list row background color to clear
+                    
+                    NavigationLink("Membership", destination: CommonDetailView(detailType: .membership(membership_type)))
+                    
+                    
+                    NavigationLink("Pay Dues", destination: CommonDetailView(detailType: .penalty("\(totalPendingPenalty)")))
+                    
+                    Button("Log Out"){
+                        
+                        showSignInView = true
+                        print(showSignInView)
+                    }.foregroundColor(.red)
+                    
+                }.navigationViewStyle(.stack)
                 
-                .navigationTitle("Settings")
+                
+                
+                
+                .listRowBackground(Color.clear) // Set list row background color to clear
+                
+            }.navigationTitle("Profile")
             }
             .background(Color(hex: "#14110F").ignoresSafeArea()) // Set background color for entire ZStack
         }
-        .navigationViewStyle(StackNavigationViewStyle()) // Use StackNavigationViewStyle to ensure consistent navigation behavior
-       // .preferredColorScheme(.dark) // Set preferred color scheme to dark mode
+         // Use StackNavigationViewStyle to ensure consistent navigation behavior
     }
-}
+
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
