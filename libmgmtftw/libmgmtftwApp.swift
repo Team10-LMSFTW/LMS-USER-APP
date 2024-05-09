@@ -17,6 +17,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 @main
+
 struct libmgmtftwApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
@@ -29,4 +30,5 @@ struct libmgmtftwApp: App {
         }
     }
 }
+
 

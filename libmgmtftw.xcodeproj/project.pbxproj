@@ -28,6 +28,7 @@
 		4C95CEA82BE9472500417BE5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C95CEA72BE9472500417BE5 /* DetailView.swift */; };
 		4C95CEAA2BE94DEC00417BE5 /* HomePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C95CEA92BE94DEC00417BE5 /* HomePageViewModel.swift */; };
 		4C95CEAC2BE95EBE00417BE5 /* DonutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C95CEAB2BE95EBE00417BE5 /* DonutView.swift */; };
+		4CC4EC472BECC0ED00CF2BED /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC4EC462BECC0ED00CF2BED /* ScannerView.swift */; };
 		4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC112BD7A86100FFF854 /* colors.swift */; };
 		4CCCDC182BD9061500FFF854 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC172BD9061500FFF854 /* SignUpView.swift */; };
 		4CCCDC1A2BD9062C00FFF854 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCCDC192BD9062C00FFF854 /* LoginView.swift */; };
@@ -97,6 +98,7 @@
 		4C95CEA72BE9472500417BE5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		4C95CEA92BE94DEC00417BE5 /* HomePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewModel.swift; sourceTree = "<group>"; };
 		4C95CEAB2BE95EBE00417BE5 /* DonutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutView.swift; sourceTree = "<group>"; };
+		4CC4EC462BECC0ED00CF2BED /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		4CCCDC112BD7A86100FFF854 /* colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colors.swift; sourceTree = "<group>"; };
 		4CCCDC172BD9061500FFF854 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		4CCCDC192BD9062C00FFF854 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				4C84F3D02BE0159400AEB7A9 /* Tab_Bar.swift */,
 				4C3AA70B2BE163A2006E836A /* HistoryPage.swift */,
+				4CC4EC462BECC0ED00CF2BED /* ScannerView.swift */,
 				4CF461762BEB2D6E009CA495 /* ViewBookDetail.swift */,
 				84B4E1E42BE49578007F7807 /* UserDashboardView.swift */,
 				4C95CEA32BE93CF000417BE5 /* UserDashboardView_New.swift */,
@@ -442,6 +445,7 @@
 				4C84F3C72BDBB53A00AEB7A9 /* BorrowPageUI.swift in Sources */,
 				4CCCDC122BD7A86100FFF854 /* colors.swift in Sources */,
 				4CF461792BEB4E10009CA495 /* CommonDetailView.swift in Sources */,
+				4CC4EC472BECC0ED00CF2BED /* ScannerView.swift in Sources */,
 				4C95CEA62BE9400C00417BE5 /* NotificationView.swift in Sources */,
 				4C84F3C52BDAD4B700AEB7A9 /* BookDetailsView.swift in Sources */,
 				4C84F3B82BD92A0F00AEB7A9 /* color.swift in Sources */,
@@ -631,6 +635,7 @@
 				DEVELOPMENT_TEAM = 77CGS54N35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "helo, please access dei maa";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -641,7 +646,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = in.edu.srmist.libmgmtftw;
+				PRODUCT_BUNDLE_IDENTIFIER = lms102;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -660,6 +665,7 @@
 				DEVELOPMENT_TEAM = 77CGS54N35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "helo, please access dei maa";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -670,7 +676,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = in.edu.srmist.libmgmtftw;
+				PRODUCT_BUNDLE_IDENTIFIER = lms102;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

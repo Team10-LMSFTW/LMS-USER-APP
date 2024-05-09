@@ -63,6 +63,12 @@ struct Tab_Bar: View {
                                     Label("Home", systemImage: "house")
                                 }.tag(1)
                             
+//                            Content1View()
+//                                .tabItem {
+//                                    Label("Scan", systemImage: "barcode.viewfinder")
+//                                }.tag(5)
+                            
+                            
                             HistoryPage()
                                 .tabItem {
                                     Label("History", systemImage: "clock")
