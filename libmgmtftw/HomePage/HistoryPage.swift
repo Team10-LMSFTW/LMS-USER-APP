@@ -32,7 +32,7 @@ struct HistoryPage: View {
                             Spacer()
                             Text("No history available")
                                 .font(.title3)
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(.primary.opacity(0.6))
                                 .padding()
                         } else {
                             ForEach(loans) { loan in

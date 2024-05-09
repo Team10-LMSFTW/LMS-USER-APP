@@ -26,13 +26,13 @@ struct HomePageView1: View {
         VStack {
             HStack {
                 Text("\(dayOfWeek(date: currentDate)), ")
-                    .font(.title3)
+                    .font(.subheadline)
                     .padding(.leading, 20)
                 Text(monthOfYear(date: currentDate))
-                    .font(.title3)
+                    .font(.subheadline)
                     .padding(.leading, -10)
                 Text(dayOfMonth(date: currentDate))
-                    .font(.title3)
+                    .font(.subheadline)
                     .padding(.leading, -6)
                 Spacer()
             }
@@ -42,6 +42,7 @@ struct HomePageView1: View {
             HStack {
                 Text("Hi, \(userName)")
                     .font(.title)
+                    .bold()
                     .foregroundColor(.primary)
                     .padding(.leading, 20)
                 Spacer()

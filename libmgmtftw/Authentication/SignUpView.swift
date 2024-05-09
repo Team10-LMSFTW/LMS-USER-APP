@@ -18,12 +18,12 @@ struct SignUpView: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                Color.black.ignoresSafeArea()
+              //  Color.black.ignoresSafeArea()
                 
                 VStack( alignment: .leading, spacing: 15){
                     HStack{
                         Text("Create New Account")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.largeTitle)
                             .bold()
                         Image(systemName: "lock")
@@ -31,20 +31,20 @@ struct SignUpView: View {
                     
                     HStack {
                         Text("First Name")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.footnote)
                         
                         Spacer()
                     }
                     HStack {
                         Image(systemName: "person")
-                            .foregroundColor(.white)
+                            .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
                         
                         TextField("First name", text: $firstName)
                             .padding(.horizontal, 10) // Adjust the padding as needed
                             .padding(.vertical, 8) // Adjust the padding as needed
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
                         .background(Color.secondary.opacity(0.3))
@@ -52,20 +52,20 @@ struct SignUpView: View {
                    
                     HStack {
                         Text("Last Name")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.footnote)
                         
                         Spacer()
                     }
                     HStack {
                         Image(systemName: "person")
-                            .foregroundColor(.white)
+                            .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
                         
                         TextField("Last name", text: $lastName)
                             .padding(.horizontal, 10) // Adjust the padding as needed
                             .padding(.vertical, 8) // Adjust the padding as needed
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
                         .background(Color.secondary.opacity(0.3))
@@ -74,20 +74,20 @@ struct SignUpView: View {
                  
                     HStack {
                         Text("UserName")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.footnote)
                             
                         Spacer()
                     }
                     HStack {
                         Image(systemName: "envelope")
-                            .foregroundColor(.white)
+                            .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
 
                         TextField("Email/Username", text: $email)
                             .padding(.horizontal, 10) // Adjust the padding as needed
                             .padding(.vertical, 8) // Adjust the padding as needed
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
                         .background(Color.secondary.opacity(0.3))
@@ -96,7 +96,7 @@ struct SignUpView: View {
                     
                     HStack {
                         Text("Password")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.footnote)
                             
                         Spacer()
@@ -104,11 +104,11 @@ struct SignUpView: View {
                     
                     HStack {
                         Image(systemName: "lock")
-                            .foregroundColor(.white)
+                            .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
                         SecureField("", text: $password)
                             .padding()
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
                         .background(Color.secondary.opacity(0.3))
@@ -118,7 +118,7 @@ struct SignUpView: View {
                     
                     HStack {
                         Text("Confirm Password")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .font(.footnote)
                             
                         Spacer()
@@ -126,11 +126,11 @@ struct SignUpView: View {
                     
                     HStack {
                         Image(systemName: "lock")
-                            .foregroundColor(.white)
+                            .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
                         SecureField("", text: $confirmPassword)
                             .padding()
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .accentColor(.white)
                     }.frame(width: 360, height: 50)
                         .background(Color.secondary.opacity(0.3))
@@ -156,7 +156,7 @@ struct SignUpView: View {
                         
                         HStack {
                             Text("Already have an account ?")
-                                .foregroundColor(.white)
+                                .foregroundColor(.primary)
                                 
                             NavigationLink(destination: LoginView()) {
                                 Text("Log In")
@@ -197,7 +197,7 @@ struct SignUpView: View {
                 showAlert = true
                 print("Sign up error: \(error.localizedDescription)")
             } else if let result = result {
-                successMessage = "Signed up successfully!"
+                alertMessage = "Signed up successfully!"
                 print("Sign up successful")
                 let userID = result.user.uid // Get the user ID from the result
                 

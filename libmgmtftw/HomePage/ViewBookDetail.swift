@@ -32,14 +32,17 @@ struct ViewBookDetail: View {
                             .shadow(radius: 3)
                     
                 } else {
-                    Text("Loading...") // Show a loading indicator while fetching data
-                        .onAppear {
-                            fetchData()
-                        }
+                    
+                        Text("Loading...")
+                            .onAppear {
+                                fetchData()
+                            
+                    }
                 }
             }
         }.padding()
     }
+        
     
     private func fetchData() {
         let db = Firestore.firestore()

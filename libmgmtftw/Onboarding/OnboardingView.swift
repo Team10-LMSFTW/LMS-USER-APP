@@ -22,7 +22,7 @@ struct CarouselView: View {
                 Tab_Bar()
             } else {
                 ZStack {
-                    RadialGradient(gradient: Gradient(colors: [Color(hex: "#14110F"), Color(red: 0.13, green: 0.07, blue: 0.1)]), center: .center, startRadius: 1, endRadius: 400)
+                    Color.primary.opacity(0.1)
                         .ignoresSafeArea()
 
                     TabView(selection: $selection) {
@@ -109,23 +109,23 @@ struct OnboardingScreen: View {
           
 
             VStack {
-                Text("LibriLand")
+                Text("LMS10")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .padding(.top, 80) // Adjust top padding
                 
                 Text(primaryText)
                     .font(.custom("SF Pro Display", size: 20).bold())
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .padding(.top, 40) // Adjust top padding
                 
                 Text(secondaryText)
                     .font(.title3)
-                    .foregroundColor(.white.opacity(0.5))
+                    .foregroundColor(.primary.opacity(0.5))
                     .padding(.top,30)
                     .multilineTextAlignment(.center)
                 
@@ -133,7 +133,7 @@ struct OnboardingScreen: View {
                 Spacer()
             }
             .frame(width:380, height: 440)
-            .background(Color(hex: "F6E8EA", opacity: 0.3))
+            .background(Color.secondary.opacity(0.7))
             .cornerRadius(50)
             .padding(.top, 290)
             

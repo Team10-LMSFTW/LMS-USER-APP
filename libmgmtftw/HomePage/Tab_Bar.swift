@@ -17,11 +17,12 @@ struct Tab_Bar: View {
                 //Color.black.ignoresSafeArea()
                 VStack(spacing:0) {
                     HStack(spacing: 0) {
+                        
                         Text("LMS")
                             .font(.title3)
                             .bold()
                             .foregroundColor(.green)
-                            .padding(.leading, 20)
+                            .padding(.leading,4)
                         
                         Text("10")
                             .foregroundStyle(Color.primary)
@@ -69,12 +70,12 @@ struct Tab_Bar: View {
                             
                             ExplorePageView(userID: "", username: "")
                                 .tabItem {
-                                    Label("Explore", systemImage: "magnifyingglass")
+                                    Label("Explore", systemImage: "books.vertical.fill")
                                 }.tag(3)
                             
                             RequestsPage()
                                 .tabItem {
-                                    Label("Add", systemImage: "plus")
+                                    Label("Request", systemImage: "doc.text.magnifyingglass")
                                 }.tag(4)
                         }
                         .accentColor(.primary) // Set the color of the selected tab

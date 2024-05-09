@@ -8,10 +8,10 @@ struct UserDashboardView_New: View {
     @State private var booksBorrowed: Int = 0
     @State private var booksBorrowedTotal: Int = 0
     @State private var totalPendingPenalty: Int = 0
-    @State private var currentBookName: String = "Anvit Pawar The Great"
-    @State private var currentBookAuthor: String = "Anvit Pawar The Great"
-    @State private var topGenre: String = "Data Inadequate"
-    @State private var topAuthor: String = "Data Inadequate"
+    @State private var currentBookName: String = "Nil"
+    @State private var currentBookAuthor: String = "Nil"
+    @State private var topGenre: String = "-"
+    @State private var topAuthor: String = "-"
     @State private var currentBookCover: String = ""
     @State private var membership_type: String = ""
     @State private var book_id: String = ""
@@ -19,367 +19,317 @@ struct UserDashboardView_New: View {
     var body: some View {
         NavigationView {
             ScrollView{
-                VStack(alignment:.leading,spacing: -35) {
+                VStack(alignment:.leading, spacing: -10) {
                     
                     //Day, Date, Hi UserName
                     HomePageView1()
                         .padding(.leading,20)
-                    
+                    Spacer()
                     
                     
                     Section(header:
-                                Text("Summary")
-                        .font(.title3)
-                        .bold()
-                        .foregroundStyle(Color.secondary)
-                        .padding(.leading, 20))
-                    {
-                        NavigationLink(destination: ViewBookDetail(bookID: book_id )){
+                        Text("Summary")
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(Color.primary)
+                            .padding(.leading, 35)
+                            .padding(.bottom, 10)
+                    ) {
+                        NavigationLink(destination: ViewBookDetail(bookID: book_id )) {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.primary.opacity(0.08))
-                                .frame(width:350,height: 160)
+                                .frame(width: 355, height: 160)
                                 .padding(10)
                                 .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                 .overlay(
-                                    HStack{
-                                        VStack(alignment:.leading,spacing: 3){
-                                            
+                                    HStack {
+                                        VStack(alignment: .leading) {
                                             Text("\(Image(systemName: "bookmark.circle")) Currently Reading")
-                                                .font(.title3)
+                                                .font(.subheadline)
+                                                .bold()
                                                 .foregroundStyle(Color.primary)
-                                                .padding(.top,40)
-                                                .padding(.leading,-10)
-                                            Spacer()
-                                            
-                                            HStack{
-                                                VStack(alignment:.leading){
+                                                .padding(.top, 10)
+                                                .padding(.bottom, 10) // Adjust bottom padding
+                                            HStack {
+                                                VStack(alignment: .leading) {
                                                     Text("\(currentBookName)")
-                                                        .lineLimit(1)
                                                         .font(.title3)
-                                                        .foregroundStyle(Color.blue)
+                                                        .foregroundColor(.blue)
                                                         .bold()
-                                                    //.padding(.leading,20)
-                                                        .padding(.bottom,20)
+                                                        .padding(.bottom, 10) // Adjust bottom padding
                                                     
                                                     Text("\(currentBookAuthor)")
                                                         .font(.footnote)
                                                         .foregroundStyle(Color.blue)
-                                                    //.padding(.leading,20)
-                                                        .padding(.top,-30)
                                                 }
-                                                
                                             }
-                                        }.padding()
-                                                Spacer()
-                                                RemoteImage2(url:
-                                                                "\(currentBookCover)") // Display cover image
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 90, height: 120)
-                                                .cornerRadius(10)
-                                                .padding()
-                                            
+                                        }
+                                        .padding() // Add padding to VStack
                                         
+                                        Spacer() // Add Spacer to push RemoteImage2 to the right
                                         
-                                        
-                                    }.padding()
+                                        RemoteImage2(url: "\(currentBookCover)") // Display cover image
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 90, height: 120)
+                                            .cornerRadius(10)
+                                            .padding()
+                                    }.padding(.leading)
+                                        .padding(.trailing)
+
                                 )
+                                .padding(.horizontal) // Add horizontal padding
                         }
+                        .padding(.bottom, 10) // Adjust bottom padding for the whole card
                         
-                        NavigationLink(destination: HistoryPage()){
+                        NavigationLink(destination: HistoryPage()) {
                             RoundedRectangle(cornerRadius: 20)
                                 .fill(Color.primary.opacity(0.08))
-                                .frame(width:350,height: 160)
+                                .frame(width: 355, height: 160)
                                 .padding(10)
                                 .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                 .overlay(
-                                    HStack{
-                                        VStack(alignment:.leading,spacing: 5){
-                                            
+                                    HStack {
+                                        VStack(alignment: .leading) {
                                             Text("\(Image(systemName: "book")) Books Read")
-                                                .font(.title3)
+                                                .font(.subheadline)
+                                                .bold()
                                                 .foregroundStyle(Color.primary)
-                                                .padding()
-                                                .padding(.leading,-25)
+                                                .padding(.top, 10)
+                                                .padding(.bottom, 10)
+                                                //.padding()
                                             
-                                            
-                                            HStack{
-                                                VStack(alignment:.leading){
+                                            HStack {
+                                                VStack(alignment: .leading) {
                                                     Text("\(booksBorrowed) / \(booksBorrowedTotal)")
-                                                        .font(.title2)
+                                                        .font(.title)
                                                         .foregroundStyle(Color.purple)
                                                         .bold()
-                                                    //.padding(.leading,20)
-                                                        .padding(.bottom,40)
+                                                        .padding(.bottom, 10) // Adjust bottom padding
                                                     
-                                                    Text("Books Returned / Borrowed")
+                                                    Text("Books Returned / Available")
                                                         .font(.footnote)
                                                         .foregroundStyle(Color.purple)
-                                                    //.padding(.leading,20)
-                                                        .padding(.top,-30)
                                                 }
                                             }
-                                            
                                         }
-                                        DonutView(fractionFilled: Double(booksBorrowed)/Double(booksBorrowedTotal), fillColor: .purple)
+                                        .padding() // Add padding to VStack
+                                        Spacer()
+                                        DonutView(fractionFilled: Double(booksBorrowed) / Double(booksBorrowedTotal), fillColor: .purple)
                                             .padding()
-                                        
-                                        
                                     }
+                                        .padding(.leading)
+                                        .padding(.trailing)
                                 )
+                                .padding(.horizontal) // Add horizontal padding
                         }
-                    
-                        
+                        .padding(.bottom, 10) // Adjust bottom padding for the whole card
+                    }
+
+
+                        Spacer()
+                    VStack(alignment:.leading, spacing: -35){
                         Section(header:
                                     Text("Reccomendations")
-                            .font(.title3)
+                            .font(.title)
                             .bold()
-                            .foregroundStyle(Color.secondary)
-                            .padding(.leading, 20))
-                        {
-                            HStack{
-                                NavigationLink(destination: CommonDetailView(detailType: .author("\(topAuthor)"))){
+                            .foregroundStyle(Color.primary)
+                            .padding(.leading, 20)
+                            .padding(.bottom, 10)
+                        ) {
+                            HStack(alignment:.firstTextBaseline, spacing: 10) {
+                                NavigationLink(destination: CommonDetailView(detailType: .author("\(topAuthor)"))) {
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165, height: 120)
+                                        .frame(width: 165, height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
-                                            HStack{
-                                                VStack(alignment:.leading,spacing: 5){
-                                                    
+                                            HStack {
+                                                VStack(alignment: .leading, spacing: 5) {
                                                     Text("\(Image(systemName: "medal.fill")) Author")
-                                                        .font(.title3)
+                                                        .font(.subheadline)
+                                                        .bold()
                                                         .foregroundStyle(Color.primary)
                                                         .padding()
-                                                        .padding(.leading,-5)
+                                                        .padding(.leading, -10)
                                                     
-                                                    
-                                                    HStack{
-                                                        VStack(alignment:.leading){
-                                                            Text("\(topAuthor)")
-                                                                .font(.title3)
-                                                                .foregroundStyle(Color.orange)
-                                                                .bold()
-                                                            //.padding(.leading,20)
-                                                                .padding(.bottom,40)
-                                                                .padding(.leading,15)
-                                                            
-                                                            
-                                                        }
+                                                    VStack(alignment: .center) {
+                                                        Text("\(topAuthor)")
+                                                            .font(.title3)
+                                                            .foregroundStyle(Color.orange)
+                                                            .bold()
+                                                            .padding(.leading, 15)
+                                                            .padding(.bottom, 40)
                                                     }
-                                                    
                                                 }
-                                                
                                             }
                                         )
                                 }
                                 
-                                Spacer()
-                                NavigationLink(destination: CommonDetailView(detailType: .genre("\(topGenre)"))){
+                                NavigationLink(destination: CommonDetailView(detailType: .genre("\(topGenre)"))) {
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165,height: 120)
+                                        .frame(width: 165, height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
-                                            HStack{
-                                                VStack(alignment:.leading,spacing: 5){
-                                                    
+                                            HStack {
+                                                VStack(alignment: .leading, spacing: 5) {
                                                     Text("\(Image(systemName: "medal.fill")) Genre")
-                                                        .font(.title3)
+                                                        .font(.subheadline)
+                                                        .bold()
                                                         .foregroundStyle(Color.primary)
                                                         .padding()
-                                                        .padding(.leading,-5)
+                                                        .padding(.leading, -40)
                                                     
-                                                    
-                                                    HStack{
-                                                        VStack(alignment:.leading){
-                                                            Text("\(topGenre)")
-                                                                .font(.title3)
-                                                                .foregroundStyle(Color.indigo)
-                                                                .bold()
-                                                                .padding(.leading,15)
-                                                            //.padding(.leading,20)
-                                                                .padding(.bottom,40)
-                                                            
-                                                        }
+                                                    VStack(alignment: .center) {
+                                                        Text("\(topGenre)")
+                                                            .font(.title3)
+                                                            .foregroundStyle(Color.indigo)
+                                                            .bold()
+                                                            .padding(.leading, -25)
+                                                            .padding(.bottom, 40)
                                                     }
-                                                    
                                                 }
-                                                
+                                            }
+                                        )
+                                }//.padding(.trailing,20)
+                            }
+                            
+                            HStack(spacing: 20) {
+                                NavigationLink(destination: CommonDetailView(detailType: .membership("\(membership_type)"))) {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.primary.opacity(0.08))
+                                        .frame(width: 165, height: 120)
+                                        .padding(10)
+                                        .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
+                                        .overlay(
+                                            HStack {
+                                                VStack(alignment: .leading, spacing: 5) {
+                                                    Text("\(Image(systemName: "person.crop.circle")) Membership")
+                                                        .font(.subheadline)
+                                                        .bold()
+                                                        .foregroundStyle(Color.primary)
+                                                        .padding()
+                                                        .padding(.leading, -10)
+                                                    
+                                                    VStack(alignment: .center) {
+                                                        Text("\(membership_type)")
+                                                            .textCase(.uppercase)
+                                                            .font(.title3)
+                                                            .foregroundStyle(Color.mint)
+                                                            .bold()
+                                                            .padding(.leading, 40)
+                                                            .padding(.bottom, 40)
+                                                    }
+                                                }
+                                            }
+                                        )
+                                }
+                                
+                                NavigationLink(destination: CommonDetailView(detailType: .penalty("\(totalPendingPenalty)"))) {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.primary.opacity(0.08))
+                                        .frame(width: 165, height: 120)
+                                        .padding(10)
+                                        .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
+                                        .overlay(
+                                            HStack {
+                                                VStack(alignment: .leading, spacing: 5) {
+                                                    Text("\(Image(systemName: "indianrupeesign")) Penalty")
+                                                        .font(.subheadline)
+                                                        .bold()
+                                                        .foregroundStyle(Color.primary)
+                                                        .padding()
+                                                        .padding(.leading, -40)
+                                                    
+                                                    VStack(alignment: .center) {
+                                                        Text("\(totalPendingPenalty)")
+                                                            .font(.title3)
+                                                            .foregroundStyle(Color.green)
+                                                            .bold()
+                                                            .padding(.leading)
+                                                            .padding(.bottom, 40)
+                                                    }
+                                                }
                                             }
                                         )
                                 }
                             }
                             
-                            HStack{
-                                NavigationLink(destination: CommonDetailView(detailType: .membership("\(membership_type)"))){
+                            HStack(spacing: 20) {
+                                NavigationLink(destination: ExplorePageView(userID: "", username: "")) {
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165, height: 120)
+                                        .frame(width: 165, height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
-                                            HStack{
-                                                VStack(alignment:.leading,spacing: 5){
-                                                    
-                                                    Text("\(Image(systemName: "person.crop.circle")) Membership")
-                                                        .font(.title3)
+                                            HStack {
+                                                VStack(alignment: .leading, spacing: 5) {
+                                                    Text("\(Image(systemName: "magnifyingglass.circle")) Explore")
+                                                        .font(.subheadline)
+                                                        .bold()
                                                         .foregroundStyle(Color.primary)
                                                         .padding()
-                                                        .padding(.leading,-10)
+                                                        .padding(.leading, -40)
                                                     
-                                                    
-                                                    HStack{
-                                                        VStack(alignment:.leading){
-                                                            Text("\(membership_type)")
-                                                                .textCase(.uppercase)
-                                                                .font(.title2)
-                                                                .foregroundStyle(Color.mint)
-                                                                .bold()
-                                                            //.padding(.leading,20)
-                                                                .padding(.bottom,40)
-                                                                .padding(.leading,10)
-                                                            
-                                                            
-                                                        }
+                                                    VStack(alignment: .center) {
+                                                        Text(Image(systemName: "book.pages.fill"))
+                                                            .font(.largeTitle)
+                                                            .foregroundStyle(Color.green)
+                                                            .bold()
+                                                            .padding(.leading)
+                                                            .padding(.bottom, 20)
                                                     }
-                                                    
                                                 }
-                                                
                                             }
                                         )
                                 }
                                 
-                                Spacer()
-                                NavigationLink(destination: CommonDetailView(detailType: .penalty("\(totalPendingPenalty)"))){
+                                NavigationLink(destination: RequestsPage()) {
                                     RoundedRectangle(cornerRadius: 20)
                                         .fill(Color.primary.opacity(0.08))
-                                        .frame(width:165,height: 120)
+                                        .frame(width: 165, height: 120)
                                         .padding(10)
                                         .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
                                         .overlay(
-                                            HStack{
-                                                VStack(alignment:.leading,spacing: 5){
-                                                    
-                                                    Text("\(Image(systemName: "indianrupeesign")) Penalty")
-                                                        .font(.title3)
+                                            HStack {
+                                                VStack(alignment: .leading, spacing: 5) {
+                                                    Text("\(Image(systemName: "books.vertical.circle")) Request")
+                                                        .font(.subheadline)
+                                                        .bold()
                                                         .foregroundStyle(Color.primary)
                                                         .padding()
-                                                        .padding(.leading,-40)
+                                                        .padding(.leading, -40)
                                                     
-                                                    
-                                                    HStack{
-                                                        VStack(alignment:.leading){
-                                                            Text("\(totalPendingPenalty)")
-                                                                .font(.title2)
-                                                                .foregroundStyle(Color.green)
-                                                                .bold()
-                                                                .padding(.leading,-25)
-                                                            //.padding(.leading,20)
-                                                                .padding(.bottom,40)
-                                                            
-                                                        }
+                                                    VStack(alignment: .center) {
+                                                        Text(Image(systemName: "rectangle.and.text.magnifyingglass"))
+                                                            .font(.largeTitle)
+                                                            .foregroundStyle(Color.mint)
+                                                            .bold()
+                                                            .padding(.leading)
+                                                            .padding(.bottom, 20)
                                                     }
-                                                    
                                                 }
-                                                
                                             }
                                         )
                                 }
-                                }
-                                HStack{
-                                    NavigationLink(destination: ExplorePageView(userID: "", username: "")){
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(Color.primary.opacity(0.08))
-                                            .frame(width:165, height: 120)
-                                            .padding(10)
-                                            .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
-                                            .overlay(
-                                                HStack{
-                                                    VStack(alignment:.leading,spacing: 5){
-                                                        
-                                                        Text("\(Image(systemName: "magnifyingglass.circle")) Explore")
-                                                            .font(.title3)
-                                                            .foregroundStyle(Color.primary)
-                                                            .padding()
-                                                            .padding(.leading,-40)
-                                                        
-                                                        
-                                                        HStack{
-                                                            VStack(alignment:.leading){
-                                                                Text(Image(systemName: "ellipsis"))
-                                                                    .font(.largeTitle)
-                                                                    .foregroundStyle(Color.green)
-                                                                    .bold()
-                                                                //.padding(.leading,20)
-                                                                    .padding(.bottom,40)
-                                                                    .padding(.leading,-25)
-                                                                
-                                                                
-                                                            }
-                                                        }
-                                                        
-                                                    }
-                                                    
-                                                }
-                                            )
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    NavigationLink(destination: RequestsPage()){
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(Color.primary.opacity(0.08))
-                                            .frame(width:165,height: 120)
-                                            .padding(10)
-                                            .shadow(color: .black.opacity(0.5), radius: 5, x: 2, y: 2)
-                                            .overlay(
-                                                HStack{
-                                                    VStack(alignment:.leading,spacing: 5){
-                                                        
-                                                        Text("\(Image(systemName: "books.vertical.circle")) Request")
-                                                            .font(.title3)
-                                                            .foregroundStyle(Color.primary)
-                                                            .padding()
-                                                            .padding(.leading,-40)
-                                                        
-                                                        
-                                                        HStack{
-                                                            VStack(alignment:.leading){
-                                                                Text(">")
-                                                                    .font(.title2)
-                                                                    .foregroundStyle(Color.mint)
-                                                                    .bold()
-                                                                    .padding(.leading,-25)
-                                                                //.padding(.leading,20)
-                                                                    .padding(.bottom,40)
-                                                                
-                                                            }
-                                                        }
-                                                        
-                                                    }
-                                                    
-                                                }
-                                            )
-                                    }
-                                    
-                                
                             }
                         }
-                        
-                        .listStyle(.plain) // Use plain list style
-                    }.onAppear(){
+                        .padding() // Add padding to VStack
+                    }
+                    
+                    .onAppear() {
                         fetchBooksBorrowed()
                         fetchCurrentBookDetails()
                         fetchTotalPendingPenalty()
                         fetchMembership()
                         fetchTop()
                     }
-                    .padding() // Add padding to the VStack
-                }.navigationBarBackButtonHidden(true)
+                    .navigationBarBackButtonHidden(true)
                     .navigationBarHidden(true)
-                
+                }
             }
         }
     }

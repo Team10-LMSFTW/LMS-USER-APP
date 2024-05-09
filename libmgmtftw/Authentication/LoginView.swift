@@ -14,29 +14,29 @@ struct LoginView: View {
     var body: some View {
         //NavigationView {
             ZStack {
-                Color.black.ignoresSafeArea()
+               // Color.black.ignoresSafeArea()
                 VStack(alignment: .leading, spacing: 15) {
                                     HStack {
                                         Text("Welcome ! 🙋🏻‍♂️")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.primary)
                                             .font(.largeTitle)
                                             .bold()
                                     }
                                     
                                     HStack {
                                         Text("UserName")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.primary)
                                             .font(.footnote)
                                         Spacer()
                                     }
                                     HStack {
                                         Image(systemName: "envelope")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.secondary)
                                             .padding(.leading, 10) // Adjust the padding as needed
                                         TextField("Email/Username", text: $email)
                                             .padding(.horizontal, 10) // Adjust the padding as needed
                                             .padding(.vertical, 8) // Adjust the padding as needed
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.primary.opacity(0.5))
                                             .accentColor(.white)
                                     }
                                     .frame(width: 360, height: 50)
@@ -45,7 +45,7 @@ struct LoginView: View {
                                     
                                     HStack {
                                         Text("Password")
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.primary)
                                             .font(.footnote)
                                         Spacer()
                                     }
@@ -56,7 +56,7 @@ struct LoginView: View {
                                             .padding(.leading, 10) // Adjust the padding as needed
                                         SecureField("", text: $password)
                                             .padding()
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.primary.opacity(0.5))
                                             .accentColor(.white)
                                     }
                                     .frame(width: 360, height: 50)
@@ -70,7 +70,7 @@ struct LoginView: View {
                                             forgotPassword()
                                         }) {
                                             Text("Forgot Password ?")
-                                                .foregroundColor(.white)
+                                                .foregroundColor(.primary)
                                                 .font(.footnote)
                                                 .underline()
                                         }
@@ -100,7 +100,7 @@ struct LoginView: View {
                                         
                                         HStack {
                                             Text("Don't have an account ?")
-                                                .foregroundColor(.white)
+                                                .foregroundColor(.primary)
                                             NavigationLink(destination: SignUpView()) {
                                                 Text("Sign Up")
                                                     .foregroundColor(.blue)
