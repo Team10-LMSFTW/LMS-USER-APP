@@ -1,6 +1,7 @@
 import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
+import AVFoundation
 
 struct Loans: Identifiable, Codable, Hashable {
     var id: String?
@@ -12,6 +13,9 @@ struct Loans: Identifiable, Codable, Hashable {
 }
 struct ViewBookDetail: View {
     @AppStorage("userID") private var userID: String = ""
+    @State private var readingContent: String = ""
+    @State private var isReading: Bool = false
+    let synthesizer = AVSpeechSynthesizer()
     
     let bookID: String
     @State private var book: Books?
@@ -19,6 +23,7 @@ struct ViewBookDetail: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 15) {
+                
                 if let book = book {
                     BookHeaderView(book: book)
                     

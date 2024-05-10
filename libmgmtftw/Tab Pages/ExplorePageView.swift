@@ -60,7 +60,7 @@ struct ExplorePageView: View {
                                 
                                 Text("Collections")
                                     
-                                    .font(.largeTitle)
+                                    .font(.title)
                                     .foregroundColor(.primary)
                                     .padding(.horizontal)
                                 
@@ -68,7 +68,7 @@ struct ExplorePageView: View {
                                 
                                 Text("Top Books")
                                     
-                                    .font(.largeTitle)
+                                    .font(.title)
                                     .foregroundColor(.primary)
                                     .padding(.horizontal)
                                 
@@ -86,6 +86,7 @@ struct ExplorePageView: View {
                                                     
                                                     VStack(spacing: 4) {
                                                         Text(book.book_name)
+                                                            .font(.footnote)
                                                             .foregroundColor(.primary)
                                                             .lineLimit(1) // Limit to one line
                                                             .frame(width: 140) // Fixed width
@@ -247,6 +248,7 @@ struct TrendingCollectionsView: View {
                                 
                                 VStack(spacing: 4) {
                                     Text(book.book_name)
+                                        .font(.footnote)
                                         .foregroundColor(.primary)
                                         .lineLimit(1) // Limit to one line
                                         .frame(width: 140) // Fixed width

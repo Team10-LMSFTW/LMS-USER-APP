@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 import Firebase
 import FirebaseFirestoreSwift
+import AVFoundation
 
 struct BookDetailsView: View {
    //
@@ -136,23 +137,37 @@ struct RemoteImage3: View {
 struct BookDetailInfoView: View {
     let book: Books
     @State private var isFavorite = false
+    @State private var isReading: Bool = false
+    @State private var readingContent: String = ""
+    let synthesizer = AVSpeechSynthesizer()
+    
     var body: some View {
-        @State  var isFavorite = false
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Text("Author: \(book.author_name)")
-                .font(.title2)
-                .foregroundStyle(Color.primary)
-            
+//            HStack {
 //                Spacer()
 //                Button(action: {
-//                    isFavorite.toggle()
+//                    readAloud()
 //                }) {
-//                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-//                        .foregroundColor(isFavorite ? .red : .white)
+//                    Image(systemName: "speaker.wave.2.fill")
+//                        .font(.title)
+//                        .padding()
 //                }
-//                .padding()
+//            }
+            HStack {
+                Text("Author: \(book.author_name)")
+                    .font(.title3)
+                    .foregroundStyle(Color.primary)
                 Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
+                Button(action: {
+                    readAloud()
+                }) {
+                    Image(systemName: "speaker.wave.2.fill")
+                        //.font(.title)
+                        .padding()
+                }
                 Button(action: {
                     // Content to share
                     if book != nil {
@@ -174,20 +189,29 @@ struct BookDetailInfoView: View {
                     Image(systemName: "square.and.arrow.up")
                         .foregroundColor(.primary)
                 }
+                
+                
             }.padding()
             Divider()
                 .foregroundColor(.secondary)
-                
-
-//            Text("Overview:")
-//                .font(.title2)
-//                .bold()
-//                
-//            Text("The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.")
         }
         .foregroundColor(.white) // Text color set to white
     }
+    
+                                            func readAloud() {
+                                                    isReading.toggle()
+                                                    if isReading {
+                                                        var content = "Book Name \(book.book_name), Book Genre \(book.category). "
+                                                        content += "Author Name: \(book.author_name)"
+                                                        let utterance = AVSpeechUtterance(string: content)
+                                                        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                                                        synthesizer.speak(utterance)
+                                                    } else {
+                                                        synthesizer.stopSpeaking(at: .immediate)
+                                                    }
+                                                }
 }
+
 
 struct ActionButtonsView: View {
     

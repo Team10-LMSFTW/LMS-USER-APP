@@ -22,11 +22,17 @@ struct SettingsView: View {
                     
                     NavigationLink("Pay Dues", destination: CommonDetailView(detailType: .penalty("\(totalPendingPenalty)")))
                     
-                    Button("Log Out"){
-                        
-                        showSignInView = true
-                        print(showSignInView)
-                    }.foregroundColor(.red)
+                    Button("Log Out") {
+                                           Task {
+                                               do {
+                                                   try await viewModel.logout()
+                                                   showSignInView = true
+                                                   print(showSignInView)
+                                               } catch {
+                                                   print("Error: \(error)")
+                                               }
+                                           }
+                                       }.foregroundColor(.red)
                     
                 }.navigationViewStyle(.stack)
                 
