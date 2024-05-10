@@ -7,7 +7,7 @@ struct RequestsPage: View {
     @State private var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @State private var userEmail: String = ""
     @State private var requestHistory : [BookRequest] = []
-    @State private var isPresentingRequestBookPage: Bool = false
+    @State private var isPresentingChoiceBookPage: Bool = false
     @State private var bookRequest: BookRequest
 
     init(bookRequest: BookRequest = BookRequest(id: UUID(), name: "", author: "", description: nil, edition: nil, status: 0, category: "",library_id: "1")) {
@@ -22,12 +22,12 @@ struct RequestsPage: View {
                     
                     ScrollView {
                         VStack(alignment: .leading, spacing: 20) {
-                            Text("Request New Book")
+                            Text("Request")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                                 .padding(.top, 20)
-                                .padding(.leading, 20)
+                                .padding()
                             
                             Spacer().frame(height: 10)
                             
@@ -50,12 +50,12 @@ struct RequestsPage: View {
                     
                     VStack {
                         Spacer()
-                        HStack {
+                        VStack() {
                             Spacer()
                             Button(action: {
-                                self.isPresentingRequestBookPage = true
+                                self.isPresentingChoiceBookPage = true
                             }) {
-                                Image(systemName: "plus.app")
+                                Image(systemName: "plus.square")
                                     .resizable()
                                     .foregroundColor(.white)
                                     .frame(width: 24, height: 24)
@@ -63,10 +63,10 @@ struct RequestsPage: View {
                             }
                             .background(Color(hex:"FD5F00", opacity :0.8))
                             .cornerRadius(12)
-                            .padding(.trailing, 20)
+                            .padding(.leading, 280)
                             .padding(.bottom, 20)
-                            .sheet(isPresented: $isPresentingRequestBookPage) {
-                                RequestsaddView(bookRequest: bookRequest)
+                            .sheet(isPresented: $isPresentingChoiceBookPage) {
+                                ChoiceBookEntry()
                             }
                         }
                     }
@@ -152,7 +152,7 @@ struct RequestHistoryRow: View {
 
                     Text("\(requestStatusString)")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.primary)
                 }
                 .padding(.horizontal, 8)
                 .padding(.leading, 18)
@@ -178,11 +178,11 @@ struct RequestHistoryRow: View {
     private func statusColor(for status: String) -> Color {
         switch status {
         case "Requested":
-            return .yellow.opacity(0.5)
+            return .yellow.opacity(0.8)
         case "Approved":
-            return .green.opacity(0.5)
+            return .green.opacity(0.8)
         default:
-            return .red.opacity(0.5)
+            return .red.opacity(0.8)
         }
     }
 

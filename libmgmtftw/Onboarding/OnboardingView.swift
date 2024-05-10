@@ -11,10 +11,10 @@ struct CarouselView: View {
    // @State private var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
 
     let onboardingScreens: [(imageName: String, primaryText: String, secondaryText: String)] = [
-        ("Onboarding1", "The Best Way to manage books", "Navigate Your Library World with \nLibriLand: Where Every Book \nFinds Its Place!"),
-        ("Onboarding2", "Endless Adventures Await!", "Explore a World of Stories and Ideas,\n Where Your Imagination \nKnows No Bounds."),
-        ("Onboarding3", "Elevate Your Experience!", "Embark on a Quest for Knowledge, Where\n Every Page Turn \nUnveils Something New.")
-    ]
+            ("Onboarding1", "The Best Way to manage books", "Navigate Your Library World with \nLibriLand: Where Every Book \nFinds Its Place!"),
+            ("Onboarding2", "Endless Adventures Await!", "Explore a World of Stories and Ideas,\n Where Your Imagination \nKnows No Bounds."),
+            ("Onboarding3", "Elevate Your Experience!", "Embark on a Quest for Knowledge,\n Where Every Page Turn \nUnveils Something New.")
+        ]
 
     var body: some View {
         NavigationStack {

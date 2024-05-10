@@ -275,8 +275,8 @@ struct RemoteImage: View {
         if let image = image {
             Image(uiImage: image)
                 .resizable()
-                .cornerRadius(25)
-                .frame(width: 200, height: 170)
+                .cornerRadius(5)
+                .frame(width: 120, height: 180)
         } else {
             ProgressView()
             

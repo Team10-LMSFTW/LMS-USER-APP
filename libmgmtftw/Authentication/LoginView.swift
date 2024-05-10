@@ -52,9 +52,10 @@ struct LoginView: View {
                                     
                                     HStack {
                                         Image(systemName: "lock")
-                                            .foregroundColor(.white)
-                                            .padding(.leading, 10) // Adjust the padding as needed
-                                        SecureField("", text: $password)
+                                            .padding(.leading, 10)
+                                            .foregroundColor(.secondary)
+                                        
+                                        SecureField("Password", text: $password)
                                             .padding()
                                             .foregroundColor(.primary.opacity(0.5))
                                             .accentColor(.white)
@@ -122,8 +123,8 @@ struct LoginView: View {
             if isLoggedIn {
                 // Navigate to the tab bar view if already logged in
                 // Here, you can use the appropriate destination for your tab bar view
-                // For demonstration, let's assume the destination is named `TabBarView`
-                // Replace `TabBarView()` with your actual tab bar view
+                // For demonstration, let's assume the destination is named TabBarView
+                // Replace TabBarView() with your actual tab bar view
                 let tabBarView = Tab_Bar()
                 if let window = UIApplication.shared.windows.first {
                     window.rootViewController = UIHostingController(rootView: tabBarView)

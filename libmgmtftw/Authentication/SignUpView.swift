@@ -21,20 +21,18 @@ struct SignUpView: View {
               //  Color.black.ignoresSafeArea()
                 
                 VStack( alignment: .leading, spacing: 15){
-                    HStack{
+                    HStack(alignment: .center){
                         Text("Create New Account")
                             .foregroundColor(.primary)
-                            .font(.largeTitle)
+                            .font(.title)
                             .bold()
-                        Image(systemName: "lock")
                     }
+                    .padding()
                     
                     HStack {
                         Text("First Name")
                             .foregroundColor(.primary)
                             .font(.footnote)
-                        
-                        Spacer()
                     }
                     HStack {
                         Image(systemName: "person")
@@ -54,8 +52,6 @@ struct SignUpView: View {
                         Text("Last Name")
                             .foregroundColor(.primary)
                             .font(.footnote)
-                        
-                        Spacer()
                     }
                     HStack {
                         Image(systemName: "person")
@@ -76,8 +72,6 @@ struct SignUpView: View {
                         Text("UserName")
                             .foregroundColor(.primary)
                             .font(.footnote)
-                            
-                        Spacer()
                     }
                     HStack {
                         Image(systemName: "envelope")
@@ -98,15 +92,13 @@ struct SignUpView: View {
                         Text("Password")
                             .foregroundColor(.primary)
                             .font(.footnote)
-                            
-                        Spacer()
                     }
                     
                     HStack {
                         Image(systemName: "lock")
                             .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
-                        SecureField("", text: $password)
+                        SecureField("Password", text: $password)
                             .padding()
                             .foregroundColor(.primary)
                             .accentColor(.white)
@@ -120,15 +112,13 @@ struct SignUpView: View {
                         Text("Confirm Password")
                             .foregroundColor(.primary)
                             .font(.footnote)
-                            
-                        Spacer()
                     }
                     
                     HStack {
                         Image(systemName: "lock")
                             .foregroundColor(.secondary)
                             .padding(.leading, 10) // Adjust the padding as needed
-                        SecureField("", text: $confirmPassword)
+                        SecureField("Confirm Password", text: $confirmPassword)
                             .padding()
                             .foregroundColor(.primary)
                             .accentColor(.white)
@@ -255,4 +245,3 @@ struct SignUpView: View {
             SignUpView()
         }
     }
-
