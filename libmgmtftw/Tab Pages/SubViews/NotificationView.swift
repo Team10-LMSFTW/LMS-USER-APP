@@ -8,7 +8,7 @@ struct NotificationView: View {
     ]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 List {
                     Section(header: Text("Latest Notifications")) {

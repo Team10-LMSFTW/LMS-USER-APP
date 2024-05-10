@@ -26,10 +26,10 @@ struct RequestsPage: View {
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
-                                .padding(.top, 20)
+                                //.padding(.top, 20)
                                 .padding()
-                            
-                            Spacer().frame(height: 10)
+//                            
+//                            Spacer().frame(height: 10)
                             
                             if requestHistory.isEmpty {
                                 Spacer()
@@ -66,11 +66,12 @@ struct RequestsPage: View {
                             .padding(.leading, 280)
                             .padding(.bottom, 20)
                             .sheet(isPresented: $isPresentingChoiceBookPage) {
-                                ChoiceBookEntry()
+                                BookDetailsEntryView()
                             }
                         }
                     }
-                }
+                }//.navigationTitle("Requests")
+                    .navigationBarTitleDisplayMode(.large)
                 //.navigationBarBackButtonHidden(true)
                 .onAppear {
                     fetchUserEmail()
